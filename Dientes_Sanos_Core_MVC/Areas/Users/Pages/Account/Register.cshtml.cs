@@ -14,6 +14,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
         public void OnGet()
         {
         }
+
         [BindProperty]
         public USUARIO MODEL_USUARIO { get; set; }
 

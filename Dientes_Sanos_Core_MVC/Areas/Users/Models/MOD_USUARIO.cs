@@ -29,14 +29,15 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Models
         public string USER_CELULAR { get; set; }
 
         [Required(ErrorMessage = "El Email es Obligatorio.")]
-        [EmailAddress(ErrorMessage ="El Email no es una dirección de correo válida")]
-        public string USER_EMAIL {  get; set; }
+        [EmailAddress(ErrorMessage = "El Email no es una dirección de correo válida")]
+        public string USER_EMAIL { get; set; }
 
         [Required(ErrorMessage = "La Contraseña es Obligatorio.")]
-        [StringLength(100,ErrorMessage ="El Numero de Caracteres de {0} debe ser al menos {2}.",MinimumLength =6)]
+        [StringLength(100, ErrorMessage = "El Numero de Caracteres de {0} debe ser al menos {2}.", MinimumLength = 6)]
         [Display(Name = "Contraseña")]
         public string USER_PASS { get; set; }
 
         #endregion
+
     }
 }
