@@ -16,30 +16,30 @@ namespace Dientes_Sanos_Core_MVC.Controllers
         }
 
         //Https Get Index
-        public IActionResult Index()
-        {
-           IEnumerable<Clase_Modelo_Odontologo> list_odontologo = _context.Modelo_Odontologo;
-            return View(list_odontologo);
-        }
-         
+        //public IActionResult Index()
+        //{
+        //    IEnumerable<Clase_Modelo_Odontologo> list_odontologo = _context.Modelo_Odontologo;
+        //    return View(list_odontologo);
+        //}
+
         //Http Get Create
-        public IActionResult Create()
-        {            
-            return View();
-        }
+        //public IActionResult Create()
+        //{            
+        //    return View();
+        //}
 
         //Http Post Create
-        [HttpPost]
-        public IActionResult Create(Clase_Modelo_Odontologo odontologo)
-        {
-            if(ModelState.IsValid)
-            {
-                _context.Modelo_Odontologo.Add(odontologo);
-                _context.SaveChanges();
+        //[HttpPost]
+        //public IActionResult Create(Clase_Modelo_Odontologo odontologo)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.Modelo_Odontologo.Add(odontologo);
+        //        _context.SaveChanges();
 
-                return RedirectToAction("Index");
-            }
-            return View();
-        }
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View();
+        //}
     }
 }
