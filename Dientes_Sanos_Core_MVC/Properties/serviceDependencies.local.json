@@ -1,11 +1,7 @@
 {
   "dependencies": {
-    "mssql1": {
-      "type": "mssql",
-      "connectionId": "Conexion_azure_asp"
-    },
     "mssql2": {
-      "type": "mssql",
+      "type": "mssql.local",
       "connectionId": "Dientes_Sanos_Core_MVCContextConnection"
     }
   }
