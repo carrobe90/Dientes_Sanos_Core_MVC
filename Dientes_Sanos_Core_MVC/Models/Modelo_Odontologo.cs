@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Dientes_Sanos_Core_MVC.Models
 {
-    public class Clase_Modelo_Odontologo
+    public class Modelo_Odontologo
     {
 
         #region TBL_ODONTOLOGO
@@ -14,7 +17,7 @@ namespace Dientes_Sanos_Core_MVC.Models
         [Required(ErrorMessage = "El Código del Profesional es Obligatorio.")]
         [Display(Name = "Código Profesional")]
         public int ODONT_CODIGO { get; set; }
-       
+
         [Required(ErrorMessage = "El Nombre es Obligatorio.")]
         [StringLength(50, ErrorMessage = "El {0} debe ser al menos 3 ", MinimumLength = 3)]
         [Display(Name = "Nombre")]
@@ -35,12 +38,12 @@ namespace Dientes_Sanos_Core_MVC.Models
         [Display(Name = "Fecha Nac.")]
         public DateTime ODONT_FEC_NAC { get; set; }
 
-        [Required(ErrorMessage = "El Nº Del Título es Obligatorio")]        
+        [Required(ErrorMessage = "El Nº Del Título es Obligatorio")]
         [Display(Name = "ID Título")]
         public int ODONT_ID_TITULO { get; set; }
 
         [Display(Name = "Fec. Elaboración")]
-        [DataType(DataType.DateTime)]        
+        [DataType(DataType.DateTime)]
         public DateTime ODONT_FEC_ELA { get; set; }
 
         [Display(Name = "Fec. Actualización")]

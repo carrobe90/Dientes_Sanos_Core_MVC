@@ -37,6 +37,9 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Models
         [Display(Name = "Contraseña")]
         public string USER_PASS { get; set; }
 
+        [Required]
+        public String Role { get; set; }
+
         #endregion
 
     }

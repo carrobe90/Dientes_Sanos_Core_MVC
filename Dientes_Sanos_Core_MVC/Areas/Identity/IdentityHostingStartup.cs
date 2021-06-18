@@ -17,10 +17,10 @@ namespace Dientes_Sanos_Core_MVC.Areas.Identity
             builder.ConfigureServices((context, services) => {
                 services.AddDbContext<Dientes_Sanos_Core_MVCContext>(options =>
                     options.UseSqlServer(
-                        context.Configuration.GetConnectionString("Dientes_Sanos_Core_MVCContextConnection")));
+                        context.Configuration.GetConnectionString("Conexion_azure_asp")));
 
-                services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<Dientes_Sanos_Core_MVCContext>();
+                //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                //    .AddEntityFrameworkStores<Dientes_Sanos_Core_MVCContext>();
             });
         }
     }
