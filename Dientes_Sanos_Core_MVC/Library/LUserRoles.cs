@@ -13,9 +13,9 @@ namespace Dientes_Sanos_Core_MVC.Library
 
         public List<SelectListItem> GetRoles(RoleManager<IdentityRole> roleManager)
         {
-            List<SelectListItem> selectListItems= null;
-            try
-            {
+            List<SelectListItem> selectListItems = null;
+            //try
+            //{
                 selectListItems = new List<SelectListItem>();
                 var rol = roleManager.Roles.ToList();
                 rol.ForEach(item =>
@@ -25,14 +25,14 @@ namespace Dientes_Sanos_Core_MVC.Library
                         Value = item.Id,
                         Text = item.Name
                     });
-                });                
-            }            
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: '{ex}'");
-            }
+                });
+            //}
+            //catch (Exception ex)
+            //{
+            //   Console.WriteLine($"Error: '{ex}'");
+            //}
             return selectListItems;
-            
+
         }
     }
 }

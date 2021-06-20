@@ -11,6 +11,8 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Models
 
         #region TBL_USUARIO
 
+        public int USER_ID { get; set; }
+
         [Required(ErrorMessage = "El Nombre del Usuario es Obligatorio.")]
         [Display(Name = "Nombre Usuario")]
         public string USER_NOMBRE { get; set; }
@@ -37,8 +39,11 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Models
         [Display(Name = "Contraseña")]
         public string USER_PASS { get; set; }
 
+        //[Required]
+        public String USER_ROL { get; set; }
+
         [Required]
-        public String Role { get; set; }
+        public Byte USER_IMAGE { get; set; }
 
         #endregion
 
