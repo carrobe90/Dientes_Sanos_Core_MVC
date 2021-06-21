@@ -16,11 +16,11 @@ namespace Dientes_Sanos_Core_MVC.Library
             //List<SelectListItem> selectListItems = null;
             //try
             //{
-            List<SelectListItem> selectListItems = new List<SelectListItem>();
+            List<SelectListItem> _selectListItems = new List<SelectListItem>();
                 var rol = roleManager.Roles.ToList();
                 rol.ForEach(item =>
                 {
-                    selectListItems.Add(new SelectListItem
+                    _selectListItems.Add(new SelectListItem
                     {
                         Value = item.Id,
                         Text = item.Name
@@ -31,7 +31,7 @@ namespace Dientes_Sanos_Core_MVC.Library
             //{
             //   Console.WriteLine($"Error: '{ex}'");
             //}
-            return selectListItems;
+            return _selectListItems;
 
         }
     }
