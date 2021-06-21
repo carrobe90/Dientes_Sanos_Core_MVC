@@ -13,10 +13,10 @@ namespace Dientes_Sanos_Core_MVC.Library
 
         public List<SelectListItem> GetRoles(RoleManager<IdentityRole> roleManager)
         {
-            List<SelectListItem> selectListItems = null;
+            //List<SelectListItem> selectListItems = null;
             //try
             //{
-                selectListItems = new List<SelectListItem>();
+            List<SelectListItem> selectListItems = new List<SelectListItem>();
                 var rol = roleManager.Roles.ToList();
                 rol.ForEach(item =>
                 {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dientes_Sanos_Core_MVC.Models
 {
-    public class Modelo_Usuario
+    public class Modelo_Rol
     {
 
         #region TBL_USUARIO
@@ -15,7 +15,7 @@ namespace Dientes_Sanos_Core_MVC.Models
         public int USER_ID { get; set; }
         
         [Display(Name = "ROL USUARIO")]
-        public int USER_ROL { get; set; }    
+        public string USER_ROL { get; set; }    
 
         #endregion
 
