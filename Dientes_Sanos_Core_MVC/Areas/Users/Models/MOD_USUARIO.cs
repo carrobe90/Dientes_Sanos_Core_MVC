@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Dientes_Sanos_Core_MVC.Areas.Users.Models
 {
@@ -10,7 +7,8 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Models
     {
 
         #region TBL_USUARIO
-
+        [Key]
+        [Display(Name = "ID USUARIO")]
         public int USER_ID { get; set; }
 
         [Required(ErrorMessage = "El Nombre del Usuario es Obligatorio.")]
@@ -39,11 +37,11 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Models
         [Display(Name = "Contraseña")]
         public string USER_PASS { get; set; }
 
-        //[Required]
+        [Required]
         public String USER_ROL { get; set; }
 
         [Required]
-        public Byte USER_IMAGE { get; set; }
+        public Byte[] USER_IMAGE { get; set; }
 
         #endregion
 

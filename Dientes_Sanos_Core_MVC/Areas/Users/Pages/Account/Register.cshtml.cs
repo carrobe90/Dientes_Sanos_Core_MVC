@@ -49,14 +49,14 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
             if (_dataInput != null)
             {
                 MODEL_USUARIO = _dataInput;
-                MODEL_USUARIO.rolesLista = _usersRole.GetRoles(_roleManager);
+                MODEL_USUARIO.rolesLista = _usersRole.GetRoles(_context);
                 MODEL_USUARIO.AvatarImage = null;
             }
             else
             {
                 MODEL_USUARIO = new USUARIO
                 {
-                    rolesLista = _usersRole.GetRoles(_roleManager)
+                    rolesLista = _usersRole.GetRoles(_context)
                 };
             }
         }
@@ -93,26 +93,26 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
             //if (ModelState.IsValid)
                 if (!MODEL_USUARIO.USER_ROL.Equals("Seleccione un Rol"))
             {
-                var userList = _userManager.Users.Where(u => u.Email.Equals(MODEL_USUARIO.USER_EMAIL)).ToList();
-                if(userList.Count.Equals(0))
-                {
+                //var userList = _userManager.Users.Where(u => u.Email.Equals(MODEL_USUARIO.USER_EMAIL)).ToList();
+                //if(userList.Count.Equals(0))
+                //{
                     var strategy = _context.Database.CreateExecutionStrategy();
                     await strategy.ExecuteAsync(async() =>{
                         using (var transaction = _context.Database.BeginTransaction())
                         {
                             try
                             {
-                                var user = new IdentityUser
-                                {
-                                    UserName = MODEL_USUARIO.USER_EMAIL,
-                                    Email = MODEL_USUARIO.USER_EMAIL,
-                                    PhoneNumber = MODEL_USUARIO.USER_CELULAR
-                                };
-                                var result = await _userManager.CreateAsync(user, MODEL_USUARIO.USER_PASS);
-                                if (result.Succeeded)
-                                {
-                                    await _userManager.AddToRoleAsync(user, MODEL_USUARIO.USER_ROL);
-                                    var dataUser = _userManager.Users.Where(u => u.Email.Equals(MODEL_USUARIO.USER_EMAIL)).ToList().Last();
+                                //var user = new IdentityUser
+                                //{
+                                //    UserName = MODEL_USUARIO.USER_EMAIL,
+                                //    Email = MODEL_USUARIO.USER_EMAIL,
+                                //    PhoneNumber = MODEL_USUARIO.USER_CELULAR
+                                //};
+                                //var result = await _userManager.CreateAsync(user, MODEL_USUARIO.USER_PASS);
+                                //if (result.Succeeded)
+                                //{
+                                //    await _userManager.AddToRoleAsync(user, MODEL_USUARIO.USER_ROL);
+                                //    var dataUser = _userManager.Users.Where(u => u.Email.Equals(MODEL_USUARIO.USER_EMAIL)).ToList().Last();
                                     var imagenByte = await _lCargarImagen.ByteAvatarImageAsync(MODEL_USUARIO.AvatarImage, _environment, "images/user_icon.png");
                                     var Nuevo_User = new MOD_USUARIO
                                     {
@@ -120,8 +120,9 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
                                         USER_APELLIDO = _dataInput.USER_APELLIDO,
                                         USER_EMAIL = _dataInput.USER_EMAIL,
                                         USER_RUT = _dataInput.USER_RUT,
-                                        USER_IMAGE = _dataInput.USER_IMAGE,
+                                        USER_IMAGE = imagenByte,
                                         USER_PASS = _dataInput.USER_PASS,
+                                        USER_ROL = _dataInput.USER_ROL,
                                         USER_CELULAR = _dataInput.USER_CELULAR
                                     };
                                     await _context.AddAsync(Nuevo_User);
@@ -129,16 +130,16 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
                                     transaction.Commit();
                                     _dataInput = null;
                                     valor = true;
-                                }
-                                else
-                                {
-                                    foreach(var item in result.Errors)
-                                    {
-                                        _dataInput.ErrorMessage = item.Description;
-                                    }
-                                    valor = false;
-                                    transaction.Rollback();
-                                }
+                                //}
+                                //else
+                                //{
+                                //    foreach(var item in result.Errors)
+                                //    {
+                                //        _dataInput.ErrorMessage = item.Description;
+                                //    }
+                                //    valor = false;
+                                //    transaction.Rollback();
+                                //}
                             }
                             catch (Exception ex)
                             {
@@ -148,11 +149,11 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
                             }
                         }
                     });
-                }
-                else
-                {
-                    _dataInput.ErrorMessage = $"El {MODEL_USUARIO.USER_EMAIL} ya se encuentra Registrado";
-                }
+                //}
+                //else
+                //{
+                //    _dataInput.ErrorMessage = $"El {MODEL_USUARIO.USER_EMAIL} ya se encuentra Registrado";
+                //}
             }
             else
             {

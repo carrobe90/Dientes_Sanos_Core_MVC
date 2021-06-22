@@ -9,12 +9,12 @@ namespace Dientes_Sanos_Core_MVC.Models
     public class Modelo_Rol
     {
 
-        #region TBL_USUARIO
+        #region TBL_ROL
         [Key]
-        [Display(Name = "ID USUARIO")]
+        [Display(Name = "ID ROL")]
         public int USER_ID { get; set; }
         
-        [Display(Name = "ROL USUARIO")]
+        [Display(Name = "ROL NOMBRE")]
         public string USER_ROL { get; set; }    
 
         #endregion

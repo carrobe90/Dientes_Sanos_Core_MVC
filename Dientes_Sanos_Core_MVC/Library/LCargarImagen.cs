@@ -24,7 +24,8 @@ namespace Dientes_Sanos_Core_MVC.Library
             }
             else
             {
-                var archOrigen = $"{environment.ContentRootPath} / wwwroot /{ image}";
+                var archOrigen = $"{environment.ContentRootPath}/wwwroot/{image}";
+                //NO DEJAR ESPACIO EN BLANCO EN LA VARIABLE archOrigen, PUEDE OCASIONAR ERROR AL OBTENER LA IMAGEN
                 return File.ReadAllBytes(archOrigen);
             }
         }

@@ -1,4 +1,5 @@
-﻿using Dientes_Sanos_Core_MVC.Models;
+﻿using Dientes_Sanos_Core_MVC.Data;
+using Dientes_Sanos_Core_MVC.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -11,19 +12,18 @@ namespace Dientes_Sanos_Core_MVC.Library
     public class LUserRoles
     {
 
-        public List<SelectListItem> GetRoles(RoleManager<IdentityRole> roleManager)
+        public List<SelectListItem> GetRoles(ApplicationDbContext context)
         {
             //List<SelectListItem> selectListItems = null;
             //try
             //{
             List<SelectListItem> _selectListItems = new List<SelectListItem>();
-                var rol = roleManager.Roles.ToList();
-                rol.ForEach(item =>
+                context.TBL_ROL.ToList().ForEach(item =>
                 {
                     _selectListItems.Add(new SelectListItem
                     {
-                        Value = item.Id,
-                        Text = item.Name
+                        Value = item.USER_ID.ToString(),
+                        Text = item.USER_ROL
                     });
                 });
             //}
