@@ -91,64 +91,65 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
             _dataInput = MODEL_USUARIO;
             var valor = false;
             //if (ModelState.IsValid)
-                if (!MODEL_USUARIO.USER_ROL.Equals("Seleccione un Rol"))
+            if (ModelState.IsValid)
             {
                 //var userList = _userManager.Users.Where(u => u.Email.Equals(MODEL_USUARIO.USER_EMAIL)).ToList();
                 //if(userList.Count.Equals(0))
                 //{
-                    var strategy = _context.Database.CreateExecutionStrategy();
-                    await strategy.ExecuteAsync(async() =>{
-                        using (var transaction = _context.Database.BeginTransaction())
+                var strategy = _context.Database.CreateExecutionStrategy();
+                await strategy.ExecuteAsync(async () =>
+                {
+                    using (var transaction = _context.Database.BeginTransaction())
+                    {
+                        try
                         {
-                            try
+                            //var user = new IdentityUser
+                            //{
+                            //    UserName = MODEL_USUARIO.USER_EMAIL,
+                            //    Email = MODEL_USUARIO.USER_EMAIL,
+                            //    PhoneNumber = MODEL_USUARIO.USER_CELULAR
+                            //};
+                            //var result = await _userManager.CreateAsync(user, MODEL_USUARIO.USER_PASS);
+                            //if (result.Succeeded)
+                            //{
+                            //    await _userManager.AddToRoleAsync(user, MODEL_USUARIO.USER_ROL);
+                            //    var dataUser = _userManager.Users.Where(u => u.Email.Equals(MODEL_USUARIO.USER_EMAIL)).ToList().Last();
+                            var imagenByte = await _lCargarImagen.ByteAvatarImageAsync(MODEL_USUARIO.AvatarImage, _environment, "images/user_icon.png");
+                            var Nuevo_User = new MOD_USUARIO
                             {
-                                //var user = new IdentityUser
-                                //{
-                                //    UserName = MODEL_USUARIO.USER_EMAIL,
-                                //    Email = MODEL_USUARIO.USER_EMAIL,
-                                //    PhoneNumber = MODEL_USUARIO.USER_CELULAR
-                                //};
-                                //var result = await _userManager.CreateAsync(user, MODEL_USUARIO.USER_PASS);
-                                //if (result.Succeeded)
-                                //{
-                                //    await _userManager.AddToRoleAsync(user, MODEL_USUARIO.USER_ROL);
-                                //    var dataUser = _userManager.Users.Where(u => u.Email.Equals(MODEL_USUARIO.USER_EMAIL)).ToList().Last();
-                                    var imagenByte = await _lCargarImagen.ByteAvatarImageAsync(MODEL_USUARIO.AvatarImage, _environment, "images/user_icon.png");
-                                    var Nuevo_User = new MOD_USUARIO
-                                    {
-                                        USER_NOMBRE = _dataInput.USER_NOMBRE,
-                                        USER_APELLIDO = _dataInput.USER_APELLIDO,
-                                        USER_EMAIL = _dataInput.USER_EMAIL,
-                                        USER_RUT = _dataInput.USER_RUT,
-                                        USER_IMAGE = imagenByte,
-                                        USER_PASS = _dataInput.USER_PASS,
-                                        USER_ROL = _dataInput.USER_ROL,
-                                        USER_CELULAR = _dataInput.USER_CELULAR
-                                    };
-                                    await _context.AddAsync(Nuevo_User);
-                                    _context.SaveChanges();
-                                    transaction.Commit();
-                                    _dataInput = null;
-                                    valor = true;
-                                //}
-                                //else
-                                //{
-                                //    foreach(var item in result.Errors)
-                                //    {
-                                //        _dataInput.ErrorMessage = item.Description;
-                                //    }
-                                //    valor = false;
-                                //    transaction.Rollback();
-                                //}
-                            }
-                            catch (Exception ex)
-                            {
-                                _dataInput.ErrorMessage = ex.Message;
-                                transaction.Rollback();
-                                valor = false;  
-                            }
+                                USER_NOMBRE = _dataInput.USER_NOMBRE,
+                                USER_APELLIDO = _dataInput.USER_APELLIDO,
+                                USER_EMAIL = _dataInput.USER_EMAIL,
+                                USER_RUT = _dataInput.USER_RUT,
+                                USER_IMAGE = imagenByte,
+                                USER_PASS = _dataInput.USER_PASS,
+                                USER_ROL = _dataInput.USER_ROL,
+                                USER_CELULAR = _dataInput.USER_CELULAR
+                            };
+                            await _context.AddAsync(Nuevo_User);
+                            _context.SaveChanges();
+                            transaction.Commit();
+                            _dataInput = null;
+                            valor = true;
+                            //}
+                            //else
+                            //{
+                            //    foreach(var item in result.Errors)
+                            //    {
+                            //        _dataInput.ErrorMessage = item.Description;
+                            //    }
+                            //    valor = false;
+                            //    transaction.Rollback();
+                            //}
                         }
-                    });
+                        catch (Exception ex)
+                        {
+                            _dataInput.ErrorMessage = ex.Message;
+                            transaction.Rollback();
+                            valor = false;
+                        }
+                    }
+                });
                 //}
                 //else
                 //{
@@ -157,7 +158,13 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
             }
             else
             {
-                _dataInput.ErrorMessage = "Selecione un Rol Por Favor!";
+                foreach (var modelState in ModelState.Values)
+                {
+                    foreach (var error in modelState.Errors)
+                    {
+                        _dataInput.ErrorMessage += error.ErrorMessage;
+                    }
+                }
                 valor = false;
             }
             return valor;

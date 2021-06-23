@@ -25,6 +25,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Models
 
         [Required(ErrorMessage = "El Numero Celular es Obligatorio.")]
         [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{2})\)?[-. ]?([0-9]{2})[-. ]?([0-9]{5})$", ErrorMessage = "El formato telefonico ingresado no es válido.")]
         [Display(Name = "Celular Usuario")]
         public string USER_CELULAR { get; set; }
 
@@ -36,11 +37,11 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Models
         [StringLength(100, ErrorMessage = "El Numero de Caracteres de {0} debe ser al menos {2}.", MinimumLength = 6)]
         [Display(Name = "Contraseña")]
         public string USER_PASS { get; set; }
-
-        [Required]
+        
+        [Required(ErrorMessage = "Seleccione un Rol.")]
         public String USER_ROL { get; set; }
 
-        [Required]
+        
         public Byte[] USER_IMAGE { get; set; }
 
         #endregion

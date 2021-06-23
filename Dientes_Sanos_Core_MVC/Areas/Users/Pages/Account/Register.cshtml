@@ -67,7 +67,8 @@
                                             <span asp-validation-for="MODEL_USUARIO.USER_PASS" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
-                                             @Html.DropDownList("MODEL_USUARIO.USER_ROL", new SelectList(Model.MODEL_USUARIO.rolesLista, "Text", "Text"), "Seleccione un Rol", new { @class = "form-control" })
+                                            @Html.DropDownList("MODEL_USUARIO.USER_ROL", new SelectList(Model.MODEL_USUARIO.rolesLista, "Text", "Text"), "Seleccione un Rol", new { @class = "form-control" })
+                                            <span asp-validation-for="MODEL_USUARIO.USER_ROL" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-primary btn-block">Registro</button>
@@ -85,3 +86,6 @@
         </div>
     </form>
 </div>
+@section scripts{
+    <partial name="_ValidationScriptsPartial">
+}
