@@ -96,7 +96,17 @@ namespace Dientes_Sanos_Core_MVC.Library
                 pagi_navegacion += "<a class='btn btn-default' href='" + host + "/" + controller + "/" + action + "?id="
                     + pagi_url + "&Registros=" + pagi_cuantos + "&area=" + area + "'>" + pagi_nav_ultima + "</a>";
             }
-            return null;
+            //Obtencion de los registros que se mostrarán en la página actual.
+
+            //Calculamos desde qué registro se mostrará en esta página
+            //Recordemos que el conteo empieza desde CERO
+            int pagi_inicial = (pagi_actual - 1) * pagi_cuantos;
+
+            var consulta_registros = table.Skip(pagi_inicial).Take(pagi_cuantos).ToList();
+            string pagi_info = "del <b>" + pagi_actual + "</b> al <b>" + pagi_total_Pags + "</b> de <b>" +
+                pagi_total_Reg + "</b> <b>/" + pagi_cuantos + "</b>";
+            object[] data = { pagi_info, pagi_navegacion, consulta_registros };
+            return data;
         }
 
     }
