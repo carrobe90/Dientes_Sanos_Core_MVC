@@ -63,9 +63,11 @@ namespace Dientes_Sanos_Core_MVC.Library
                         USER_ROL = _listRoles[0].Text,
                         USER_RUT = item.USER_RUT,
                         USER_PASS = item.USER_PASS
-                    }); ;
+                    });
+                    _listRoles.Clear();
                 }
             }
+            return userLista;
         }
 
     }

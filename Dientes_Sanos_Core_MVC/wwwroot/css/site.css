@@ -37,6 +37,10 @@ input[type=file]{
     max-width:75%;
 }
 
+.imageUsers {
+    height: 100px;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
