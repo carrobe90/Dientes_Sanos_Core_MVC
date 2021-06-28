@@ -20,7 +20,7 @@
         <form action="/" method="post">
             <div class="row">
                 <div class="col-md-1">
-                    <a class="btn btn-primary text-white" asp-area="Users" asp-page="/Account/Register">Add</a>
+                    <a class="btn btn-primary text-white" asp-area="Users" asp-page="/Account/Registro">Add</a>
                 </div>
             </div>
         </form>
@@ -28,11 +28,11 @@
     <div class="row">
         @foreach (var item in Model.List)
         {
-            var image = "data:image/jpg;base64," + Convert.ToBase64String(item.USER_IMAGE, 0, item.USER_IMAGE.Length);
+            var image = "data:image/jpg;base64," + Convert.ToBase64String(item.Image, 0, item.Image.Length);
             <div class="col-xs-6 col-md-2">
                 <div class="card text-center">
                     <div class="card-header">
-                        <a asp-route-id="@item.USER_ID" asp-area="Users" asp-page="/Account/Details">
+                        <a asp-route-id="@item.Id" asp-area="Users" asp-page="/Account/Detalle">
                             <img class="imageUsers" src="@image" />
                         </a>
                     </div>
@@ -41,19 +41,26 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        <p>@Html.DisplayFor(modeloItem => item.USER_NOMBRE)</p>
+                                        <p>@Html.DisplayFor(modeloItem => item.Name)</p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <p>@Html.DisplayFor(modeloItem => item.USER_ROL)</p>
+                                        <p>@Html.DisplayFor(modeloItem => item.Role)</p>
                                     </td>
                                 </tr>
-                                @*<tr>
-                                        <td>
-                                          @if(item.)
-                                        </td>
-                                    </tr>*@
+                                <tr>
+                                    <td>
+                                        @if (item.IdentityUser.LockoutEnabled)
+                                        {
+                                            <p class="text-success">Disponible.</p>
+                                        }
+                                        else
+                                        {
+                                            <p class="text-danger">No disponible.</p>
+                                        }
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

@@ -12,26 +12,18 @@ namespace Dientes_Sanos_Core_MVC.Library
     public class LUserRoles
     {
 
-        public List<SelectListItem> GetRoles(ApplicationDbContext context)
+        public List<SelectListItem> GetRoles(RoleManager<IdentityRole> rol_Manager)
         {
-            //List<SelectListItem> selectListItems = null;
-            //try
-            //{
-            List<SelectListItem> _selectListItems = new List<SelectListItem>();
-                context.TBL_ROL.ToList().ForEach(item =>
+            List<SelectListItem> _selectListItem = new List<SelectListItem>();
+            var roles = rol_Manager.Roles.ToList();
+            roles.ForEach(item => {
+                _selectListItem.Add(new SelectListItem
                 {
-                    _selectListItems.Add(new SelectListItem
-                    {
-                        Value = item.USER_ID.ToString(),
-                        Text = item.USER_ROL
-                    });
+                    Value = item.Id,
+                    Text = item.Name
                 });
-            //}
-            //catch (Exception ex)
-            //{
-            //   Console.WriteLine($"Error: '{ex}'");
-            //}
-            return _selectListItems;
+            });
+            return _selectListItem;
 
         }
 

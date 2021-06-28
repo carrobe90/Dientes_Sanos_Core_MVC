@@ -1,7 +1,17 @@
-﻿@page "/Users/Register"
+﻿@page "/Users/Registro"
 @model RegisterModel
 @{
-    var image = "/images/user_icon.png";
+    var imagen = "";
+    if(Model.MODEL_USUARIO.Image != null)
+    {
+        imagen = "data:image/jpg;base64," + Convert.ToBase64String(Model.MODEL_USUARIO.Image, 0
+            , Model.MODEL_USUARIO.Image.Length);
+    }
+    else
+    {
+        imagen = "/images/user_icon.png";
+    }
+
 }*
 <div class="container p-4">
     <form method="post" enctype="multipart/form-data">
@@ -10,7 +20,7 @@
                 <div class="card text-center">
                     <div class="card-header embed-responsive">
                         <output id="imageUser">
-                            <img src=@image class="responsive imageUser" />
+                            <img src=@imagen class="responsive imageUser" />
                         </output>
                     </div>
                     <div class="card-body">
@@ -43,32 +53,44 @@
                                      data-parent="#accordionExample">
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <input asp-for="MODEL_USUARIO.USER_RUT" placeholder="RUT" class="form-control" autofocus />
-                                            <span asp-validation-for="MODEL_USUARIO.USER_RUT" class="text-danger"></span>
+                                            <input asp-for="MODEL_USUARIO.NID" placeholder="RUT" class="form-control" autofocus />
+                                            <span asp-validation-for="MODEL_USUARIO.NID" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
-                                            <input asp-for="MODEL_USUARIO.USER_NOMBRE" placeholder="NOMBRE" class="form-control" />
-                                            <span asp-validation-for="MODEL_USUARIO.USER_NOMBRE" class="text-danger"></span>
+                                            <input asp-for="MODEL_USUARIO.Name" placeholder="NOMBRE" class="form-control" />
+                                            <span asp-validation-for="MODEL_USUARIO.Name" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
-                                            <input asp-for="MODEL_USUARIO.USER_APELLIDO" placeholder="APELLIDO" class="form-control" />
-                                            <span asp-validation-for="MODEL_USUARIO.USER_APELLIDO" class="text-danger"></span>
+                                            <input asp-for="MODEL_USUARIO.LastName" placeholder="APELLIDO" class="form-control" />
+                                            <span asp-validation-for="MODEL_USUARIO.LastName" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
-                                            <input asp-for="MODEL_USUARIO.USER_CELULAR" placeholder="CELULAR" class="form-control" />
-                                            <span asp-validation-for="MODEL_USUARIO.USER_CELULAR" class="text-danger"></span>
+                                            <input asp-for="MODEL_USUARIO.PhoneNumber" placeholder="CELULAR" class="form-control" />
+                                            <span asp-validation-for="MODEL_USUARIO.PhoneNumber" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
-                                            <input asp-for="MODEL_USUARIO.USER_EMAIL" placeholder="EMAIL" class="form-control" />
-                                            <span asp-validation-for="MODEL_USUARIO.USER_EMAIL" class="text-danger"></span>
+                                            <input asp-for="MODEL_USUARIO.Email" placeholder="EMAIL" class="form-control" />
+                                            <span asp-validation-for="MODEL_USUARIO.Email" class="text-danger"></span>
                                         </div>
+                                        @if (Model.MODEL_USUARIO.Id.Equals(0))
+                                        {
+                                            <div class="form-group">
+                                                <input asp-for="MODEL_USUARIO.Password" placeholder="CONTRASEÑA" class="form-control" />
+                                                <span asp-validation-for="MODEL_USUARIO.Password" class="text-danger"></span>
+                                            </div>
+                                        }
                                         <div class="form-group">
-                                            <input asp-for="MODEL_USUARIO.USER_PASS" placeholder="CONTRASEÑA" class="form-control" />
-                                            <span asp-validation-for="MODEL_USUARIO.USER_PASS" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            @Html.DropDownList("MODEL_USUARIO.USER_ROL", new SelectList(Model.MODEL_USUARIO.rolesLista, "Text", "Text"), "Seleccione un Rol", new { @class = "form-control" })
-                                            <span asp-validation-for="MODEL_USUARIO.USER_ROL" class="text-danger"></span>
+                                            @if (!Model.MODEL_USUARIO.Id.Equals(0))
+                                            {
+                                                @Html.DropDownList("MODEL_USUARIO.Role", new SelectList(Model.MODEL_USUARIO.roles_Lista, "Text", "Text"),
+                   new { @class = "form-control" })
+                                            }
+                                            else
+                                            {
+                                                @Html.DropDownList("MODEL_USUARIO.Role", new SelectList(Model.MODEL_USUARIO.roles_Lista, "Text", "Text"),
+          "Seleccione un Rol", new { @class = "form-control" })
+                                            }
+                                            <span asp-validation-for="MODEL_USUARIO.Role" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-primary btn-block">Registro</button>

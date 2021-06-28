@@ -12,10 +12,17 @@ namespace Dientes_Sanos_Core_MVC.Models
         #region TBL_ROL
         [Key]
         [Display(Name = "ID ROL")]
-        public int USER_ID { get; set; }
+        public string USER_ID { get; set; }
         
         [Display(Name = "ROL NOMBRE")]
-        public string USER_ROL { get; set; }    
+        public string USER_NAME { get; set; }
+
+        [Display(Name = "ROL NORMALIZEDNAME")]
+        public string USER_NORMALIZEDNAME { get; set; }
+
+        [Display(Name = "ROL CONCURRENCYSTAMP")]
+        public string USER_CONCURRENCYSTAMP { get; set; }
+
 
         #endregion
 

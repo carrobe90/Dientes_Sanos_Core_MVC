@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Dientes_Sanos_Core_MVC.Areas.Users.Models
@@ -6,43 +7,40 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Models
     public class MOD_USUARIO
     {
 
-        #region TBL_USUARIO
-        [Key]
-        [Display(Name = "ID USUARIO")]
-        public int USER_ID { get; set; }
-
+        #region AspNetUsers
         [Required(ErrorMessage = "El Nombre del Usuario es Obligatorio.")]
         [Display(Name = "Nombre Usuario")]
-        public string USER_NOMBRE { get; set; }
+        public string Name { get; set; }
 
         [Required(ErrorMessage = "El Apellido del Usuario es Obligatorio.")]
         [Display(Name = "Apellido Usuario")]
-        public string USER_APELLIDO { get; set; }
+        public string LastName { get; set; }
 
         [Required(ErrorMessage = "El RUT es Obligatorio.")]
         [Display(Name = "RUT Usuario")]
-        public string USER_RUT { get; set; }
+        public string NID { get; set; }
 
-        [Required(ErrorMessage = "El Numero Celular es Obligatorio.")]
+        [Required(ErrorMessage = "El campo Telefono es obligatorio.")]
         [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"^\(?([0-9]{2})\)?[-. ]?([0-9]{2})[-. ]?([0-9]{5})$", ErrorMessage = "El formato telefonico ingresado no es válido.")]
-        [Display(Name = "Celular Usuario")]
-        public string USER_CELULAR { get; set; }
+        [RegularExpression(@"^\(?([0-9]{2})\)?[-. ]?([0-9]{2})[-. ]?([0-9]{5})$", ErrorMessage = "El formato telefono ingresado no es válido.")]
+        public string PhoneNumber { get; set; }
+
 
         [Required(ErrorMessage = "El Email es Obligatorio.")]
         [EmailAddress(ErrorMessage = "El Email no es una dirección de correo válida")]
-        public string USER_EMAIL { get; set; }
+        public string Email { get; set; }
 
         [Required(ErrorMessage = "La Contraseña es Obligatorio.")]
         [StringLength(100, ErrorMessage = "El Numero de Caracteres de {0} debe ser al menos {2}.", MinimumLength = 6)]
         [Display(Name = "Contraseña")]
-        public string USER_PASS { get; set; }
-        
-        [Required(ErrorMessage = "Seleccione un Rol.")]
-        public String USER_ROL { get; set; }
+        public string Password { get; set; }
 
-        
-        public Byte[] USER_IMAGE { get; set; }
+        [Required(ErrorMessage = "Seleccione un role.")]
+        public string Role { get; set; }
+        public string ID { get; set; }
+        public int Id { get; set; }
+        public byte[] Image { get; set; }
+        public IdentityUser IdentityUser { get; set; }
 
         #endregion
 

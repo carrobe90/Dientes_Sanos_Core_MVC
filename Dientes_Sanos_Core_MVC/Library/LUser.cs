@@ -3,6 +3,7 @@ using Dientes_Sanos_Core_MVC.Data;
 using Dientes_Sanos_Core_MVC.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using SalesSystem.Areas.Users.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,18 +27,18 @@ namespace Dientes_Sanos_Core_MVC.Library
             _userRoles = new LUserRoles();
         }
 
-        public async Task<List<MOD_USUARIO>> getUsuarioAsync (string valor,int id)
+        public async Task<List<MOD_USUARIO>> get_Usuario_Async(string valor, int id)
         {
-            List<MOD_USUARIO> modelo_Usuario;
-            List<SelectListItem> _listRoles;
+            List<MODELO_USUARIO> modelo_Usuario;
+            List<SelectListItem> _lista_Roles;
             List<MOD_USUARIO> userLista = new List<MOD_USUARIO>();
-            if(valor == null && id.Equals(0))
+            if (valor == null && id.Equals(0))
             {
                 modelo_Usuario = _context.TBL_USUARIO.ToList();
             }
             else
             {
-                if(id.Equals(0))
+                if (id.Equals(0))
                 {
                     modelo_Usuario = _context.TBL_USUARIO.Where(u => u.USER_RUT.StartsWith(valor) || u.USER_NOMBRE.StartsWith(valor)
                     || u.USER_APELLIDO.StartsWith(valor) || u.USER_EMAIL.StartsWith(valor)).ToList();
@@ -47,24 +48,26 @@ namespace Dientes_Sanos_Core_MVC.Library
                     modelo_Usuario = _context.TBL_USUARIO.Where(u => u.USER_ID.Equals(id)).ToList();
                 }
             }
-            if(!modelo_Usuario.Count.Equals(0))
+            if (!modelo_Usuario.Count.Equals(0))
             {
-                foreach(var item in modelo_Usuario)
+                foreach (var item in modelo_Usuario)
                 {
-                    _listRoles = await _userRoles.GetRoles(_userManager, _roleManager, item.USER_ID.ToString());
+                    //METODO ASICRONO EN DONDE SELECCIONA LA VARIABLE DE TIPO STRING USER_ID_USER
+                    _lista_Roles = await _userRoles.GetRoles(_userManager, _roleManager, item.USER_ID_USER);
+                    var user = _context.Users.Where(u => u.Id.Equals(item.USER_ID_USER)).ToList().Last();
                     userLista.Add(new MOD_USUARIO
                     {
-                        USER_ID = item.USER_ID,
-                        USER_APELLIDO = item.USER_APELLIDO,
-                        USER_NOMBRE = item.USER_NOMBRE,
-                        USER_EMAIL = item.USER_EMAIL,
-                        USER_CELULAR = item.USER_CELULAR,
-                        USER_IMAGE = item.USER_IMAGE,
-                        USER_ROL = _listRoles[0].Text,
-                        USER_RUT = item.USER_RUT,
-                        USER_PASS = item.USER_PASS
+                        Id = item.USER_ID,
+                        ID = item.USER_ID_USER,
+                        NID = item.USER_RUT,
+                        Name = item.USER_NOMBRE,
+                        LastName = item.USER_APELLIDO,
+                        Email = item.USER_EMAIL,
+                        Role = _lista_Roles[0].Text,
+                        Image = item.USER_IMAGE,
+                        IdentityUser = user
                     });
-                    _listRoles.Clear();
+                    _lista_Roles.Clear();
                 }
             }
             return userLista;

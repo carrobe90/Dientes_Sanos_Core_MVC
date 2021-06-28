@@ -17,21 +17,6 @@ namespace Dientes_Sanos_Core_MVC.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.7")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Dientes_Sanos_Core_MVC.Models.Modelo_Rol", b =>
-                {
-                    b.Property<int>("USER_ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("USER_ROL")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("USER_ID");
-
-                    b.ToTable("TBL_ROL");
-                });
 #pragma warning restore 612, 618
         }
     }
