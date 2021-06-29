@@ -20,9 +20,9 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Models
         [Display(Name = "RUT Usuario")]
         public string NID { get; set; }
 
-        [Required(ErrorMessage = "El campo Telefono es obligatorio.")]
+        [Required(ErrorMessage = "El campo Telefóno es obligatorio.")]
         [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"^\(?([0-9]{2})\)?[-. ]?([0-9]{2})[-. ]?([0-9]{5})$", ErrorMessage = "El formato telefono ingresado no es válido.")]
+        [RegularExpression(@"^\(?([0-9]{2})\)?[-. ]?([0-9]{2})[-. ]?([0-9]{5})$", ErrorMessage = "El Formato telefónico no es Válido.")]
         public string PhoneNumber { get; set; }
 
 

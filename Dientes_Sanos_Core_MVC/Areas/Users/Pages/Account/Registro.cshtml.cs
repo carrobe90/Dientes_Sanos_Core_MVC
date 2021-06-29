@@ -47,32 +47,52 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
             _lCargarImagen = new LCargarImagen();
         }
 
-        public void OnGet()
+        public void OnGet(int idActUsu)
         {
-            if (_dataInput != null)
+            if(idActUsu.Equals(0))
             {
-                MODEL_USUARIO = _dataInput;
-                MODEL_USUARIO.roles_Lista = _usersRole.GetRoles(_roleManager);
-                MODEL_USUARIO.AvatarImage = null;
+                _DataUser2 = null;
+            }
+            if (_dataInput != null || _DataUser1!= null || _DataUser2!= null)
+            {
+                if (_dataInput != null)
+                {
+                    MODEL_USUARIO = _dataInput;
+                    MODEL_USUARIO.roles_Lista = _usersRole.GetRoles(_roleManager);
+                    MODEL_USUARIO.AvatarImage = null;
+                }
+                else
+                {
+                    if(_DataUser1 != null || _DataUser2 != null)
+                    {
+                        if (_DataUser2 != null)
+                       
+                            _DataUser1 = _DataUser2;
+                            MODEL_USUARIO = new USUARIO
+                            {
+                                Id = _DataUser1.Id,
+                                Name = _DataUser1.Name,
+                                LastName = _DataUser1.LastName,
+                                NID = _DataUser1.NID,
+                                Email = _DataUser1.Email,
+                                Image = _DataUser1.Image,
+                                Password = _DataUser1.Password,
+                                PhoneNumber = _DataUser1.IdentityUser.PhoneNumber,
+                                roles_Lista = Get_Roles(_DataUser1.Role),
+                            };
+                        
+                        if(_dataInput != null)
+                        {
+                            MODEL_USUARIO.ErrorMessage = _dataInput.ErrorMessage;
+                        }
+                    }
+                }
             }
             else
             {
                 MODEL_USUARIO = new USUARIO
                 {
                     roles_Lista = _usersRole.GetRoles(_roleManager)
-                };
-            }
-            if (_DataUser1 != null)
-            {
-                MODEL_USUARIO = new USUARIO
-                {
-                    Name = _DataUser1.Name,
-                    LastName = _DataUser1.LastName,
-                    NID = _DataUser1.NID,
-                    Email = _DataUser1.Email,
-                    Image = _DataUser1.Image,
-                    PhoneNumber = _DataUser1.IdentityUser.PhoneNumber,
-                    roles_Lista = Get_Roles(_DataUser1.Role),
                 };
             }
             _DataUser2 = _DataUser1;
@@ -98,19 +118,37 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
             //en la varaible "name" caso contrario arrojara siempre un valor nulo.
             if (dataUsuario == null)
             {
-                if (await Guardar_Usuario_Async())
+                if (_DataUser2 == null)
                 {
-                    return Redirect("/Users/Users?area=Users");
+                    if (await Guardar_Usuario_Async())
+                    {
+                        return Redirect("/Users/Users?area=Users");
+                    }
+                    else
+                    {
+                        return Redirect("/Users/Registro");
+                    }
                 }
                 else
                 {
-                    return Redirect("/Users/Registro");
+                    if (await Actualizar_Usuario_Async())
+                    {
+                        var url = $"/Users/Account/Detalle?idActUsu={_DataUser2.Id}";
+                        _DataUser2 = null;
+                        return Redirect(url);
+                    }
+                    else
+                    {
+                        return Redirect("/Users/Registro");
+                    }
                 }
             }
             else
             {
                 _DataUser1 = JsonConvert.DeserializeObject<MOD_USUARIO>(dataUsuario);
-                return Redirect("/Users/Registro");
+                return Redirect("/Users/Registro?idActUsu=1");
+                //el parametro que pasa en la url --> idActUsu debe ser el mismo de la
+                //variable que hace la verificacion en el metodo OnGet
             }
         }
 
@@ -161,11 +199,33 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
                         {
                             imageByte = await _lCargarImagen.ByteAvatarImageAsync(MODEL_USUARIO.AvatarImage, _environment, "");
                         }
+                        var ds_user = new MODELO_USUARIO
+                        {
+                            USER_ID = _DataUser2.Id,
+                            USER_NOMBRE = MODEL_USUARIO.Name,
+                            USER_APELLIDO = MODEL_USUARIO.LastName,
+                            USER_RUT = MODEL_USUARIO.NID,
+                            USER_CELULAR = MODEL_USUARIO.PhoneNumber,
+                            USER_EMAIL = MODEL_USUARIO.Email,
+                            USER_ID_USER = _DataUser2.ID,
+                            USER_PASS = _DataUser2.Password,
+                            USER_IMAGE = imageByte,
+                        };
+                        _context.Update(ds_user);
+                        _context.SaveChanges();
+                        if(_DataUser2.Role!= MODEL_USUARIO.Role)
+                        {
+                            await _userManager.RemoveFromRoleAsync(identityUser, _DataUser2.Role);
+                            await _userManager.AddToRoleAsync(identityUser, MODEL_USUARIO.Role);
+                        }
+                        transaction.Commit();
+                        valor = true;
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-
-                        throw;
+                        _dataInput.ErrorMessage = ex.Message;
+                        transaction.Rollback();
+                        valor = false;
                     }
                 }
             });
