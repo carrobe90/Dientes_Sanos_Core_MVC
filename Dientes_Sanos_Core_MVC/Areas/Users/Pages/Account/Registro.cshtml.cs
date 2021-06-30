@@ -105,7 +105,6 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
         public class USUARIO : MOD_USUARIO
         {
             public IFormFile AvatarImage { get; set; }
-
             [TempData]
             public string ErrorMessage { get; set; }
 
@@ -208,7 +207,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
                             USER_CELULAR = MODEL_USUARIO.PhoneNumber,
                             USER_EMAIL = MODEL_USUARIO.Email,
                             USER_ID_USER = _DataUser2.ID,
-                            USER_PASS = _DataUser2.Password,
+                            USER_PASS = "1234555",
                             USER_IMAGE = imageByte,
                         };
                         _context.Update(ds_user);

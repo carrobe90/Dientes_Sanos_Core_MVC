@@ -11,9 +11,8 @@ namespace Dientes_Sanos_Core_MVC.Library
     public class LCargarImagen
     {
 
-        public async Task<byte[]> ByteAvatarImageAsync(IFormFile AvatarImage, IWebHostEnvironment environment,String imagen)
+        public async Task<byte[]> ByteAvatarImageAsync(IFormFile AvatarImage, IWebHostEnvironment environment,String image)
         {
-            string image = "images/user_icon.png";
             if(AvatarImage != null)
             {
                 using(var ms = new MemoryStream())

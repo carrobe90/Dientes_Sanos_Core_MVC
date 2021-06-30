@@ -1,15 +1,15 @@
 ﻿@page "/Users/Registro"
 @model RegisterModel
 @{
-    var imagen = "";
+    var image = "";
     if(Model.MODEL_USUARIO.Image != null)
     {
-        imagen = "data:image/jpg;base64," + Convert.ToBase64String(Model.MODEL_USUARIO.Image, 0
+        image = "data:image/jpg;base64," + Convert.ToBase64String(Model.MODEL_USUARIO.Image, 0
             , Model.MODEL_USUARIO.Image.Length);
     }
     else
     {
-        imagen = "/images/user_icon.png";
+        image = "/images/user_icon.png";
     }
 
 }*
@@ -20,7 +20,7 @@
                 <div class="card text-center">
                     <div class="card-header embed-responsive">
                         <output id="imageUser">
-                            <img src=@imagen class="responsive imageUser" />
+                            <img src=@image class="responsive imageUser" />
                         </output>
                     </div>
                     <div class="card-body">
@@ -49,10 +49,21 @@
                                 <div class="card-header" id="headingOne">
                                     <div id="header" class="bg-info">
                                         <h2 class="mb-0 t">
+                                            @if (Model.MODEL_USUARIO.Id.Equals(0))
+                                            {
                                             <button class="btn btn-link text-light " type="button" data-toggle="collapse"
                                                     data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                Ingreso de Información
+                                                Actualización de Información
                                             </button>
+                                            }
+                                            else
+                                            {
+                                                <button class="btn btn-link text-light " type="button" data-toggle="collapse"
+                                                        data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                    Ingreso de Información
+                                                </button>
+                                            }
+
                                         </h2>
                                     </div>
                                 </div>
