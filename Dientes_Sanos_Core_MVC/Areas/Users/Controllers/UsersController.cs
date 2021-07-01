@@ -35,7 +35,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Controllers
             return View();
         }
 
-        public IActionResult Users(int idbusq, String filtrar)
+        public IActionResult Users(int idbusq, String filtrar,int Registros)
         {
             //if(_signInManager.IsSignedIn(User))
             //{
@@ -45,7 +45,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Controllers
             {
                 var url = Request.Scheme + "://" + Request.Host.Value;
                 Objeto = new LPaginador<MOD_USUARIO>().Paginador(data.Result, 
-                    idbusq, 10, "Users", "Users", "Users", url);
+                    idbusq, Registros, "Users", "Users", "Users", url);
             }
             else
             {

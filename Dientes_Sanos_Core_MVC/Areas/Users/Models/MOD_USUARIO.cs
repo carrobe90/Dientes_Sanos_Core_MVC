@@ -42,6 +42,8 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Models
         public byte[] Image { get; set; }
         public IdentityUser IdentityUser { get; set; }
 
+        public string ErrorMessage { get; set; }
+
         #endregion
 
     }

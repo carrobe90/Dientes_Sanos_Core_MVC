@@ -105,8 +105,8 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
         public class USUARIO : MOD_USUARIO
         {
             public IFormFile AvatarImage { get; set; }
-            [TempData]
-            public string ErrorMessage { get; set; }
+            //[TempData]
+            //public string ErrorMessage { get; set; }
 
             public List<SelectListItem> roles_Lista { get; set; }
         }

@@ -8,7 +8,7 @@ namespace Dientes_Sanos_Core_MVC.Library
     public class LPaginador<T>
     {
         //Cantidad de Resultados por Página
-        private int pagi_cuantos = 8;
+        private int pagi_cuantos = 10;
         //Cantidad de Enlaces que se mostrarán como maximo en la barra de navegación
         private int pagi_nav_num_enlaces = 8;
         //Pagina Actual
@@ -26,7 +26,10 @@ namespace Dientes_Sanos_Core_MVC.Library
         public object[] Paginador(List<T> table, int pagina, int Registros, String area, String controller, String action, String host)
         {
             pagi_actual = pagina == 0 ? 1 : pagina;
-            pagi_cuantos = Registros > 0 ? Registros : pagi_cuantos;
+            if(Registros > 0)
+            {
+                pagi_cuantos = Registros;
+            }
             int pagi_total_Reg = table.Count;   
             double valor_pag1 = Math.Ceiling((double)pagi_total_Reg / (double)pagi_cuantos);
             int pagi_total_Pags = Convert.ToInt16(Math.Ceiling(valor_pag1));
@@ -37,7 +40,7 @@ namespace Dientes_Sanos_Core_MVC.Library
                 pagi_navegacion += "<a class='btn btn-default' href='" + host + "/" + controller + "/" + action + "?id=" 
                     + pagi_url + "&Registros=" + pagi_cuantos + "&area=" + area + "'>" + pagi_nav_primera + "</a>";
                 //Si no estamos en la página 1. Ponemos el enlace "anterior"
-                pagi_url = -1; //será el número de página al que enlazamos
+                pagi_url = pagi_actual -1; //será el número de página al que enlazamos
                 pagi_navegacion += "<a class='btn btn-default' href='" + host + "/" + controller + "/" + action + "?id="
                     + pagi_url + "&Registros=" + pagi_cuantos + "&area=" + area + "'>" + pagi_nav_anterior + "</a>";
             }
@@ -49,7 +52,7 @@ namespace Dientes_Sanos_Core_MVC.Library
             //Calculamos desde qué numero de página se mostrará
             int pagi_nav_desde = pagi_actual - pagi_nav_intervalo;
             //Calculamos desde qué numero de página se mostrará
-            int pagi_nav_hasta = pagi_actual - pagi_nav_intervalo;
+            int pagi_nav_hasta = pagi_actual + pagi_nav_intervalo;
             if(pagi_nav_desde < 1)
             {
                 //Le sumamos la cantidad sobrante al final para mantener el número de enlaces que se quiere mostrar.
@@ -103,6 +106,22 @@ namespace Dientes_Sanos_Core_MVC.Library
             int pagi_inicial = (pagi_actual - 1) * pagi_cuantos;
 
             var consulta_registros = table.Skip(pagi_inicial).Take(pagi_cuantos).ToList();
+
+            //Generación de la información sobre los registros mostrados.
+
+            //Número del primer registro de la pagina inicial
+            int pagi_desde = pagi_inicial + 1;
+
+            //Número del último registro de la página actual
+            int pagi_hasta = pagi_inicial + pagi_cuantos;
+
+            if(pagi_hasta > pagi_total_Reg)
+            {
+                //Si estamos en la última página
+                //El último registro de la página actual será igual al número de registros.
+                pagi_hasta = pagi_total_Reg;
+            }
+
             string pagi_info = "del <b>" + pagi_actual + "</b> al <b>" + pagi_total_Pags + "</b> de <b>" +
                 pagi_total_Reg + "</b> <b>/" + pagi_cuantos + "</b>";
             object[] data = { pagi_info, pagi_navegacion, consulta_registros };
