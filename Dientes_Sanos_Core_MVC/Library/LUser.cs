@@ -13,7 +13,6 @@ namespace Dientes_Sanos_Core_MVC.Library
 {
     public class LUser: LObjeto
     {
-
         public LUser(
             UserManager<IdentityUser> userManager,
         SignInManager<IdentityUser> signInManager,
@@ -71,6 +70,16 @@ namespace Dientes_Sanos_Core_MVC.Library
                 }
             }
             return userLista;
+        }
+
+        internal async Task<SignInResult> Usuario_Login_Async(MOD_LOGIN model)
+        {
+            var resultado = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, lockoutOnFailure:false);
+            if(resultado.Succeeded)
+            {
+
+            }
+            return resultado;
         }
 
     }

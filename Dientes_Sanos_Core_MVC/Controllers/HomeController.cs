@@ -1,4 +1,7 @@
-﻿using Dientes_Sanos_Core_MVC.Models;
+﻿using Dientes_Sanos_Core_MVC.Areas.Users.Models;
+using Dientes_Sanos_Core_MVC.Data;
+using Dientes_Sanos_Core_MVC.Library;
+using Dientes_Sanos_Core_MVC.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,17 +17,25 @@ namespace Dientes_Sanos_Core_MVC.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private static MOD_LOGIN _LOGIN;
+        private LUser _user;
         //IServiceProvider _serviceProvider;
 
-        //public HomeController(IServiceProvider serviceProvider)
-        //{
-        //    //_serviceProvider = serviceProvider;
-        //}
-
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(
+             UserManager<IdentityUser> userManager,
+        SignInManager<IdentityUser> signInManager,
+        RoleManager<IdentityRole> roleManager,
+        ApplicationDbContext context,
+            IServiceProvider serviceProvider)
         {
-            _logger = logger;
+            //_serviceProvider = serviceProvider;
+            _user = new LUser(userManager,signInManager,roleManager,context);
         }
+
+        //public HomeController(ILogger<HomeController> logger)
+        //{
+        //    _logger = logger;
+        //}
 
         //public async Task<IActionResult> Index()
         //{
@@ -32,10 +43,49 @@ namespace Dientes_Sanos_Core_MVC.Controllers
         //    return View();
         //}
 
-        public IActionResult Index()
-        {
 
-            return View();
+        public async Task<IActionResult> Index()
+        {
+            //await CreateRolesAsync(_serviceProvider);
+            if (_LOGIN != null)
+            {
+                return View(_LOGIN);
+            }
+            else
+            {
+                return View();
+            }
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Index(MOD_LOGIN MODLOGIN)
+        {
+            _LOGIN = MODLOGIN;
+            if (ModelState.IsValid)
+            {
+                var resultado = await _user.Usuario_Login_Async(MODLOGIN);
+                if (resultado.Succeeded)
+                {
+                    return Redirect("/Principal/Principal");
+                }
+                else
+                {
+                    _LOGIN.ErrorMessage = "Correo o Contraseña Inválidos.";
+                    return Redirect("/");
+                }
+            }
+            else
+            {
+                foreach (var modelState in ModelState.Values)
+                {
+                    foreach (var error in modelState.Errors)
+                    {
+                        _LOGIN.ErrorMessage = error.ErrorMessage;
+                    }
+                }
+                return Redirect("/");
+            }
         }
 
         public IActionResult Privacy()

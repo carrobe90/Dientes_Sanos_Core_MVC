@@ -184,9 +184,12 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
                     try
                     {
                         var identityUser = _userManager.Users.Where(u => u.Id.Equals(_DataUser2.ID)).ToList().Last();
+                      
                         identityUser.UserName = MODEL_USUARIO.Email;
                         identityUser.Email = MODEL_USUARIO.Email;
                         identityUser.PhoneNumber = MODEL_USUARIO.PhoneNumber;
+                     
+
                         _context.Update(identityUser);
                         await _context.SaveChangesAsync();
 
@@ -196,8 +199,9 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
                         }
                         else
                         {
-                            imageByte = await _lCargarImagen.ByteAvatarImageAsync(MODEL_USUARIO.AvatarImage, _environment, "");
+                            imageByte = await _lCargarImagen.ByteAvatarImageAsync(MODEL_USUARIO.AvatarImage, _environment, ""); 
                         }
+                       
                         var ds_user = new MODELO_USUARIO
                         {
                             USER_ID = _DataUser2.Id,
@@ -207,9 +211,12 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
                             USER_CELULAR = MODEL_USUARIO.PhoneNumber,
                             USER_EMAIL = MODEL_USUARIO.Email,
                             USER_ID_USER = _DataUser2.ID,
-                            USER_PASS = "1234555",
+                            USER_PASS = MODEL_USUARIO.Password,
                             USER_IMAGE = imageByte,
                         };
+                        var usuario_pass = await _userManager.FindByIdAsync(_DataUser2.ID);
+                        var code = await _userManager.GeneratePasswordResetTokenAsync(usuario_pass);
+                        var resultado = await _userManager.ResetPasswordAsync(usuario_pass, code, MODEL_USUARIO.Password);
                         _context.Update(ds_user);
                         _context.SaveChanges();
                         if(_DataUser2.Role!= MODEL_USUARIO.Role)
@@ -298,7 +305,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
                 }
                 else
                 {
-                    _dataInput.ErrorMessage = $"El {MODEL_USUARIO.Email} ya se encuentra Registrado";
+                    _dataInput.ErrorMessage = $"El Correo {MODEL_USUARIO.Email} ya se encuentra Registrado";
                 }
             }
             else
