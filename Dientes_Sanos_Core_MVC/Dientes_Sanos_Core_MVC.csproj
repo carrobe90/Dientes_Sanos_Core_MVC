@@ -5,6 +5,7 @@
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
     <StartupObject>Dientes_Sanos_Core_MVC.Program</StartupObject>
     <UserSecretsId>d23036b6-2efb-4982-a3b1-8707264e874f</UserSecretsId>
+    <ApplicationIcon>ico_diente.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,4 +1,5 @@
-﻿using Dientes_Sanos_Core_MVC.Areas.Users.Models;
+﻿using Dientes_Sanos_Core_MVC.Areas.Principal.Controllers;
+using Dientes_Sanos_Core_MVC.Areas.Users.Models;
 using Dientes_Sanos_Core_MVC.Data;
 using Dientes_Sanos_Core_MVC.Library;
 using Dientes_Sanos_Core_MVC.Models;
@@ -16,10 +17,12 @@ namespace Dientes_Sanos_Core_MVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        //private readonly ILogger<HomeController> _logger;
         private static MOD_LOGIN _LOGIN;
         private LUser _user;
-        //IServiceProvider _serviceProvider;
+        private SignInManager<IdentityUser> _signInManager;
+        //IServiceProvider _serviceProvider;  //SOLO SE USA PARA GENERAR LOS ROLES EN LA TABLA ASPNETROLES, POSTERIOR
+                                            //A ESTO NO SERA USADO.
 
         public HomeController(
              UserManager<IdentityUser> userManager,
@@ -28,7 +31,10 @@ namespace Dientes_Sanos_Core_MVC.Controllers
         ApplicationDbContext context,
             IServiceProvider serviceProvider)
         {
+            //SOLO SE USA PARA GENERAR LOS ROLES EN LA TABLA ASPNETROLES, POSTERIOR
+            //A ESTO NO SERA USADO.
             //_serviceProvider = serviceProvider;
+            _signInManager = signInManager;
             _user = new LUser(userManager,signInManager,roleManager,context);
         }
 
@@ -39,23 +45,30 @@ namespace Dientes_Sanos_Core_MVC.Controllers
 
         //public async Task<IActionResult> Index()
         //{
-        //    //await Crear_Roles_Async(_serviceProvider);
+        //    //SOLO SE USA PARA GENERAR LOS ROLES EN LA TABLA ASPNETROLES, POSTERIOR
+        //    //A ESTO NO SERA USADO.
+        //    await Crear_Roles_Async(_serviceProvider);
         //    return View();
         //}
 
 
         public async Task<IActionResult> Index()
         {
-            //await CreateRolesAsync(_serviceProvider);
-            if (_LOGIN != null)
+            if(_signInManager.IsSignedIn(User))
             {
-                return View(_LOGIN);
+                return RedirectToAction(nameof(PrincipalController.Principal), "Principal");
             }
             else
             {
-                return View();
+                if (_LOGIN != null)
+                {
+                    return View(_LOGIN);
+                }
+                else
+                {
+                    return View();
+                }
             }
-
         }
 
         [HttpPost]
@@ -101,7 +114,6 @@ namespace Dientes_Sanos_Core_MVC.Controllers
 
         private async Task Crear_Roles_Async(IServiceProvider serviceProvider)
         {
-
             //SOLO SE USA PARA GENERAR LOS ROLES EN LA TABLA ASPNETROLES, POSTERIOR
             //A ESTO NO SERA USADO.
             var roles_Manager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
