@@ -23,7 +23,7 @@
       "nativeDebugging": true
     },
     "Dientes_Sanos_Core_MVC": {
-      "commandName": "IISExpress",
+      "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

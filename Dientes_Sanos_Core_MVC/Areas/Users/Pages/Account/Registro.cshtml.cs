@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Dientes_Sanos_Core_MVC.Areas.Users.Models;
 using Dientes_Sanos_Core_MVC.Data;
 using Dientes_Sanos_Core_MVC.Library;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -17,6 +18,9 @@ using SalesSystem.Areas.Users.Models;
 
 namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
 {
+
+    [Area("Users")]
+    [Authorize] //SOLO USUARIOS AUTENTICADOS TENDRAN ACCESO A LA OPCIONES DEL SISTEMA
     public class RegisterModel : PageModel
     {
 
@@ -110,7 +114,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
 
             public List<SelectListItem> roles_Lista { get; set; }
         }
-
+        
         public async Task<ActionResult> OnPost(String dataUsuario)
         {
             //variable "dataUsuario" debe ser estar declarada en el boton editar con el mismo nombre
@@ -119,26 +123,40 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
             {
                 if (_DataUser2 == null)
                 {
-                    if (await Guardar_Usuario_Async())
+                    if (User.IsInRole("ADMIN"))
                     {
-                        return Redirect("/Users/Users?area=Users");
+                        if (await Guardar_Usuario_Async())
+                        {
+                            return Redirect("/Users/Users?area=Users");
+                        }
+                        else
+                        {
+                            return Redirect("/Users/Registro");
+                        }
                     }
                     else
                     {
-                        return Redirect("/Users/Registro");
+                        return Redirect("/Users/Users?area=Users");
                     }
                 }
                 else
                 {
-                    if (await Actualizar_Usuario_Async())
+                    if(User.IsInRole("ADMIN"))
                     {
-                        var url = $"/Users/Account/Detalle?idActUsu={_DataUser2.Id}";
-                        _DataUser2 = null;
-                        return Redirect(url);
+                        if (await Actualizar_Usuario_Async())
+                        {
+                            var url = $"/Users/Account/Detalle?idActUsu={_DataUser2.Id}";
+                            _DataUser2 = null;
+                            return Redirect(url);
+                        }
+                        else
+                        {
+                            return Redirect("/Users/Registro");
+                        }
                     }
                     else
                     {
-                        return Redirect("/Users/Registro");
+                        return Redirect("/Users/Users?area=Users");
                     }
                 }
             }
@@ -173,6 +191,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
 
         }
 
+        //[Authorize(Roles = "ADMIN")] // Solo administradores podrán guardar información
         private async Task<bool> Actualizar_Usuario_Async()
         {
             var valor = false;
@@ -238,6 +257,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
             return valor;
         }
 
+        //[Authorize(Roles = "ADMIN")] // Solo administradores podrán guardar información
         private async Task<bool> Guardar_Usuario_Async()
         {
             _dataInput = MODEL_USUARIO;
