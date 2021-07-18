@@ -53,7 +53,8 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
 
         public void OnGet(int idActUsu)
         {
-            if(idActUsu.Equals(0))
+            _DataUser2 = null;
+            if (idActUsu.Equals(0))
             {
                 _DataUser2 = null;
             }

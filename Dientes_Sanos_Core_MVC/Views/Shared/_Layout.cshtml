@@ -36,8 +36,16 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" 
-                                   aria-expanded="false" href="#">Usuarios</a>
+                                <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false" href="#">Paciente(S)</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-area="Paciente" asp-controller="Paciente" asp-action="Paciente">Pacientes Lista</a>
+                                    <a class="dropdown-item" asp-route-id="0" asp-area="Paciente" asp-page="/Account/Registro">Añadir Paciente</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false" href="#">Usuario(S)</a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" asp-area="Users" asp-controller="Users" asp-action="Users">Usuario Lista</a>
                                     <a class="dropdown-item" asp-route-id="0" asp-area="Users" asp-page="/Account/Registro">Añadir Usuario</a>
