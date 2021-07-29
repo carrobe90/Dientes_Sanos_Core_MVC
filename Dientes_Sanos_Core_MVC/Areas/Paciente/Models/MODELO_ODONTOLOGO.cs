@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Dientes_Sanos_Core_MVC.Models
+namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Models
 {
     public class MODELO_ODONTOLOGO
     {

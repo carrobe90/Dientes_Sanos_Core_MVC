@@ -8,7 +8,10 @@
             }
         }
         switch (url) {
-            case "UsersRegister":
+            case "UsersRegistro": //AÑADIR UN CASE POR CADA VIEW QUE VAS A USAR PARA SUBIR UNA IMAGEN
+                document.getElementById('files').addEventListener('change', imageUser, false);
+                break;
+            case "PacienteRegistro": 
                 document.getElementById('files').addEventListener('change', imageUser, false);
                 break;
         }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -66,6 +67,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Models
         public DateTime PAC_FEC_ACT { get; set; }
 
         [TempData]
+        [NotMapped]
         public string ErrorMessage { get; set; }
 
         #endregion

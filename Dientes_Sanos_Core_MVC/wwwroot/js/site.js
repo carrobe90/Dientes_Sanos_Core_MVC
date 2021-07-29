@@ -11,6 +11,12 @@ var imageUser = (evt) => {
     user.archivo(evt, "imageUser");
 }
 
+/*CODIGO DE PACIENTES*/
+var paciente = new js_Paciente();
+var imagePaciente = (evt) => {
+    paciente.archivo(evt, "imagePaciente");
+}
+
 $().ready(()=>{
     let URLactual = window.location.pathname;
     principal.userLink(URLactual);
