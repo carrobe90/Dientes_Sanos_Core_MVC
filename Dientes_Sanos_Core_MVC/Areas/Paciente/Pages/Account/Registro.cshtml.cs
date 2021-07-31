@@ -55,14 +55,15 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Pages.Account
       
         public void OnGet(int idActPac)
         {
-            //var ultimoPaciente = _context.TBL_PACIENTE.OrderByDescending(x =>
-            //x.PAC_CODIGO).FirstOrDefault();
-            //String ultimoId = "0000";
+            var ultimoPaciente = _context.TBL_PACIENTE.OrderByDescending(x =>
+            x.PAC_CODIGO).First();
 
-            //if (ultimoPaciente != null)
-            //{
-            //    ultimoId = ultimoPaciente.PAC_CODIGO + 1;
-            //}
+            String ultimoId;
+
+            if (ultimoPaciente != null)
+            {
+                ultimoId = ultimoPaciente.PAC_CODIGO + 1;
+            }
 
             MODEL_PACIENTE = new PACIENTE
             {
@@ -70,7 +71,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Pages.Account
                 Genero_Lista = _lPacienteGen.GetGenero(_context),
                 Comuna_Lista = _lComuna.GetComuna(_context),
                 Odontologo_Lista = _lOdontologo.GetOdontologo(_context)
-            }; 
+            };
         }
 
         public async Task<ActionResult> OnPost(String dataPaciente)

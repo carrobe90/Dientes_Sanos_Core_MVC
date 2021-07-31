@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Dientes_Sanos_Core_MVC.Migrations
 {
-    public partial class MigracionInicial : Migration
+    public partial class Inicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,6 +44,85 @@ namespace Dientes_Sanos_Core_MVC.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TBL_GENERO",
+                columns: table => new
+                {
+                    GENERO_ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GENERO_NOMBRE = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TBL_GENERO", x => x.GENERO_ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TBL_ODONTOLOGO",
+                columns: table => new
+                {
+                    ODONT_ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ODONT_CODIGO = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ODONT_NOMBRE = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ODONT_APELLIDO = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ODONT_ESPECIALIDAD = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ODONT_FEC_NAC = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ODONT_ID_TITULO = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ODONT_FEC_ELA = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ODONT_FEC_ACT = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ODONT_ESTADO = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TBL_ODONTOLOGO", x => x.ODONT_ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TBL_PACIENTE",
+                columns: table => new
+                {
+                    PAC_ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PAC_CODIGO = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PAC_NOMBRE = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PAC_APELLIDO = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PAC_SEXO = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PAC_RUT = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    PAC_FECHA_NAC = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PAC_EDAD = table.Column<int>(type: "int", nullable: false),
+                    PAC_REPRESENTANTE = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PAC_DIRECCION = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PAC_COMUNA = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PAC_OTRAS_COMUNAS = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PAC_TELEFONO = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PAC_CORREO = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PAC_CONVENIO = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PAC_PREVISIONES = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PAC_OBSERVACIONES = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PAC_COD_ODONT = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PAC_IMAGEN = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    PAC_FEC_REG = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PAC_FEC_ACT = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TBL_PACIENTE", x => x.PAC_ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TBL_PROVINCIA",
+                columns: table => new
+                {
+                    PROV_ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PROV_NOMBRE = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TBL_PROVINCIA", x => x.PROV_ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -229,6 +308,18 @@ namespace Dientes_Sanos_Core_MVC.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "TBL_GENERO");
+
+            migrationBuilder.DropTable(
+                name: "TBL_ODONTOLOGO");
+
+            migrationBuilder.DropTable(
+                name: "TBL_PACIENTE");
+
+            migrationBuilder.DropTable(
+                name: "TBL_PROVINCIA");
 
             migrationBuilder.DropTable(
                 name: "TBL_USUARIO");

@@ -19,6 +19,152 @@ namespace Dientes_Sanos_Core_MVC.Migrations
                 .HasAnnotation("ProductVersion", "5.0.7")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Dientes_Sanos_Core_MVC.Areas.Paciente.Models.MODELO_COMUNA", b =>
+                {
+                    b.Property<int>("PROV_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("PROV_NOMBRE")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PROV_ID");
+
+                    b.ToTable("TBL_PROVINCIA");
+                });
+
+            modelBuilder.Entity("Dientes_Sanos_Core_MVC.Areas.Paciente.Models.MODELO_GENERO", b =>
+                {
+                    b.Property<int>("GENERO_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("GENERO_NOMBRE")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("GENERO_ID");
+
+                    b.ToTable("TBL_GENERO");
+                });
+
+            modelBuilder.Entity("Dientes_Sanos_Core_MVC.Areas.Paciente.Models.MODELO_ODONTOLOGO", b =>
+                {
+                    b.Property<int>("ODONT_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ODONT_APELLIDO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ODONT_CODIGO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ODONT_ESPECIALIDAD")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ODONT_ESTADO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ODONT_FEC_ACT")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ODONT_FEC_ELA")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ODONT_FEC_NAC")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ODONT_ID_TITULO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ODONT_NOMBRE")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ODONT_ID");
+
+                    b.ToTable("TBL_ODONTOLOGO");
+                });
+
+            modelBuilder.Entity("Dientes_Sanos_Core_MVC.Areas.Paciente.Models.MODELO_PACIENTE", b =>
+                {
+                    b.Property<int>("PAC_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("PAC_APELLIDO")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PAC_CODIGO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PAC_COD_ODONT")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PAC_COMUNA")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PAC_CONVENIO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PAC_CORREO")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PAC_DIRECCION")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PAC_EDAD")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PAC_FECHA_NAC")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("PAC_FEC_ACT")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("PAC_FEC_REG")
+                        .HasColumnType("datetime2");
+
+                    b.Property<byte[]>("PAC_IMAGEN")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("PAC_NOMBRE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PAC_OBSERVACIONES")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PAC_OTRAS_COMUNAS")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PAC_PREVISIONES")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PAC_REPRESENTANTE")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PAC_RUT")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("PAC_SEXO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PAC_TELEFONO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PAC_ID");
+
+                    b.ToTable("TBL_PACIENTE");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
