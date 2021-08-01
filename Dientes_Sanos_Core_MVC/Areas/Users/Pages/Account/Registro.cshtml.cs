@@ -115,7 +115,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
 
             public List<SelectListItem> roles_Lista { get; set; }
         }
-        
+
         public async Task<ActionResult> OnPost(String dataUsuario)
         {
             //variable "dataUsuario" debe ser estar declarada en el boton editar con el mismo nombre
@@ -142,7 +142,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
                 }
                 else
                 {
-                    if(User.IsInRole("ADMIN"))
+                    if (User.IsInRole("ADMIN"))
                     {
                         if (await Actualizar_Usuario_Async())
                         {
@@ -168,6 +168,16 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
                 //el parametro que pasa en la url --> idActUsu debe ser el mismo de la
                 //variable que hace la verificacion en el metodo OnGet
             }
+            //if (dataUsuario == null) // CONDICIION PARA REGISTRAR USUARIOS SIN VALIDACION EN EL SISTEMA
+            //{
+            //    if (await Guardar_Usuario_Async())
+            //    {
+            //        return Redirect("/Users/Users?area=Users");
+            //    }
+            //}
+            //else
+            //{ }
+            //return Redirect("/Users/Registro?idActUsu=1");
         }
 
         private List<SelectListItem> Get_Roles(string rol)

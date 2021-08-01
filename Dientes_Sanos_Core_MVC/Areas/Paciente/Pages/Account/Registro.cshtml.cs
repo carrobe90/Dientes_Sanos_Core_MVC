@@ -56,9 +56,9 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Pages.Account
         public void OnGet(int idActPac)
         {
             var ultimoPaciente = _context.TBL_PACIENTE.OrderByDescending(x =>
-            x.PAC_CODIGO).First();
+             x.PAC_CODIGO).FirstOrDefault();
 
-            String ultimoId;
+            String ultimoId = "0000";
 
             if (ultimoPaciente != null)
             {

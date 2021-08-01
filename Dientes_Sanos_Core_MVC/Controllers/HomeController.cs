@@ -17,12 +17,12 @@ namespace Dientes_Sanos_Core_MVC.Controllers
 {
     public class HomeController : Controller
     {
-        //private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> _logger;
         private static MOD_LOGIN _LOGIN;
         private LUser _user;
         private SignInManager<IdentityUser> _signInManager;
         //IServiceProvider _serviceProvider;  //SOLO SE USA PARA GENERAR LOS ROLES EN LA TABLA ASPNETROLES, POSTERIOR
-                                            //A ESTO NO SERA USADO.
+        //A ESTO NO SERA USADO.
 
         public HomeController(
              UserManager<IdentityUser> userManager,
@@ -35,7 +35,7 @@ namespace Dientes_Sanos_Core_MVC.Controllers
             //A ESTO NO SERA USADO.
             //_serviceProvider = serviceProvider;
             _signInManager = signInManager;
-            _user = new LUser(userManager,signInManager,roleManager,context);
+            _user = new LUser(userManager, signInManager, roleManager, context);
         }
 
         //public HomeController(ILogger<HomeController> logger)
@@ -54,7 +54,7 @@ namespace Dientes_Sanos_Core_MVC.Controllers
 
         public async Task<IActionResult> Index()
         {
-            if(_signInManager.IsSignedIn(User))
+            if (_signInManager.IsSignedIn(User))
             {
                 return RedirectToAction(nameof(PrincipalController.Principal), "Principal");
             }

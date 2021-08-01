@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Models
 {
-    public class MODELO_GENERO
+    public class MODELO_CIE10
     {
 
-        #region TBL_GENERO
+        #region TBL_CIE10
         [Key]
-        public int GENERO_ID { get; set; }
+        public int CIE_CODIGO { get; set; }
         [Required]
-        [StringLength(100)]
-        public String GENERO_NOMBRE { get; set; }
+        [StringLength(300)]
+        public String CIE_CONCEPTO { get; set; }
 
         #endregion
 

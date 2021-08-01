@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Dientes_Sanos_Core_MVC.Migrations
 {
-    public partial class Inicial : Migration
+    public partial class MigracionInicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,16 +47,126 @@ namespace Dientes_Sanos_Core_MVC.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TBL_CIE10",
+                columns: table => new
+                {
+                    CIE_CODIGO = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CIE_CONCEPTO = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TBL_CIE10", x => x.CIE_CODIGO);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TBL_DENTADURA",
+                columns: table => new
+                {
+                    DENT_ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DENT_NOM = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TBL_DENTADURA", x => x.DENT_ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TBL_GENERO",
                 columns: table => new
                 {
                     GENERO_ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    GENERO_NOMBRE = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    GENERO_NOMBRE = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TBL_GENERO", x => x.GENERO_ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TBL_HISTORIA_CLINICA",
+                columns: table => new
+                {
+                    HISCLI_ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    HISCLI_COD = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    HISCLI_COD_ODONT = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    HISCLI_COD_PAC = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    HISCLI_MOT_CON = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    HISCLI_ENF_PRO = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_PRE_ART = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_FRE_CAR = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_TEM_COR = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_FRE_RES = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_EST = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_ANT1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_ANT2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_ANT3 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_ANT4 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_ANT5 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_ANT6 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_ANT7 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_ANT8 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_ANT9 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_ANT10 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_ANT11 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_ANT12 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_ANT13 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_ANT14 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_ANT15 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_CIE101 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_EVOLUCION1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_CIE102 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_EVOLUCION2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_CIE103 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_EVOLUCION3 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_CIE104 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_EVOLUCION4 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_PRESCRIPCION = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_OBSERVACIONES = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_IMG_1 = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    HISCLI_N_IMG_1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_PDF_1 = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    HISCLI_N_PDF_1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_IMG_2 = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    HISCLI_N_IMG_2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_PDF_2 = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    HISCLI_N_PDF_2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_IMG_3 = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    HISCLI_N_IMG_3 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_IMG_4 = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    HISCLI_N_IMG_4 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_IMG_5 = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    HISCLI_N_IMG_5 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_IMG_6 = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    HISCLI_N_IMG_6 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_IMG_7 = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    HISCLI_N_IMG_7 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_IMG_8 = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    HISCLI_N_IMG_8 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_IMG_9 = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    HISCLI_N_IMG_9 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_IMG_10 = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    HISCLI_N_IMG_10 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_IMG_11 = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    HISCLI_N_IMG_11 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_IMG_12 = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    HISCLI_N_IMG_12 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_IMG_13 = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    HISCLI_N_IMG_13 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_IMG_14 = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    HISCLI_N_IMG_14 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_IMG_15 = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    HISCLI_N_IMG_15 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HISCLI_FEC_ELA = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    HISCLI_FEC_ACT = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    HISCLI_EST_ELI = table.Column<string>(type: "nvarchar(1)", maxLength: 1, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TBL_HISTORIA_CLINICA", x => x.HISCLI_ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -65,15 +175,15 @@ namespace Dientes_Sanos_Core_MVC.Migrations
                 {
                     ODONT_ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ODONT_CODIGO = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ODONT_NOMBRE = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ODONT_APELLIDO = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ODONT_ESPECIALIDAD = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ODONT_CODIGO = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    ODONT_NOMBRE = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    ODONT_APELLIDO = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    ODONT_ESPECIALIDAD = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     ODONT_FEC_NAC = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ODONT_ID_TITULO = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ODONT_ID_TITULO = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     ODONT_FEC_ELA = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ODONT_FEC_ACT = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ODONT_ESTADO = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ODONT_ESTADO = table.Column<string>(type: "nvarchar(1)", maxLength: 1, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -86,23 +196,23 @@ namespace Dientes_Sanos_Core_MVC.Migrations
                 {
                     PAC_ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PAC_CODIGO = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PAC_CODIGO = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     PAC_NOMBRE = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PAC_APELLIDO = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PAC_SEXO = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PAC_SEXO = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     PAC_RUT = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     PAC_FECHA_NAC = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PAC_EDAD = table.Column<int>(type: "int", nullable: false),
                     PAC_REPRESENTANTE = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PAC_DIRECCION = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PAC_COMUNA = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PAC_COMUNA = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     PAC_OTRAS_COMUNAS = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PAC_TELEFONO = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PAC_CORREO = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PAC_CONVENIO = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PAC_CONVENIO = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     PAC_PREVISIONES = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PAC_OBSERVACIONES = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PAC_COD_ODONT = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PAC_COD_ODONT = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     PAC_IMAGEN = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     PAC_FEC_REG = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PAC_FEC_ACT = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -113,16 +223,82 @@ namespace Dientes_Sanos_Core_MVC.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TBL_PIEZA",
+                columns: table => new
+                {
+                    PIE_ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PIE_DENT = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PIE_PIEZA = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TBL_PIEZA", x => x.PIE_ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TBL_PRESUPUESTO",
+                columns: table => new
+                {
+                    PRE_ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PRE_COD = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    PRE_COD_PAC = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    PRE_NOM_PAC = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    PRE_COD_ODON = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    PRE_NOM_ODON = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    PRE_RUT = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
+                    PRE_DEN_PAC = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    PRE_PIE_DEN = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    PRE_TRA_PAC = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    PRE_VAL_PRE = table.Column<decimal>(type: "decimal(18,0)", nullable: false),
+                    PRE_VAL_POR = table.Column<decimal>(type: "decimal(18,0)", nullable: false),
+                    PRE_VAL_DES = table.Column<decimal>(type: "decimal(18,0)", nullable: false),
+                    PRE_VAL_SUB = table.Column<decimal>(type: "decimal(18,0)", nullable: false),
+                    PRE_VAL_POR_DSC_SUB = table.Column<decimal>(type: "decimal(18,0)", nullable: false),
+                    PRE_VAL_TOT_DSC_SUB = table.Column<decimal>(type: "decimal(18,0)", nullable: false),
+                    PRE_VAL_POR_TAR_SUB = table.Column<decimal>(type: "decimal(18,0)", nullable: false),
+                    PRE_VAL_TOT_TAR_SUB = table.Column<decimal>(type: "decimal(18,0)", nullable: false),
+                    PRE_VAL_TOT = table.Column<decimal>(type: "decimal(18,0)", nullable: false),
+                    PRE_ELA_PRE = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PRE_ELA_ACT = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PRE_EST_ELI = table.Column<string>(type: "nvarchar(1)", maxLength: 1, nullable: true),
+                    PRE_EST_REA = table.Column<string>(type: "nvarchar(1)", maxLength: 1, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TBL_PRESUPUESTO", x => x.PRE_ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TBL_PROVINCIA",
                 columns: table => new
                 {
                     PROV_ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PROV_NOMBRE = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    PROV_NOMBRE = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TBL_PROVINCIA", x => x.PROV_ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TBL_TRATAMIENTO",
+                columns: table => new
+                {
+                    TRA_ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TRA_CONCEPTO = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    TRA_VALOR = table.Column<decimal>(type: "decimal(18,0)", nullable: false),
+                    TRA_POR_DESC = table.Column<decimal>(type: "decimal(18,0)", nullable: false),
+                    TRA_DESC = table.Column<decimal>(type: "decimal(18,0)", nullable: false),
+                    TRA_TOTAL = table.Column<decimal>(type: "decimal(18,0)", nullable: false),
+                    TRA_ESTADO = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TBL_TRATAMIENTO", x => x.TRA_ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -310,7 +486,16 @@ namespace Dientes_Sanos_Core_MVC.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "TBL_CIE10");
+
+            migrationBuilder.DropTable(
+                name: "TBL_DENTADURA");
+
+            migrationBuilder.DropTable(
                 name: "TBL_GENERO");
+
+            migrationBuilder.DropTable(
+                name: "TBL_HISTORIA_CLINICA");
 
             migrationBuilder.DropTable(
                 name: "TBL_ODONTOLOGO");
@@ -319,7 +504,16 @@ namespace Dientes_Sanos_Core_MVC.Migrations
                 name: "TBL_PACIENTE");
 
             migrationBuilder.DropTable(
+                name: "TBL_PIEZA");
+
+            migrationBuilder.DropTable(
+                name: "TBL_PRESUPUESTO");
+
+            migrationBuilder.DropTable(
                 name: "TBL_PROVINCIA");
+
+            migrationBuilder.DropTable(
+                name: "TBL_TRATAMIENTO");
 
             migrationBuilder.DropTable(
                 name: "TBL_USUARIO");

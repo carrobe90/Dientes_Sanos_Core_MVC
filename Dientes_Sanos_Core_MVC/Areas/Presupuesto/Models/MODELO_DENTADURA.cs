@@ -4,17 +4,17 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Models
+namespace Dientes_Sanos_Core_MVC.Areas.Presupuesto.Models
 {
-    public class MODELO_GENERO
+    public class MODELO_DENTADURA
     {
 
-        #region TBL_GENERO
+        #region TBL_DENTADURA
         [Key]
-        public int GENERO_ID { get; set; }
+        public int DENT_ID { get; set; }
         [Required]
         [StringLength(100)]
-        public String GENERO_NOMBRE { get; set; }
+        public String DENT_NOM { get; set; }
 
         #endregion
 

@@ -20,7 +20,8 @@
                 </a>
                 
                 @if (SignInManager.IsSignedIn(User))
-                {
+                { 
+                @*// CUANDO DESEAMOS ACCEDER SIN LOGEAR SIMPLEMENTE SE MARCA COMO COMENTARIOS ESTE IF*@
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
