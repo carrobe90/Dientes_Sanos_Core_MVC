@@ -55,19 +55,17 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Pages.Account
       
         public void OnGet(int idActPac)
         {
-            var ultimoPaciente = _context.TBL_PACIENTE.OrderByDescending(x =>
-             x.PAC_CODIGO).FirstOrDefault();
+            var Ultimo_Paciente = (from t in _context.TBL_PACIENTE
+                               orderby t.PAC_CODIGO
+                               select t).LastOrDefault();
 
-            String ultimoId = "0000";
-
-            if (ultimoPaciente != null)
-            {
-                ultimoId = ultimoPaciente.PAC_CODIGO + 1;
-            }
+            var Cod_Pac = (Ultimo_Paciente != null) ?
+                       Ultimo_Paciente.PAC_CODIGO + "00001" :
+                       "00001";
 
             MODEL_PACIENTE = new PACIENTE
             {
-
+                PAC_CODIGO = Cod_Pac,
                 Genero_Lista = _lPacienteGen.GetGenero(_context),
                 Comuna_Lista = _lComuna.GetComuna(_context),
                 Odontologo_Lista = _lOdontologo.GetOdontologo(_context)

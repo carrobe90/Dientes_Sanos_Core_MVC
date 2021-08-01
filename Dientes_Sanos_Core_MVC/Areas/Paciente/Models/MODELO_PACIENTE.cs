@@ -13,9 +13,9 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Models
         #region TBL_PACIENTE
         [Key]
         public int PAC_ID { get; set; }
-        [Required(ErrorMessage = "El Profesional es Obligatorio.")]
+        [Required]
         [StringLength(20)]
-        public String PAC_CODIGO { get; set; }
+        public String? PAC_CODIGO { get; set; }
 
         [Required(ErrorMessage = "El Nombre del Paciente es Obligatorio.")]
         [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Solo se Permiten Letras")]
