@@ -15,7 +15,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Presupuesto.Models
         public int PRE_ID { get; set; }
         [Required]
         [StringLength(10)] 
-        public String? PRE_COD { get; set; }
+        public String PRE_COD { get; set; }
         [Required]
         [StringLength(10)]
         public String PRE_COD_PAC { get; set; }

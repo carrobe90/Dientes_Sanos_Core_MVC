@@ -52,20 +52,39 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Pages.Account
             _lCargarImagen = new LCargarImagen();
         }
 
-      
+
         public void OnGet(int idActPac)
         {
+            var Cod_Pac = 0;
+            String TempCodPac = null;
             var Ultimo_Paciente = (from t in _context.TBL_PACIENTE
-                               orderby t.PAC_CODIGO
-                               select t).LastOrDefault();
-
-            var Cod_Pac = (Ultimo_Paciente != null) ?
-                       Ultimo_Paciente.PAC_CODIGO + "00001" :
-                       "00001";
-
+                                   orderby t.PAC_CODIGO
+                                   select t).LastOrDefault();
+            if (Ultimo_Paciente != null)
+            {
+                Cod_Pac = (Ultimo_Paciente.PAC_CODIGO != null) ?
+                       Convert.ToInt32(Ultimo_Paciente.PAC_CODIGO) + 1 :
+                       1;
+                if (Cod_Pac < 10)
+                {
+                    TempCodPac = String.Concat("0000", Convert.ToString(Cod_Pac));
+                }
+                else if (Cod_Pac > 10 && Cod_Pac < 100)
+                {
+                    TempCodPac = String.Concat("000", Convert.ToString(Cod_Pac));
+                }
+                else if (Cod_Pac > 100 && Cod_Pac < 1000)
+                {
+                    TempCodPac = String.Concat("00", Convert.ToString(Cod_Pac));
+                }
+                else if (Cod_Pac > 1000 && Cod_Pac < 10000)
+                {
+                    TempCodPac = String.Concat("0", Convert.ToString(Cod_Pac));
+                }
+            }
             MODEL_PACIENTE = new PACIENTE
             {
-                PAC_CODIGO = Cod_Pac,
+                PAC_CODIGO = TempCodPac,
                 Genero_Lista = _lPacienteGen.GetGenero(_context),
                 Comuna_Lista = _lComuna.GetComuna(_context),
                 Odontologo_Lista = _lOdontologo.GetOdontologo(_context)
@@ -78,9 +97,9 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Pages.Account
             //en la varaible "name" caso contrario arrojara siempre un valor nulo.
             if (dataPaciente == null)
             {
-                if(_DataPac2 == null)
+                if (_DataPac2 == null)
                 {
-                    if(User.IsInRole("ADMIN"))
+                    if (User.IsInRole("ADMIN"))
                     {
                         if (await Guardar_Paciente_Async())
                         {
@@ -203,6 +222,8 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Pages.Account
 
         }
 
+         
+
         [BindProperty]
         public PACIENTE MODEL_PACIENTE { get; set; }
 
@@ -218,7 +239,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Pages.Account
             public List<SelectListItem> Odontologo_Lista { get; set; }
         }
 
-      
+
 
 
     }

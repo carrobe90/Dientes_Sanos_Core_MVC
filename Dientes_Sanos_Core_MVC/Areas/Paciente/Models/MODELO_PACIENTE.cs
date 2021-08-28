@@ -13,9 +13,9 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Models
         #region TBL_PACIENTE
         [Key]
         public int PAC_ID { get; set; }
-        [Required]
         [StringLength(20)]
-        public String? PAC_CODIGO { get; set; }
+        [Required]
+        public string PAC_CODIGO { get; set; }
 
         [Required(ErrorMessage = "El Nombre del Paciente es Obligatorio.")]
         [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Solo se Permiten Letras")]
@@ -39,37 +39,39 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Models
         [DisplayFormat(DataFormatString ="{0:dd-MM-yyyyy}",ApplyFormatInEditMode = true)]
         public DateTime PAC_FECHA_NAC { get; set; }
         [Required(ErrorMessage = "La Edad del Paciente es Obligatorio.")]
+        [Range(minimum: 5,maximum:90)]
         public int PAC_EDAD { get; set; }
 
         public String PAC_REPRESENTANTE { get; set; }
 
         public String PAC_DIRECCION { get; set; }
-        [Required]
-        [StringLength(50)]
+        
         public String PAC_COMUNA { get; set; }
 
         public String PAC_OTRAS_COMUNAS { get; set; }
 
         public String PAC_TELEFONO { get; set; }
 
-        [Required(ErrorMessage = "El Email es Obligatorio.")]
-        [EmailAddress(ErrorMessage = "No es una Dirección de Correo válida")]
+        //[Required(ErrorMessage = "El Email es Obligatorio.")]
+        //[EmailAddress(ErrorMessage = "No es una Dirección de Correo válida")]
         public String PAC_CORREO { get; set; }
-        [Required]
-        [StringLength(50)]
+        //[Required]
+        //[StringLength(50)]
         public String PAC_CONVENIO { get; set; }
 
         public String PAC_PREVISIONES { get; set; }
 
         public String PAC_OBSERVACIONES { get; set; }
-        [Required]
         [StringLength(20)]
+        [Required(ErrorMessage = "El Codigo del Profesional es Obligatorio.")]
+        [Display(Name = "Codigo(S) Profesional")]
         public String PAC_COD_ODONT { get; set; }
 
         public byte[] PAC_IMAGEN { get; set; }
         [Required]
         [DataType(DataType.Date)]
         public DateTime PAC_FEC_REG { get; set; }
+        [Required]
         [DataType(DataType.Date)]
         public DateTime PAC_FEC_ACT { get; set; }
 
