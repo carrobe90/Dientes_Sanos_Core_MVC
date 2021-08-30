@@ -94,12 +94,12 @@
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
                                                     <label>RUT Paciente:</label>
-                                                    <input asp-for="MODEL_PACIENTE.PAC_RUT" type="number" placeholder="RUT" class="form-control" autofocus />
+                                                    <input asp-for="MODEL_PACIENTE.PAC_RUT" type="number" placeholder="RUT" onkeypress="return SoloNumeros(event)" class="form-control" autofocus />
                                                     <span asp-validation-for="MODEL_PACIENTE.PAC_RUT" class="text-danger"></span>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label>Nombre Paciente:</label>
-                                                    <input asp-for="MODEL_PACIENTE.PAC_NOMBRE" placeholder="NOMBRE" class="form-control"
+                                                    <input id="txtPacNom" asp-for="MODEL_PACIENTE.PAC_NOMBRE" placeholder="NOMBRE" onkeypress="return SoloLetras(event)" onblur="LimpiarCampo()" class="form-control"
                                                            Style="text-transform: uppercase" />
                                                     <span asp-validation-for="MODEL_PACIENTE.PAC_NOMBRE" class="text-danger"></span>
                                                 </div>
@@ -107,7 +107,7 @@
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
                                                     <label>Apellido Paciente:</label>
-                                                    <input asp-for="MODEL_PACIENTE.PAC_APELLIDO" placeholder="APELLIDO" class="form-control"
+                                                    <input asp-for="MODEL_PACIENTE.PAC_APELLIDO" placeholder="APELLIDO"  onkeypress="return SoloLetras(event)"  onblur="LimpiarCampo()" class="form-control"
                                                            Style="text-transform: uppercase" />
                                                     <span asp-validation-for="MODEL_PACIENTE.PAC_APELLIDO" class="text-danger"></span>
                                                 </div>
@@ -128,12 +128,12 @@
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label>Fecha de Nacimiento:</label>
-                                                    <input id="FecNacVal" asp-for="MODEL_PACIENTE.PAC_FECHA_NAC" type="date" placeholder="FECHA NAC." class="form-control" max=@DateTime.Now.AddYears(-5).ToString("yyyy-MM-dd") />
+                                                    <input id="FecNacVal" asp-for="MODEL_PACIENTE.PAC_FECHA_NAC" type="date" placeholder="FECHA NAC." class="form-control" onchange="ValidarFecha(), ValidadEdad();" max=@DateTime.Now.ToString("yyyy-MM-dd") />
                                                     <span asp-validation-for="MODEL_PACIENTE.PAC_FECHA_NAC" class="text-danger"></span>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label>Edad Paciente:</label>
-                                                    <input id="EdadVal" asp-for="MODEL_PACIENTE.PAC_EDAD" type="number" readonly="readonly" placeholder="EDAD" class="form-control" />
+                                                    <input id="EdadVal" asp-for="MODEL_PACIENTE.PAC_EDAD" type="number" disabled placeholder="EDAD" class="form-control" />
                                                     <span asp-validation-for="MODEL_PACIENTE.PAC_EDAD" class="text-danger"></span>
                                                 </div>
                                             </div>
@@ -228,41 +228,9 @@
         </div>
     </form>
 </div>
+
+
 @section scripts{
-    <script>
-        $(document).ready(function () {
-            $("#FecNacVal").on("change", function () {
-                var now = new Date();
-                var birthdate = new Date($("#FecNacVal").val()); // Se Procede a calcular en base a la fecha
-                var nowyear = now.getFullYear();
-                var birthyear = birthdate.getFullYear();
-                var age = nowyear - birthyear + 1;
-                $('#EdadVal').val(age);
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
-            $("#FecNacVal").on("change", function () {
-                // Accedemos al botón
-                var RepresentanteValidacion = document.getElementById('RepPacVal');
-                var EdadValidacion = $("#EdadVal").val(); // Obtenemos el Valor del campo Edad
-                //console.log(EdadValidacion);
-                if (EdadValidacion > 18) { // Validamos si es mayor o menor
-                    // evento para el input habilitarlo
-                    // console.log("Mayor de edad");
-                    RepresentanteValidacion.disabled = RepresentanteValidacion.disabled; // Deshabilitado
-                }
-                else if (EdadValidacion < 18) {
-                    //console.log("Menor de edad");
-                    // evento para el input habilitarlo
-                    RepresentanteValidacion.disabled = !RepresentanteValidacion.disabled; // Habilitado
-                }
-            });
-        });
-    </script>
 
     <partial name="_ValidationScriptsPartial">
-
 }
-

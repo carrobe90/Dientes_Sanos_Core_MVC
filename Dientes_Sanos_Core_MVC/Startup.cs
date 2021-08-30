@@ -53,6 +53,7 @@ namespace Dientes_Sanos_Core_MVC
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseBrowserLink();
 
             app.UseRouting();
             app.UseAuthentication();

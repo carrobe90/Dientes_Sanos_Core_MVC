@@ -233,9 +233,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Pages.Account
             //[TempData]
             //public string ErrorMessage { get; set; }
             public List<SelectListItem> Genero_Lista { get; set; }
-
             public List<SelectListItem> Comuna_Lista { get; set; }
-
             public List<SelectListItem> Odontologo_Lista { get; set; }
         }
 

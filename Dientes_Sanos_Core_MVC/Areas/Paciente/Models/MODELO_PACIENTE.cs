@@ -18,11 +18,13 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Models
         public string PAC_CODIGO { get; set; }
 
         [Required(ErrorMessage = "El Nombre del Paciente es Obligatorio.")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "El Nombre mínimo es de {2} caracteres")]
         [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Solo se Permiten Letras")]
         [Display(Name = "Nombre(S) Paciente")]
         public String PAC_NOMBRE { get; set; }
 
         [Required(ErrorMessage = "El Apellido del Paciente es Obligatorio.")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "El Apellido mínimo es de {2} caracteres")]
         [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Solo se Permiten Letras")]
         [Display(Name = "Apellido(S) Paciente")]
         public String PAC_APELLIDO { get; set; }
@@ -31,15 +33,15 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Models
         public String PAC_SEXO { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "El RUT es Obligatorio")]
-        [RegularExpression("(^[0-9]+$)", ErrorMessage = "Solo se Permiten Números")]
-        [StringLength(10, ErrorMessage = "El RUT solo permite 10 dígitos")]
+        [RegularExpression(@"^[0-9]{1,10}$", ErrorMessage = "El RUT es de 10 digitos númericos")]
+        [StringLength(10, MinimumLength =10, ErrorMessage = "El RUT mínimo es de {2} dígitos númericos")]
         public String PAC_RUT { get; set; }
         [Required(ErrorMessage = "La Fecha de Nacimiento del Paciente es Obligatorio.")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString ="{0:dd-MM-yyyyy}",ApplyFormatInEditMode = true)]
         public DateTime PAC_FECHA_NAC { get; set; }
         [Required(ErrorMessage = "La Edad del Paciente es Obligatorio.")]
-        [Range(minimum: 5,maximum:90)]
+        [Range(minimum: 5,maximum:90,ErrorMessage = "La Edad debe estar entre {1} y {2} años")]
         public int PAC_EDAD { get; set; }
 
         public String PAC_REPRESENTANTE { get; set; }
