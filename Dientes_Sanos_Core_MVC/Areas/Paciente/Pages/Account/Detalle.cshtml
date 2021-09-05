@@ -1,0 +1,108 @@
+﻿@page
+@model DetalleModel
+@{
+    var imagen = "data:image/jpg;base64," + Convert.ToBase64String(Model.MODEL_PACIENTE.DataPaciente.PAC_IMAGEN,
+        0, Model.MODEL_PACIENTE.DataPaciente.PAC_IMAGEN.Length);
+    var nombre = Model.MODEL_PACIENTE.DataPaciente.PAC_NOMBRE + " " + Model.MODEL_PACIENTE.DataPaciente.PAC_APELLIDO;
+
+}
+<div class="container">
+    <h1>@nombre</h1>
+    <div class="row">
+        <div class="col-sm ">
+            <div class="card text-center">
+                <div class="card-header ">
+                    <img class='.imageUsersDetalles' src="@imagen" />
+                </div>
+                <div class="card-body">
+                    <table class="tableCursos">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <p> @Model.MODEL_PACIENTE.DataPaciente.PAC_APELLIDO</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@Model.MODEL_PACIENTE.DataPaciente.PAC_NOMBRE </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@Model.MODEL_PACIENTE.DataPaciente.PAC_EDAD</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card">
+                <div class="card-body">
+                    <table class="tableCursos">
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Información
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    RUT
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@Model.MODEL_PACIENTE.DataPaciente.PAC_RUT</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Nombre Usuario
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@nombre</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Teléfono
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@Model.MODEL_PACIENTE.DataPaciente.PAC_TELEFONO</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Email
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@Model.MODEL_PACIENTE.DataPaciente.PAC_CORREO</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @*<form asp-area="Paciente" asp-page="Registro" method="post">
+                                        @{
+                                            var dataPaciente = JsonConvert.SerializeObject(Model.MODEL_PACIENTE.DataPaciente);
+                                        }
+
+                                        <input type="hidden" name="dataPaciente" value="@dataPaciente" />
+                                        <input type="submit" value="Editar" class="btn btn-success ">
+                                    </form>*@
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

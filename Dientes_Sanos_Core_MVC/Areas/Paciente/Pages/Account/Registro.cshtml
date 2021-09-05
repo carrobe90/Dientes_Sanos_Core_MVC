@@ -57,7 +57,7 @@
                                     <div class="row">
                                         <div class="card text-center col-md-4 col-lg-4">
                                             <div class="card-header embed-responsive">
-                                                <output id="imageUser">
+                                                <output id="imagePaciente">
                                                     <img src=@image class="responsive imageUser" />
                                                 </output>
                                             </div>
@@ -68,6 +68,7 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="col-md-8 col-lg-8">
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
@@ -107,7 +108,7 @@
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
                                                     <label>Apellido Paciente:</label>
-                                                    <input asp-for="MODEL_PACIENTE.PAC_APELLIDO" placeholder="APELLIDO"  onkeypress="return SoloLetras(event)"  onblur="LimpiarCampo()" class="form-control"
+                                                    <input asp-for="MODEL_PACIENTE.PAC_APELLIDO" placeholder="APELLIDO" onkeypress="return SoloLetras(event)" onblur="LimpiarCampo()" class="form-control"
                                                            Style="text-transform: uppercase" />
                                                     <span asp-validation-for="MODEL_PACIENTE.PAC_APELLIDO" class="text-danger"></span>
                                                 </div>
@@ -128,12 +129,12 @@
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label>Fecha de Nacimiento:</label>
-                                                    <input id="FecNacVal" asp-for="MODEL_PACIENTE.PAC_FECHA_NAC" type="date" placeholder="FECHA NAC." class="form-control" onchange="ValidarFecha(), ValidadEdad();" max=@DateTime.Now.ToString("yyyy-MM-dd") />
+                                                    <input id="FecNacVal" asp-for="MODEL_PACIENTE.PAC_FECHA_NAC" type="date" placeholder="FECHA NAC." class="form-control" onchange="ValidarFecha()" max=@DateTime.Now.AddYears(-5).ToString("yyyy-MM-dd") />
                                                     <span asp-validation-for="MODEL_PACIENTE.PAC_FECHA_NAC" class="text-danger"></span>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label>Edad Paciente:</label>
-                                                    <input id="EdadVal" asp-for="MODEL_PACIENTE.PAC_EDAD" type="number" disabled placeholder="EDAD" class="form-control" />
+                                                    <input id="EdadVal" asp-for="MODEL_PACIENTE.PAC_EDAD" type="number" placeholder="EDAD" class="form-control" />
                                                     <span asp-validation-for="MODEL_PACIENTE.PAC_EDAD" class="text-danger"></span>
                                                 </div>
                                             </div>
@@ -230,7 +231,21 @@
 </div>
 
 
+
+
 @section scripts{
 
+    @*<script>
+        $(document).ready(function () {
+            $("#FecNacVal").on("change", function () {
+                var now = new Date();
+                var birthdate = new Date($("#FecNacVal").val()); // Se Procede a calcular en base a la fecha
+                var nowyear = now.getFullYear();
+                var birthyear = birthdate.getFullYear();
+                var age = nowyear - birthyear + 1;
+                $('#EdadVal').val(age);
+            });
+        });
+    </script>*@
     <partial name="_ValidationScriptsPartial">
 }

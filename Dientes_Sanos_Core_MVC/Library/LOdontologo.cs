@@ -21,7 +21,7 @@ namespace Dientes_Sanos_Core_MVC.Library
                 selectListItems.Add(new SelectListItem
                 {
                     Value = item.ODONT_ID.ToString(),
-                    Text = item.ODONT_APELLIDO+' '+item.ODONT_NOMBRE
+                    Text = item.ODONT_CODIGO+'-'+ item.ODONT_APELLIDO+' '+item.ODONT_NOMBRE
                 });
             });
             //}

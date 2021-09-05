@@ -19,13 +19,13 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Models
 
         [Required(ErrorMessage = "El Nombre del Paciente es Obligatorio.")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "El Nombre mínimo es de {2} caracteres")]
-        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Solo se Permiten Letras")]
+        [RegularExpression("^[a-zA-ZñÑáéíóúÁÉÍÓÚ$@!#? ]*$", ErrorMessage = "Solo se Permiten Letras")]
         [Display(Name = "Nombre(S) Paciente")]
         public String PAC_NOMBRE { get; set; }
 
         [Required(ErrorMessage = "El Apellido del Paciente es Obligatorio.")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "El Apellido mínimo es de {2} caracteres")]
-        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Solo se Permiten Letras")]
+        [RegularExpression("^[a-zA-ZñÑáéíóúÁÉÍÓÚ$@!#? ]*$", ErrorMessage = "Solo se Permiten Letras")]
         [Display(Name = "Apellido(S) Paciente")]
         public String PAC_APELLIDO { get; set; }
         [Required(ErrorMessage = "El Sexo del Paciente es Obligatorio.")]
@@ -40,14 +40,18 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString ="{0:dd-MM-yyyyy}",ApplyFormatInEditMode = true)]
         public DateTime PAC_FECHA_NAC { get; set; }
+
+        //[StringLength(2, ErrorMessage = "Maximo 2 dígitos númericos")]
+        //[RegularExpression("([0-9]+)", ErrorMessage = "El rrrr es de 10 digitos númericos")]
         [Required(ErrorMessage = "La Edad del Paciente es Obligatorio.")]
-        [Range(minimum: 5,maximum:90,ErrorMessage = "La Edad debe estar entre {1} y {2} años")]
+        [Range(minimum: 5,maximum:90, ErrorMessage = "La Edad debe estar entre {1} y {2} años")]
         public int PAC_EDAD { get; set; }
-
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "El Nombre del Representante mínimo es de {2} caracteres")]
         public String PAC_REPRESENTANTE { get; set; }
-
+        [StringLength(100, MinimumLength = 5, ErrorMessage = "La Dirección mínimo es de {2} dígitos númericos")]
+        [Required(ErrorMessage = "La Dirección del Paciente es Obligatorio.")]
         public String PAC_DIRECCION { get; set; }
-        
+        [Required(ErrorMessage = "La Comuna del Paciente es Obligatorio.")]
         public String PAC_COMUNA { get; set; }
 
         public String PAC_OTRAS_COMUNAS { get; set; }
@@ -64,8 +68,8 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Models
         public String PAC_PREVISIONES { get; set; }
 
         public String PAC_OBSERVACIONES { get; set; }
-        [StringLength(20)]
         [Required(ErrorMessage = "El Codigo del Profesional es Obligatorio.")]
+        //[StringLength(50, MinimumLength = 4, ErrorMessage = "El Codigo del Profesional mínimo es de {2} caracteres")]
         [Display(Name = "Codigo(S) Profesional")]
         public String PAC_COD_ODONT { get; set; }
 

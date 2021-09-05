@@ -87,14 +87,15 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Pages.Account
                 PAC_CODIGO = TempCodPac,
                 Genero_Lista = _lPacienteGen.GetGenero(_context),
                 Comuna_Lista = _lComuna.GetComuna(_context),
-                Odontologo_Lista = _lOdontologo.GetOdontologo(_context)
-            };
+                Odontologo_Lista = _lOdontologo.GetOdontologo(_context),
+                PAC_COD_ODONT = "00000"
+        };
         }
 
         public async Task<ActionResult> OnPost(String dataPaciente)
         {
             //variable "dataPaciente" debe ser estar declarada en el boton editar con el mismo nombre
-            //en la varaible "name" caso contrario arrojara siempre un valor nulo.
+            //en la variable "name" caso contrario arrojara siempre un valor nulo.
             if (dataPaciente == null)
             {
                 if (_DataPac2 == null)
@@ -164,27 +165,30 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Pages.Account
                             try
                             {
                                 var imagenByte = await _lCargarImagen.ByteAvatarImageAsync(MODEL_PACIENTE.AvatarImage, _environment, "images/user_icon.png");
+                                string TmpCodPac = _dataInput.PAC_COD_ODONT;
+                                String vfCodPac = TmpCodPac.Substring(0, 4);
                                 var Nuevo_Paciente = new MODELO_PACIENTE
                                 {
                                     PAC_CODIGO = _dataInput.PAC_CODIGO,
-                                    PAC_NOMBRE = _dataInput.PAC_NOMBRE,
-                                    PAC_APELLIDO = _dataInput.PAC_APELLIDO,
+                                    PAC_NOMBRE = _dataInput.PAC_NOMBRE.ToUpper(),
+                                    PAC_APELLIDO = _dataInput.PAC_APELLIDO.ToUpper(),
                                     PAC_SEXO = _dataInput.PAC_SEXO,
                                     PAC_RUT = _dataInput.PAC_RUT,
                                     PAC_FECHA_NAC = _dataInput.PAC_FECHA_NAC,
                                     PAC_EDAD = _dataInput.PAC_EDAD,
-                                    PAC_REPRESENTANTE = _dataInput.PAC_REPRESENTANTE,
-                                    PAC_DIRECCION = _dataInput.PAC_DIRECCION,
+                                    PAC_REPRESENTANTE = _dataInput.PAC_REPRESENTANTE.ToUpper(),
+                                    PAC_DIRECCION = _dataInput.PAC_DIRECCION.ToUpper(),
                                     PAC_COMUNA = _dataInput.PAC_COMUNA,
-                                    PAC_OTRAS_COMUNAS = _dataInput.PAC_OTRAS_COMUNAS,
+                                    PAC_OTRAS_COMUNAS = _dataInput.PAC_OTRAS_COMUNAS.ToUpper(),
                                     PAC_TELEFONO = _dataInput.PAC_TELEFONO,
                                     PAC_CORREO = _dataInput.PAC_CORREO,
-                                    PAC_CONVENIO = _dataInput.PAC_CONVENIO,
-                                    PAC_PREVISIONES = _dataInput.PAC_PREVISIONES,
-                                    PAC_OBSERVACIONES = _dataInput.PAC_OBSERVACIONES,
-                                    PAC_COD_ODONT = _dataInput.PAC_COD_ODONT,
+                                    PAC_CONVENIO = _dataInput.PAC_CONVENIO.ToUpper(),
+                                    PAC_PREVISIONES = _dataInput.PAC_PREVISIONES.ToUpper(),
+                                    PAC_OBSERVACIONES = _dataInput.PAC_OBSERVACIONES.ToUpper(),
+                                    PAC_COD_ODONT = vfCodPac,
                                     PAC_IMAGEN = imagenByte,
-                                    PAC_FEC_REG = DateTime.Now
+                                    PAC_FEC_REG = DateTime.Now,
+                                    PAC_FEC_ACT = DateTime.Now
 
                                 };
                                 await _context.AddAsync(Nuevo_Paciente);
@@ -204,7 +208,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Pages.Account
                 }
                 else
                 {
-                    _dataInput.ErrorMessage = $"El Correo {MODEL_PACIENTE.PAC_RUT} ya se encuentra Registrado";
+                    _dataInput.ErrorMessage = $"El RUT {MODEL_PACIENTE.PAC_RUT} ya se encuentra Registrado";
                 }
             }
             else

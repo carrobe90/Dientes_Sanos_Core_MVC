@@ -1,6 +1,6 @@
 ﻿function ValidarFecha() {
     $(document).ready(function () {
-        $("#FecNacVal").on("change", function () {
+        $("#FecNacVal").change( function () {
             var now = new Date();
             var birthdate = new Date($("#FecNacVal").val()); // Se Procede a calcular en base a la fecha
             var nowyear = now.getFullYear();
@@ -29,12 +29,12 @@ function ValidadEdad() {
             if (EdadValidacion >= 18) { // Validamos si es mayor o menor
                 // evento para el input Deshabilitado
                 console.log("Mayor de edad");
-                RepresentanteValidacion.disabled = false; // Deshabilitado
+                RepresentanteValidacion.disabled = true; // Deshabilitado
             }
             else if (EdadValidacion < 18) {
                 console.log("Menor de edad");
                 // evento para el input Habilitar
-                RepresentanteValidacion.disabled = true; // Habilitado
+                RepresentanteValidacion.disabled = false; // Habilitado
             }
         });
     });
