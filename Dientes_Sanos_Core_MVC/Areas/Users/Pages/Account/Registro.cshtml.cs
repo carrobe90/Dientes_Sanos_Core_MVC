@@ -116,7 +116,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
             public List<SelectListItem> roles_Lista { get; set; }
         }
 
-        public async Task<ActionResult> OnPost(String dataUsuario)
+        public async Task<IActionResult> OnPost(String dataUsuario)
         {
             //variable "dataUsuario" debe ser estar declarada en el boton editar con el mismo nombre
             //en la varaible "name" caso contrario arrojara siempre un valor nulo.

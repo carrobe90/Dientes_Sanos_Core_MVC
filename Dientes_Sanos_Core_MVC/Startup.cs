@@ -31,9 +31,11 @@ namespace Dientes_Sanos_Core_MVC
 
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("Conexion_azure_asp")));
-           //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-           //    .AddEntityFrameworkStores<ApplicationDbContext>();
-           services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //   .AddEntityFrameworkStores<ApplicationDbContext>()
+            services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>(TokenOptions.DefaultProvider);
+            //^-- ESTA LINEA DE CODIGO TE AYUDA A CAMBIAR LA CONTRASEÑA DEL USUARIO 
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

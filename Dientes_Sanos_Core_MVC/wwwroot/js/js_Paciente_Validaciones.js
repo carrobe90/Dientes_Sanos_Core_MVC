@@ -1,14 +1,11 @@
-﻿function ValidarFecha() {
-    $(document).ready(function () {
-        $("#FecNacVal").change( function () {
-            var now = new Date();
-            var birthdate = new Date($("#FecNacVal").val()); // Se Procede a calcular en base a la fecha
-            var nowyear = now.getFullYear();
-            var birthyear = birthdate.getFullYear();
-            var age = nowyear - birthyear + 1;
-            $('#EdadVal').val(age);
-        });
-    });
+﻿function ValidarFecha(idFecNac, idEdad) {
+    var ver = $('#' + idFecNac).val();
+    var now = new Date();
+    var birthdate = new Date($('#' + idFecNac).val()); // Se Procede a calcular en base a la fecha
+    var nowyear = now.getFullYear();
+    var birthyear = birthdate.getFullYear();
+    var age = nowyear - birthyear + 1;
+    $('#' + idEdad).val(age);
 }
 
     function SoloNumeros(e) {
@@ -19,12 +16,11 @@
         return /\d/.test(String.fromCharCode(keynum));
     }
 
-function ValidadEdad() {
-    $(document).ready(function () {
-        $("#FecNacVal").on("change", function () {
+function ValidadEdad(RepPacVal, EdadVal) {
+  
             // Accedemos al botón
-            var RepresentanteValidacion = document.getElementById('RepPacVal');
-            var EdadValidacion = $("#EdadVal").val(); // Obtenemos el Valor del campo Edad
+            var RepresentanteValidacion = document.getElementById(RepPacVal);
+            var EdadValidacion = $('#' + EdadVal).val(); // Obtenemos el Valor del campo Edad
             //console.log(EdadValidacion);
             if (EdadValidacion >= 18) { // Validamos si es mayor o menor
                 // evento para el input Deshabilitado
@@ -36,8 +32,7 @@ function ValidadEdad() {
                 // evento para el input Habilitar
                 RepresentanteValidacion.disabled = false; // Habilitado
             }
-        });
-    });
+     
 }
 
 function SoloLetras(e) {

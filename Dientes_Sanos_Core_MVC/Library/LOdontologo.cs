@@ -12,23 +12,25 @@ namespace Dientes_Sanos_Core_MVC.Library
 
         public List<SelectListItem> GetOdontologo(ApplicationDbContext context)
         {
-            //List<SelectListItem> selectListItems = null;
-            //try
-            //{
-            List<SelectListItem> selectListItems = new List<SelectListItem>();
-            context.TBL_ODONTOLOGO.ToList().ForEach(item =>
+            List<SelectListItem> selectListItems = null;
+            try
             {
-                selectListItems.Add(new SelectListItem
+                selectListItems = new List<SelectListItem>();
+                context.TBL_ODONTOLOGO.ToList().ForEach(item =>
                 {
-                    Value = item.ODONT_ID.ToString(),
-                    Text = item.ODONT_CODIGO+'-'+ item.ODONT_APELLIDO+' '+item.ODONT_NOMBRE
+                    selectListItems.Add(new SelectListItem
+                    {
+                        Value = item.ODONT_ID.ToString(),
+                       // Text = item.ODONT_CODIGO
+    
+                        Text = item.ODONT_CODIGO + '-' + item.ODONT_APELLIDO + ' ' + item.ODONT_NOMBRE
+                    });
                 });
-            });
-            //}
-            //catch (Exception ex)
-            //{
-            //   Console.WriteLine($"Error: '{ex}'");
-            //}
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: '{ex}'");
+            }
             return selectListItems;
 
         }

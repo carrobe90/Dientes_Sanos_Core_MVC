@@ -129,12 +129,12 @@
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label>Fecha de Nacimiento:</label>
-                                                    <input id="FecNacVal" asp-for="MODEL_PACIENTE.PAC_FECHA_NAC" type="date" placeholder="FECHA NAC." class="form-control" onchange="ValidarFecha()" max=@DateTime.Now.AddYears(-5).ToString("yyyy-MM-dd") />
+                                                    <input id="FecNacVal" asp-for="MODEL_PACIENTE.PAC_FECHA_NAC" type="date" placeholder="FECHA NAC." class="form-control"  onchange="ValidarFecha('FecNacVal','EdadVal'),ValidadEdad('RepPacVal','EdadVal')" max=@DateTime.Now.AddYears(-5).ToString("yyyy-MM-dd") asp-format="{0:yyyy-MM-dd}" />
                                                     <span asp-validation-for="MODEL_PACIENTE.PAC_FECHA_NAC" class="text-danger"></span>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label>Edad Paciente:</label>
-                                                    <input id="EdadVal" asp-for="MODEL_PACIENTE.PAC_EDAD" type="number" placeholder="EDAD" class="form-control" />
+                                                    <input id="EdadVal" asp-for="MODEL_PACIENTE.PAC_EDAD" type="number" placeholder="EDAD" readonly class="form-control" />
                                                     <span asp-validation-for="MODEL_PACIENTE.PAC_EDAD" class="text-danger"></span>
                                                 </div>
                                             </div>
@@ -165,7 +165,7 @@
                                                 {
                                                     <label>Comuna:</label>
                                                     @Html.DropDownList("MODEL_PACIENTE.PAC_COMUNA", new SelectList(Model.MODEL_PACIENTE.Comuna_Lista, "Text", "Text"),
-         "ESCOGA UNA COMUNA", new { @class = "form-control" })
+"ESCOGA UNA COMUNA", new { @class = "form-control" })
                                                 }
                                                 <span asp-validation-for="MODEL_PACIENTE.PAC_COMUNA" class="text-danger"></span>
                                             </div>
@@ -213,9 +213,9 @@
                                                     <button type="submit" class="btn bg-info btn-block text-light">Actualizar</button>
                                                 }
                                             </div>
-                                            <div class="text-center form-group col-md-4 ">
-                                            </div>
                                             <div class="form-group">
+                                            </div>
+                                            <div class="text-center form-group col-md-12 ">
                                                 <label class="text-danger">@Html.DisplayFor(m => m.MODEL_PACIENTE.ErrorMessage)  </label>
                                             </div>
                                         </div>
@@ -229,23 +229,6 @@
         </div>
     </form>
 </div>
-
-
-
-
 @section scripts{
-
-    @*<script>
-        $(document).ready(function () {
-            $("#FecNacVal").on("change", function () {
-                var now = new Date();
-                var birthdate = new Date($("#FecNacVal").val()); // Se Procede a calcular en base a la fecha
-                var nowyear = now.getFullYear();
-                var birthyear = birthdate.getFullYear();
-                var age = nowyear - birthyear + 1;
-                $('#EdadVal').val(age);
-            });
-        });
-    </script>*@
     <partial name="_ValidationScriptsPartial">
 }

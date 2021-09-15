@@ -26,7 +26,7 @@ namespace Dientes_Sanos_Core_MVC.Library
             {
                 if (id.Equals(0))
                 {
-                    ListaTPacientes = _context.TBL_PACIENTE.Where(u => u.PAC_RUT.StartsWith(valor) || u.PAC_NOMBRE.StartsWith(valor) || u.PAC_APELLIDO.StartsWith(valor)).ToList();
+                    ListaTPacientes = _context.TBL_PACIENTE.Where(u => u.PAC_CODIGO.StartsWith(valor) || u.PAC_NOMBRE.StartsWith(valor) || u.PAC_APELLIDO.StartsWith(valor)).ToList();
                 }
                 else
                 {
@@ -41,6 +41,11 @@ namespace Dientes_Sanos_Core_MVC.Library
                     {
                         PAC_ID = item.PAC_ID,
                         PAC_RUT = item.PAC_RUT,
+                        PAC_CODIGO = item.PAC_CODIGO,
+                        PAC_COD_ODONT = item.PAC_COD_ODONT,
+                        PAC_FECHA_NAC = item.PAC_FECHA_NAC,
+                        PAC_FEC_ACT = item.PAC_FEC_ACT,
+                        PAC_FEC_REG = item.PAC_FEC_REG,
                         PAC_NOMBRE = item.PAC_NOMBRE,
                         PAC_APELLIDO = item.PAC_APELLIDO,
                         PAC_CORREO = item.PAC_CORREO,
@@ -60,6 +65,19 @@ namespace Dientes_Sanos_Core_MVC.Library
             }
             return PacienteLista;
         }
+
+        public List<MODELO_PACIENTE> get_Pacientes_Act(string PACCOD)
+        {
+            var ListaPacientes = new List<MODELO_PACIENTE>();
+            //using (var dbContext = new ApplicationDbContext())
+            //{
+                ListaPacientes = _context.TBL_PACIENTE.Where(u => u.PAC_ID.Equals(PACCOD)).ToList();
+            //}
+           
+            
+            return ListaPacientes;
+        }
+
     }
 
 }

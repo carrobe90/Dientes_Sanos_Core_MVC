@@ -28,8 +28,8 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Models
         [RegularExpression("^[a-zA-ZñÑáéíóúÁÉÍÓÚ$@!#? ]*$", ErrorMessage = "Solo se Permiten Letras")]
         [Display(Name = "Apellido(S) Paciente")]
         public String PAC_APELLIDO { get; set; }
-        [Required(ErrorMessage = "El Sexo del Paciente es Obligatorio.")]
-        [StringLength(20)]
+        //[Required(ErrorMessage = "El Sexo del Paciente es Obligatorio.")]
+        //[StringLength(20)]
         public String PAC_SEXO { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "El RUT es Obligatorio")]
@@ -48,7 +48,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Models
         public int PAC_EDAD { get; set; }
         [StringLength(50, MinimumLength = 3, ErrorMessage = "El Nombre del Representante mínimo es de {2} caracteres")]
         public String PAC_REPRESENTANTE { get; set; }
-        [StringLength(100, MinimumLength = 5, ErrorMessage = "La Dirección mínimo es de {2} dígitos númericos")]
+        [StringLength(100, MinimumLength = 5, ErrorMessage = "La Dirección mínimo es de {2} caracteres")]
         [Required(ErrorMessage = "La Dirección del Paciente es Obligatorio.")]
         public String PAC_DIRECCION { get; set; }
         [Required(ErrorMessage = "La Comuna del Paciente es Obligatorio.")]
@@ -68,9 +68,9 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Models
         public String PAC_PREVISIONES { get; set; }
 
         public String PAC_OBSERVACIONES { get; set; }
-        [Required(ErrorMessage = "El Codigo del Profesional es Obligatorio.")]
-        //[StringLength(50, MinimumLength = 4, ErrorMessage = "El Codigo del Profesional mínimo es de {2} caracteres")]
-        [Display(Name = "Codigo(S) Profesional")]
+        //[Required(ErrorMessage = "El Codigo del Profesional es Obligatorio.")]
+        ////[StringLength(50, MinimumLength = 4, ErrorMessage = "El Codigo del Profesional mínimo es de {2} caracteres")]
+        //[Display(Name = "Codigo(S) Profesional")]
         public String PAC_COD_ODONT { get; set; }
 
         public byte[] PAC_IMAGEN { get; set; }

@@ -74,7 +74,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <p>@Model.MODEL_PACIENTE.DataPaciente.PAC_TELEFONO</p>
+                                    <p>@Model.MODEL_PACIENTE.DataPaciente.PAC_CODIGO</p>
                                 </td>
                             </tr>
                             <tr>
@@ -84,19 +84,18 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <p>@Model.MODEL_PACIENTE.DataPaciente.PAC_CORREO</p>
+                                    <p>@Model.MODEL_PACIENTE.DataPaciente.PAC_COD_ODONT</p>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    @*<form asp-area="Paciente" asp-page="Registro" method="post">
-                                        @{
-                                            var dataPaciente = JsonConvert.SerializeObject(Model.MODEL_PACIENTE.DataPaciente);
-                                        }
-
-                                        <input type="hidden" name="dataPaciente" value="@dataPaciente" />
-                                        <input type="submit" value="Editar" class="btn btn-success ">
-                                    </form>*@
+                                    <form asp-area="Paciente" asp-page="Registro" method="post">
+                                            @{
+                                                var dataPaciente = JsonConvert.SerializeObject(Model.MODEL_PACIENTE.DataPaciente);
+                                            }
+                                            <input type="hidden" name="dataPaciente" value="@dataPaciente" />
+                                            <input type="submit" value="Editar" class="btn btn-success ">
+                                        </form>
                                 </td>
                             </tr>
                         </tbody>

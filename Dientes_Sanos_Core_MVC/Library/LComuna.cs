@@ -12,23 +12,23 @@ namespace Dientes_Sanos_Core_MVC.Library
 
         public List<SelectListItem> GetComuna(ApplicationDbContext context)
         {
-            //List<SelectListItem> selectListItems = null;
-            //try
-            //{
-            List<SelectListItem> selectListItems = new List<SelectListItem>();
-            context.TBL_PROVINCIA.ToList().ForEach(item =>
+            List<SelectListItem> selectListItems = null;
+            try
             {
-                selectListItems.Add(new SelectListItem
+                selectListItems = new List<SelectListItem>();
+                context.TBL_PROVINCIA.ToList().ForEach(item =>
                 {
-                    Value = item.PROV_ID.ToString(),
-                    Text = item.PROV_NOMBRE
+                    selectListItems.Add(new SelectListItem
+                    {
+                        Value = item.PROV_ID.ToString(),
+                        Text = item.PROV_NOMBRE
+                    });
                 });
-            });
-            //}
-            //catch (Exception ex)
-            //{
-            //   Console.WriteLine($"Error: '{ex}'");
-            //}
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: '{ex}'");
+            }
             return selectListItems;
 
         }
