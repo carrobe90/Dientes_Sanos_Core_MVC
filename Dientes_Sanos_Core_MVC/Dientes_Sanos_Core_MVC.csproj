@@ -35,14 +35,11 @@
     <Folder Include="Areas\Historial\Data\" />
     <Folder Include="Areas\Historial\Views\" />
     <Folder Include="Areas\Paciente\Data\" />
-    <Folder Include="Areas\Presupuesto\Controllers\" />
     <Folder Include="Areas\Presupuesto\Data\" />
-    <Folder Include="Areas\Presupuesto\Views\" />
     <Folder Include="Areas\Principal\Data\" />
     <Folder Include="Areas\Principal\Models\" />
     <Folder Include="Areas\Users\Data\" />
     <Folder Include="Data\Migrations\" />
-    <Folder Include="Migrations\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 

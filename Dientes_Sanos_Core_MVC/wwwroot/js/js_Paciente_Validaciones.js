@@ -26,6 +26,7 @@ function ValidadEdad(RepPacVal, EdadVal) {
                 // evento para el input Deshabilitado
                 console.log("Mayor de edad");
                 RepresentanteValidacion.disabled = true; // Deshabilitado
+                document.getElementById(RepPacVal).value = "";
             }
             else if (EdadValidacion < 18) {
                 console.log("Menor de edad");
@@ -54,6 +55,12 @@ function SoloLetras(e) {
     }
     if (letras.indexOf(tecla) == -1 && !tecla_especial)
         return false;
+}
+
+function upperCaseInput(a) {
+    setTimeout(function () {
+        a.value = a.value.toUpperCase();
+    }, 1);
 }
 
 function LimpiarCampo() {

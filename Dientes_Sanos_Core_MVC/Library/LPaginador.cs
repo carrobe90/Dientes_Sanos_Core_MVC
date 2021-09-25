@@ -8,7 +8,7 @@ namespace Dientes_Sanos_Core_MVC.Library
     public class LPaginador<T>
     {
         //Cantidad de Resultados por Página
-        private int pagi_cuantos = 10;
+        private int pagi_cuantos = 12;
         //Cantidad de Enlaces que se mostrarán como maximo en la barra de navegación
         private int pagi_nav_num_enlaces = 8;
         //Pagina Actual
@@ -50,7 +50,7 @@ namespace Dientes_Sanos_Core_MVC.Library
             }
             // Si se definió la variable pagi_nav_num_enlaces 
             // Calculamos el intervalo para restar y sumar a partir de la página actual 
-            double valor2 = (pagi_nav_num_enlaces / 2);
+            double valor2 = pagi_nav_num_enlaces / 2;
             int pagi_nav_intervalo = Convert.ToInt16(Math.Round(valor2));
             // Calculamos desde qué número de página se mostrará 
             int pagi_nav_desde = pagi_actual - pagi_nav_intervalo;

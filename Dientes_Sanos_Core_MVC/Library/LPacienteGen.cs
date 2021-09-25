@@ -11,10 +11,10 @@ namespace Dientes_Sanos_Core_MVC.Library
     {
         public List<SelectListItem> GetGenero(ApplicationDbContext context)
         {
-            //List<SelectListItem> selectListItems = null;
-            //try
-            //{
-            List<SelectListItem> selectListItems = new List<SelectListItem>();
+            List<SelectListItem> selectListItems = null;
+            try
+            {
+                selectListItems = new List<SelectListItem>();
             context.TBL_GENERO.ToList().ForEach(item =>
             {
                 selectListItems.Add(new SelectListItem
@@ -23,11 +23,11 @@ namespace Dientes_Sanos_Core_MVC.Library
                     Text = item.GENERO_NOMBRE
                 });
             });
-            //}
-            //catch (Exception ex)
-            //{
-            //   Console.WriteLine($"Error: '{ex}'");
-            //}
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: '{ex}'");
+            }
             return selectListItems;
 
         }

@@ -53,10 +53,11 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
 
         public void OnGet(int idActUsu)
         {
-            _DataUser2 = null;
+            //_DataUser2 = null;
             if (idActUsu.Equals(0))
             {
                 _DataUser2 = null;
+                _dataInput = null;
             }
             if (_dataInput != null || _DataUser1!= null || _DataUser2!= null)
             {
@@ -65,6 +66,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
                     MODEL_USUARIO = _dataInput;
                     MODEL_USUARIO.roles_Lista = _usersRole.GetRoles(_roleManager);
                     MODEL_USUARIO.AvatarImage = null;
+                    MODEL_USUARIO.Image = _DataUser2.Image;
                 }
                 else
                 {
@@ -100,7 +102,11 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
                     roles_Lista = _usersRole.GetRoles(_roleManager)
                 };
             }
-            _DataUser2 = _DataUser1;
+            if (_DataUser2 == null)
+            {
+                _DataUser2 = _DataUser1;
+            }
+           
             _DataUser1 = null;
         }
 
@@ -128,6 +134,9 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
                     {
                         if (await Guardar_Usuario_Async())
                         {
+                            _DataUser2 = null;
+                            _DataUser1 = null;
+                            _dataInput = null;
                             return Redirect("/Users/Users?area=Users");
                         }
                         else
@@ -148,6 +157,8 @@ namespace Dientes_Sanos_Core_MVC.Areas.Users.Pages.Account
                         {
                             var url = $"/Users/Account/Detalle?idActUsu={_DataUser2.Id}";
                             _DataUser2 = null;
+                            _DataUser1 = null;
+                            _dataInput = null;
                             return Redirect(url);
                         }
                         else

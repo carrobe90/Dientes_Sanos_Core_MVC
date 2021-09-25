@@ -1,4 +1,4 @@
-﻿using Dientes_Sanos_Core_MVC.Areas.Paciente.Models;
+﻿using Dientes_Sanos_Core_MVC.Areas.Presupuesto.Models;
 using Dientes_Sanos_Core_MVC.Data;
 using Dientes_Sanos_Core_MVC.Library;
 using Dientes_Sanos_Core_MVC.Models;
@@ -8,51 +8,52 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 
-namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Controllers
+namespace Dientes_Sanos_Core_MVC.Areas.Presupuesto.Controllers
 {
     [Authorize]
-    [Area("Paciente")]
-    public class PacienteController : Controller
+    [Area("Tratamiento")]
+    public class TratamientoController : Controller
     {
-        private LPaciente _paciente;
-        private SignInManager<IdentityUser> _signInManager;
-        private static Modelo_Paginador<MODELO_PACIENTE> models;
 
-        public PacienteController(
+        private LTratamiento _tratamiento;
+        private SignInManager<IdentityUser> _signInManager;
+        private static Modelo_Paginador<MODELO_TRATAMIENTO> models;
+
+        public TratamientoController(
            SignInManager<IdentityUser> signInManager,
            ApplicationDbContext context)
         {
             _signInManager = signInManager;
-            _paciente= new LPaciente(context);
+            _tratamiento = new LTratamiento(context);
         }
 
         // IActionResult #Nombre --> Nombre del Controlador
 
-        public IActionResult Paciente(int id, String filtrar)
+        public IActionResult Tratamiento(int id, String filtrar)
         {
             if (_signInManager.IsSignedIn(User))
             {
                 Object[] objects = new Object[3];
-                var data = _paciente.get_Pacientes_Async(filtrar, 0);
+                var data = _tratamiento.get_Tratamiento_Async(filtrar, 0);
                 if (0 < data.Count)
                 {
                     var url = Request.Scheme + "://" + Request.Host.Value;
-                    objects = new LPaginador<MODELO_PACIENTE>().Paginador(data,
-                        id, 12, "Paciente", "Paciente", "Paciente", url);
+                    objects = new LPaginador<MODELO_TRATAMIENTO>().Paginador(data,
+                        id, 12, "Presupuesto", "Tratamiento", "Tratamiento", url);
                     //(data,id,10,Area,Controlador,Metodo de Accion,url)
                 }
                 else
                 {
                     objects[0] = "No hay datos que mostrar";
                     objects[1] = "No hay datos que mostrar";
-                    objects[2] = new List<MODELO_PACIENTE>();
+                    objects[2] = new List<MODELO_TRATAMIENTO>();
                 }
-                models = new Modelo_Paginador<MODELO_PACIENTE>
+                models = new Modelo_Paginador<MODELO_TRATAMIENTO>
                 {
-                    List = (List<MODELO_PACIENTE>)objects[2],
+                    List = (List<MODELO_TRATAMIENTO>)objects[2],
                     Pagi_info = (string)objects[0],
                     Pagi_navegacion = (string)objects[1],
-                    Input = new MODELO_PACIENTE(),
+                    Input = new MODELO_TRATAMIENTO(),
                 };
                 return View(models);
             }
@@ -62,6 +63,5 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Controllers
             }
 
         }
-      
     }
 }

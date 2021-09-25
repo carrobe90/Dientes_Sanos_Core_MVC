@@ -42,6 +42,16 @@
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" asp-area="Paciente" asp-controller="Paciente" asp-action="Paciente">Pacientes Lista</a>
                                     <a class="dropdown-item" asp-route-id="0" asp-area="Paciente" asp-page="/Account/Registro">Añadir Paciente</a>
+                                    <a class="dropdown-item" asp-area="Paciente" asp-controller="CIE10" asp-action="CIE10">CIE10 Lista</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false" href="#">Presupuesto(S)</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-area="Presupuesto" asp-controller="Presupuesto" asp-action="Presupuesto">Presupuesto Lista</a>
+                                    <a class="dropdown-item" asp-route-id="0" asp-area="Presupuesto" asp-page="/Account/Registro">Añadir Presupuesto</a>
+                                    <a class="dropdown-item" asp-area="Presupuesto" asp-controller="Tratamiento" asp-action="Tratamiento">Tratamiento Lista</a>
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
@@ -54,7 +64,7 @@
                             </li>
                         </ul>
                     </div>
-                }
+                  }
             </div>
         </nav>
     </header>

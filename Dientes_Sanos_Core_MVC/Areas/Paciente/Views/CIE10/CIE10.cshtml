@@ -1,0 +1,63 @@
+﻿@model Modelo_Paginador<MODELO_CIE10>
+@{
+    ViewData["Title"] = "CIE10";
+}
+
+<div class="container p-4">
+    <div class="row">
+        <div class="form-group">
+            <form asp-area="Paciente" asp-controller="CIE10" asp-action="CIE10" method="get">
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="text" id="filtrar" name="filtrar" onkeypress="hola()" placeholder="Buscar" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <input type="submit" value="Buscar" class="btn btn-success">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th class="text-center">
+                        @Html.DisplayNameFor(model => Model.Input.CIE_CODIGO)
+                    </th>
+                    <th class="text-center">
+                        @Html.DisplayNameFor(model => Model.Input.CIE_CONCEPTO)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.List)
+                {
+                    <tr>
+                        <td class="col-sm-2 text-center">
+                            @Html.DisplayFor(model => item.CIE_CODIGO)
+                        </td>
+                        <td class="col-sm-10">
+                            @Html.DisplayFor(model => item.CIE_CONCEPTO)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script language="javascript">
+    function hola() {
+        $(document).ready(function () {
+            $("#filtrar").keypress(function () {
+                alert($(this).val());
+            });
+        });
+    }
+</script>

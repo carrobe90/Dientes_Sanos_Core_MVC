@@ -50,13 +50,14 @@ namespace Dientes_Sanos_Core_MVC.Migrations
                 name: "TBL_CIE10",
                 columns: table => new
                 {
-                    CIE_CODIGO = table.Column<int>(type: "int", nullable: false)
+                    CIE_ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    CIE_CODIGO = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CIE_CONCEPTO = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TBL_CIE10", x => x.CIE_CODIGO);
+                    table.PrimaryKey("PK_TBL_CIE10", x => x.CIE_ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -197,22 +198,22 @@ namespace Dientes_Sanos_Core_MVC.Migrations
                     PAC_ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PAC_CODIGO = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    PAC_NOMBRE = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PAC_APELLIDO = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PAC_SEXO = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    PAC_NOMBRE = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PAC_APELLIDO = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PAC_SEXO = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PAC_RUT = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     PAC_FECHA_NAC = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PAC_EDAD = table.Column<int>(type: "int", nullable: false),
-                    PAC_REPRESENTANTE = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PAC_DIRECCION = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PAC_COMUNA = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PAC_REPRESENTANTE = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    PAC_DIRECCION = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    PAC_COMUNA = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PAC_OTRAS_COMUNAS = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PAC_TELEFONO = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PAC_CORREO = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PAC_CONVENIO = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PAC_CORREO = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PAC_CONVENIO = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PAC_PREVISIONES = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PAC_OBSERVACIONES = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PAC_COD_ODONT = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    PAC_COD_ODONT = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PAC_IMAGEN = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     PAC_FEC_REG = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PAC_FEC_ACT = table.Column<DateTime>(type: "datetime2", nullable: false)

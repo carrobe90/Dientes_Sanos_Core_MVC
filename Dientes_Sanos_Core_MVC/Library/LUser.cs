@@ -26,7 +26,7 @@ namespace Dientes_Sanos_Core_MVC.Library
             _userRoles = new LUserRoles();
         }
 
-        public async Task<List<MOD_USUARIO>> get_Usuario_Async(string valor, int id)
+        public async Task<List<MOD_USUARIO>> get_Usuario_Async(String valor, int id)
         {
             List<MODELO_USUARIO> modelo_Usuario;
             List<SelectListItem> _lista_Roles;

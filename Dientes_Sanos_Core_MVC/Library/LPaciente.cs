@@ -14,25 +14,42 @@ namespace Dientes_Sanos_Core_MVC.Library
         {
             _context = context;
         }
-        public List<MODELO_PACIENTE> get_Pacientes_Async(String valor, int id)
+        public List<MODELO_PACIENTE> get_Pacientes_Async(string valor, int id)
         {
-            List<MODELO_PACIENTE> ListaTPacientes;
             var PacienteLista = new List<MODELO_PACIENTE>();
-            if (valor == null && id.Equals(0))
-            {
-                ListaTPacientes = _context.TBL_PACIENTE.ToList();
-            }
-            else
-            {
-                if (id.Equals(0))
-                {
-                    ListaTPacientes = _context.TBL_PACIENTE.Where(u => u.PAC_CODIGO.StartsWith(valor) || u.PAC_NOMBRE.StartsWith(valor) || u.PAC_APELLIDO.StartsWith(valor)).ToList();
-                }
-                else
-                {
-                    ListaTPacientes = _context.TBL_PACIENTE.Where(u => u.PAC_ID.Equals(id)).ToList();
-                }
-            }
+
+            var ListaTPacientes = _context.TBL_PACIENTE.Join(_context.TBL_ODONTOLOGO, p => p.PAC_COD_ODONT, o => o.ODONT_CODIGO
+        , (p, o) => new
+        {
+            p.PAC_CODIGO,
+            p.PAC_RUT,
+            p.PAC_FECHA_NAC,
+            p.PAC_FEC_ACT,
+            p.PAC_FEC_REG,
+            p.PAC_ID,
+            p.PAC_COMUNA,
+            p.PAC_OBSERVACIONES,
+            p.PAC_CONVENIO,
+            p.PAC_DIRECCION,
+            p.PAC_CORREO,
+            p.PAC_REPRESENTANTE,
+            p.PAC_PREVISIONES,
+            p.PAC_OTRAS_COMUNAS,
+            p.PAC_EDAD,
+            p.PAC_TELEFONO,
+            p.PAC_NOMBRE,
+            p.PAC_SEXO,
+            p.PAC_IMAGEN,
+            p.PAC_APELLIDO,
+            p.PAC_COD_ODONT,
+            o.ODONT_CODIGO,
+            o.ODONT_APELLIDO,
+            o.ODONT_NOMBRE
+        }).ToList();
+            var query = String.IsNullOrEmpty(valor) ? ListaTPacientes
+                 : id.Equals(0) ? ListaTPacientes.Where(u => u.PAC_CODIGO.StartsWith(valor) || u.PAC_NOMBRE.StartsWith(valor) || u.PAC_APELLIDO.StartsWith(valor)).ToList()
+: ListaTPacientes.Where(u => u.PAC_ID.Equals(id)).ToList();
+
             if (!ListaTPacientes.Count.Equals(0))
             {
                 foreach (var item in ListaTPacientes)
@@ -42,7 +59,7 @@ namespace Dientes_Sanos_Core_MVC.Library
                         PAC_ID = item.PAC_ID,
                         PAC_RUT = item.PAC_RUT,
                         PAC_CODIGO = item.PAC_CODIGO,
-                        PAC_COD_ODONT = item.PAC_COD_ODONT,
+                        PAC_COD_ODONT = item.PAC_COD_ODONT + '-' + item.ODONT_APELLIDO + ' ' + item.ODONT_NOMBRE,
                         PAC_FECHA_NAC = item.PAC_FECHA_NAC,
                         PAC_FEC_ACT = item.PAC_FEC_ACT,
                         PAC_FEC_REG = item.PAC_FEC_REG,
@@ -64,18 +81,6 @@ namespace Dientes_Sanos_Core_MVC.Library
                 }
             }
             return PacienteLista;
-        }
-
-        public List<MODELO_PACIENTE> get_Pacientes_Act(string PACCOD)
-        {
-            var ListaPacientes = new List<MODELO_PACIENTE>();
-            //using (var dbContext = new ApplicationDbContext())
-            //{
-                ListaPacientes = _context.TBL_PACIENTE.Where(u => u.PAC_ID.Equals(PACCOD)).ToList();
-            //}
-           
-            
-            return ListaPacientes;
         }
 
     }

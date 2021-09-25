@@ -1,0 +1,39 @@
+﻿@model Dientes_Sanos_Core_MVC.Areas.Paciente.Models.MODELO_CIE10
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>View</title>
+</head>
+<body>
+
+<div>
+    <h4>MODELO_CIE10</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CIE_CODIGO)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CIE_CODIGO)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CIE_CONCEPTO)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CIE_CONCEPTO)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.CIE_ID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+</body>
+</html>

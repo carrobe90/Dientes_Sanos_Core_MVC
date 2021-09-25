@@ -69,9 +69,11 @@ namespace Dientes_Sanos_Core_MVC
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapAreaControllerRoute("Users", "Users", "{controller=Users}/{action=Users}/{id?}");
                 endpoints.MapAreaControllerRoute("Paciente", "Paciente", "{controller=Paciente}/{action=Paciente}/{id?}");
+                endpoints.MapAreaControllerRoute("Paciente", "Paciente", "{controller=CIE10}/{action=CIE10}/{id?}");
                 endpoints.MapAreaControllerRoute("Principal", "Principal", "{controller=Principal}/{action=Principal}/{id?}");
                 endpoints.MapAreaControllerRoute("Historial", "Historial", "{controller=Historial}/{action=Historial}/{id?}");
                 endpoints.MapAreaControllerRoute("Presupuesto", "Presupuesto", "{controller=Presupuesto}/{action=Presupuesto}/{id?}");
+                endpoints.MapAreaControllerRoute("Presupuesto", "Presupuesto", "{controller=Tratamiento}/{action=Tratamiento}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

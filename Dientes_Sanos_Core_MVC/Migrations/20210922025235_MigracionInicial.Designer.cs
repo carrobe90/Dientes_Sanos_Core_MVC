@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dientes_Sanos_Core_MVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210801150528_MigracionInicial")]
+    [Migration("20210922025235_MigracionInicial")]
     partial class MigracionInicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,7 +18,7 @@ namespace Dientes_Sanos_Core_MVC.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.7")
+                .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Dientes_Sanos_Core_MVC.Areas.Historial.Models.MODELO_HISTORIAL", b =>
@@ -261,17 +261,21 @@ namespace Dientes_Sanos_Core_MVC.Migrations
 
             modelBuilder.Entity("Dientes_Sanos_Core_MVC.Areas.Paciente.Models.MODELO_CIE10", b =>
                 {
-                    b.Property<int>("CIE_CODIGO")
+                    b.Property<int>("CIE_ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CIE_CODIGO")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CIE_CONCEPTO")
                         .IsRequired()
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.HasKey("CIE_CODIGO");
+                    b.HasKey("CIE_ID");
 
                     b.ToTable("TBL_CIE10");
                 });
@@ -370,7 +374,8 @@ namespace Dientes_Sanos_Core_MVC.Migrations
 
                     b.Property<string>("PAC_APELLIDO")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("PAC_CODIGO")
                         .IsRequired()
@@ -378,26 +383,22 @@ namespace Dientes_Sanos_Core_MVC.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("PAC_COD_ODONT")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PAC_COMUNA")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PAC_CONVENIO")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PAC_CORREO")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PAC_DIRECCION")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("PAC_EDAD")
                         .HasColumnType("int");
@@ -416,7 +417,8 @@ namespace Dientes_Sanos_Core_MVC.Migrations
 
                     b.Property<string>("PAC_NOMBRE")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("PAC_OBSERVACIONES")
                         .HasColumnType("nvarchar(max)");
@@ -428,7 +430,8 @@ namespace Dientes_Sanos_Core_MVC.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PAC_REPRESENTANTE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("PAC_RUT")
                         .IsRequired()
@@ -436,9 +439,7 @@ namespace Dientes_Sanos_Core_MVC.Migrations
                         .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("PAC_SEXO")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PAC_TELEFONO")
                         .HasColumnType("nvarchar(max)");

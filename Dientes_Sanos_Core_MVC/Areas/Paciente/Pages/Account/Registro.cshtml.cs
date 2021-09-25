@@ -58,59 +58,59 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Pages.Account
         public void OnGet(int idActPac)
         {
             //_DataPac2 = null;
-            if(idActPac.Equals(0))
+            if (idActPac.Equals(0))
             {
                 _DataPac2 = null;
-              //  _dataInput = null;
+                _dataInput = null;
             }
             if (_dataInput != null || _DataPac1 != null || _DataPac2 != null)
             {
                 if (_dataInput != null)
-                {
+                {  //IF PARA SABER SI _DATAINPUT CONTIENE DATOS. SI CONTIENE SE PROSEGUE CON LAS CARGAS DE LOS COMBOBOX EN EL CASO DE TENER EN TU FORM
                     MODEL_PACIENTE = _dataInput;
                     MODEL_PACIENTE.AvatarImage = null;
                     MODEL_PACIENTE.Comuna_Lista = _lComuna.GetComuna(_context);
                     MODEL_PACIENTE.Genero_Lista = _lPacienteGen.GetGenero(_context);
                     MODEL_PACIENTE.Odontologo_Lista = _lOdontologo.GetOdontologo(_context);
-              //      MODEL_PACIENTE.PAC_IMAGEN = _DataPac2.PAC_IMAGEN;
+                    MODEL_PACIENTE.PAC_IMAGEN = _DataPac2.PAC_IMAGEN;
                 }
                 else
                 {
                     if (_DataPac1 != null || _DataPac2 != null)
                     {
                         if (_DataPac2 != null)
-                        
-                            _DataPac1 = _DataPac2;
-                            MODEL_PACIENTE = new PACIENTE
-                            {
-                                PAC_ID = _DataPac1.PAC_ID,
-                                PAC_NOMBRE = _DataPac1.PAC_NOMBRE,
-                                PAC_APELLIDO = _DataPac1.PAC_APELLIDO,
-                                PAC_CODIGO = _DataPac1.PAC_CODIGO,
-                                PAC_EDAD = _DataPac1.PAC_EDAD,
-                                PAC_COD_ODONT = _DataPac1.PAC_COD_ODONT,
-                                PAC_COMUNA = _DataPac1.PAC_COMUNA,
-                                PAC_CORREO = _DataPac1.PAC_CORREO,
-                                PAC_DIRECCION = _DataPac1.PAC_DIRECCION,
-                                PAC_OBSERVACIONES = _DataPac1.PAC_OBSERVACIONES,
-                                PAC_OTRAS_COMUNAS = _DataPac1.PAC_OTRAS_COMUNAS,
-                                PAC_CONVENIO = _DataPac1.PAC_CONVENIO,
-                                PAC_PREVISIONES = _DataPac1.PAC_PREVISIONES,
-                                PAC_REPRESENTANTE = _DataPac1.PAC_REPRESENTANTE,
-                                PAC_RUT = _DataPac1.PAC_RUT,
-                                PAC_SEXO = _DataPac1.PAC_SEXO,
-                                PAC_TELEFONO = _DataPac1.PAC_TELEFONO,
-                                PAC_FECHA_NAC = _DataPac1.PAC_FECHA_NAC,
-                                PAC_FEC_ACT = _DataPac1.PAC_FEC_ACT,
-                                PAC_FEC_REG = _DataPac1.PAC_FEC_REG,
-                                PAC_IMAGEN = _DataPac1.PAC_IMAGEN,
-                                //AL USAR EL METODO ACTUALIZAR AL CARGAR LOS DATOS EN LOS INPUT NO OLVIDAR QUE SE DEBE CARGAR
-                                //NUEVAMENTE LOS DropDownList LLAMANDOLO NUEVAMENTE AL FINAL COMO SE VE EN EL CODIGO A CONTINUACION
-                                Genero_Lista = _lPacienteGen.GetGenero(_context),
-                                Comuna_Lista = _lComuna.GetComuna(_context),
-                                Odontologo_Lista = _lOdontologo.GetOdontologo(_context)
 
-                            };
+                            _DataPac1 = _DataPac2;
+                        MODEL_PACIENTE = new PACIENTE
+                        {
+                            PAC_ID = _DataPac1.PAC_ID,
+                            PAC_NOMBRE = _DataPac1.PAC_NOMBRE,
+                            PAC_APELLIDO = _DataPac1.PAC_APELLIDO,
+                            PAC_CODIGO = _DataPac1.PAC_CODIGO,
+                            PAC_EDAD = _DataPac1.PAC_EDAD,
+                            PAC_COD_ODONT = _DataPac1.PAC_COD_ODONT,
+                            PAC_COMUNA = _DataPac1.PAC_COMUNA,
+                            PAC_CORREO = _DataPac1.PAC_CORREO,
+                            PAC_DIRECCION = _DataPac1.PAC_DIRECCION,
+                            PAC_OBSERVACIONES = _DataPac1.PAC_OBSERVACIONES,
+                            PAC_OTRAS_COMUNAS = _DataPac1.PAC_OTRAS_COMUNAS,
+                            PAC_CONVENIO = _DataPac1.PAC_CONVENIO,
+                            PAC_PREVISIONES = _DataPac1.PAC_PREVISIONES,
+                            PAC_REPRESENTANTE = _DataPac1.PAC_REPRESENTANTE,
+                            PAC_RUT = _DataPac1.PAC_RUT,
+                            PAC_SEXO = _DataPac1.PAC_SEXO,
+                            PAC_TELEFONO = _DataPac1.PAC_TELEFONO,
+                            PAC_FECHA_NAC = _DataPac1.PAC_FECHA_NAC,
+                            PAC_FEC_ACT = _DataPac1.PAC_FEC_ACT,
+                            PAC_FEC_REG = _DataPac1.PAC_FEC_REG,
+                            PAC_IMAGEN = _DataPac1.PAC_IMAGEN,
+                            //AL USAR EL METODO ACTUALIZAR AL CARGAR LOS DATOS EN LOS INPUT NO OLVIDAR QUE SE DEBE CARGAR
+                            //NUEVAMENTE LOS DropDownList LLAMANDOLO NUEVAMENTE AL FINAL COMO SE VE EN EL CODIGO A CONTINUACION
+                            Genero_Lista = _lPacienteGen.GetGenero(_context),
+                            Comuna_Lista = _lComuna.GetComuna(_context),
+                            Odontologo_Lista = _lOdontologo.GetOdontologo(_context)
+
+                        };
                         if (_dataInput != null)
                         {
                             MODEL_PACIENTE.ErrorMessage = _dataInput.ErrorMessage;
@@ -125,7 +125,11 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Pages.Account
                 var Ultimo_Paciente = (from t in _context.TBL_PACIENTE
                                        orderby t.PAC_CODIGO
                                        select t).LastOrDefault();
-                if (Ultimo_Paciente != null)
+                if (Ultimo_Paciente == null)
+                {
+                    TempCodPac = "00001";
+                }
+                else if (Ultimo_Paciente != null)
                 {
                     Cod_Pac = (Ultimo_Paciente.PAC_CODIGO != null) ?
                            Convert.ToInt32(Ultimo_Paciente.PAC_CODIGO) + 1 :
@@ -142,7 +146,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Pages.Account
                     {
                         TempCodPac = String.Concat("000", Convert.ToString(Cod_Pac));
                     }
-                    else if (Cod_Pac >= 100 && Cod_Pac <=101)
+                    else if (Cod_Pac >= 100 && Cod_Pac <= 101)
                     {
                         TempCodPac = String.Concat("00", Convert.ToString(Cod_Pac));
                     }
@@ -166,17 +170,16 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Pages.Account
                 MODEL_PACIENTE = new PACIENTE
                 {
                     PAC_CODIGO = TempCodPac,
+                    PAC_FECHA_NAC = Convert.ToDateTime(DateTime.Now.ToString("dd/MM/yyyy")).AddYears(-5),
                     Genero_Lista = _lPacienteGen.GetGenero(_context),
                     Comuna_Lista = _lComuna.GetComuna(_context),
                     Odontologo_Lista = _lOdontologo.GetOdontologo(_context),
-                    PAC_COD_ODONT = "00000"
                 };
             }
-            //if (_DataPac2 == null)
-            //{
-            //    _DataPac2 = _DataPac1;
-            //}
-            _DataPac2 = _DataPac1;
+            if (_DataPac2 == null)
+            {
+                _DataPac2 = _DataPac1;
+            }
             _DataPac1 = null;
         }
 
@@ -193,6 +196,9 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Pages.Account
                     {
                         if (await Guardar_Paciente_Async())
                         {
+                            _DataPac1 = null;
+                            _dataInput = null;
+                            _DataPac2 = null;
                             return Redirect("/Paciente/Paciente?area=Paciente");
                         }
                         else
@@ -203,7 +209,6 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Pages.Account
                     else
                     {
                         return Redirect("/Paciente/Paciente?area=Paciente");
-
                     }
                 }
                 else
@@ -212,7 +217,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Pages.Account
                     {
                         if (await Actualizar_Paciente_Async())
                         {
-                          //  var url = $"/Paciente/Account/Detalle?idActPac={_DataPac2.PAC_ID}";
+                            //  var url = $"/Paciente/Account/Detalle?idActPac={_DataPac2.PAC_ID}";
                             var url = "/Paciente/Paciente?area=Paciente";
                             _DataPac1 = null;
                             _dataInput = null;
@@ -317,7 +322,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Pages.Account
             return valor;
         }
 
-         
+
 
         [BindProperty]
         public PACIENTE MODEL_PACIENTE { get; set; }
@@ -338,70 +343,71 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Pages.Account
             var valor = false;
             byte[] imagenByte = null;
             var strategy = _context.Database.CreateExecutionStrategy();
-            await strategy.ExecuteAsync(async () => {
+            await strategy.ExecuteAsync(async () =>
+            {
                 //if (ModelState.IsValid)
                 //{
-                    using (var transaction = _context.Database.BeginTransaction())
+                using (var transaction = _context.Database.BeginTransaction())
+                {
+                    try
                     {
-                        try
-                        {
-                            var idCodPaciente = _context.TBL_PACIENTE.Where(u => u.PAC_ID.Equals(_DataPac2.PAC_ID));
+                        var idCodPaciente = _context.TBL_PACIENTE.Where(u => u.PAC_ID.Equals(_DataPac2.PAC_ID));
 
                         //if (idCodPaciente[0].PAC_ID.Equals(_DataPac2.PAC_ID))
                         //{
                         string TmpCodPac = _dataInput.PAC_COD_ODONT;
                         String vfCodPac = TmpCodPac.Substring(0, 4);
                         if (MODEL_PACIENTE.AvatarImage == null)
-                                {
-                                    imagenByte = _DataPac2.PAC_IMAGEN;
-                                }
-                                else
-                                {
-                                    imagenByte = await _lCargarImagen.ByteAvatarImageAsync(MODEL_PACIENTE.AvatarImage, _environment, "");
-                                }
-                                var Actualizar_Paciente = new MODELO_PACIENTE
-                                {
-                                    PAC_ID = _DataPac2.PAC_ID,
-                                    PAC_CODIGO = _dataInput.PAC_CODIGO,
-                                    PAC_NOMBRE = _dataInput.PAC_NOMBRE.ToUpper(),
-                                    PAC_COD_ODONT = vfCodPac,
-                                    PAC_APELLIDO = _dataInput.PAC_APELLIDO.ToUpper(),
-                                    PAC_SEXO = _dataInput.PAC_SEXO,
-                                    PAC_RUT = _dataInput.PAC_RUT,
-                                    PAC_FECHA_NAC = _dataInput.PAC_FECHA_NAC,
-                                    PAC_EDAD = _dataInput.PAC_EDAD,
-                                    PAC_REPRESENTANTE = _dataInput.PAC_REPRESENTANTE?.ToUpper(),
-                                    PAC_DIRECCION = _dataInput.PAC_DIRECCION.ToUpper(),
-                                    PAC_COMUNA = _dataInput.PAC_COMUNA,
-                                    PAC_OTRAS_COMUNAS = _dataInput.PAC_OTRAS_COMUNAS?.ToUpper(),
-                                    PAC_TELEFONO = _dataInput.PAC_TELEFONO,
-                                    PAC_CORREO = _dataInput.PAC_CORREO,
-                                    PAC_CONVENIO = _dataInput.PAC_CONVENIO?.ToUpper(),
-                                    PAC_PREVISIONES = _dataInput.PAC_PREVISIONES?.ToUpper(),
-                                    PAC_OBSERVACIONES = _dataInput.PAC_OBSERVACIONES?.ToUpper(),
-                                    PAC_IMAGEN = imagenByte,
-                                    //PAC_FEC_REG = DateTime.Now,
-                                    PAC_FEC_ACT = DateTime.Now
-
-                                };
-                                _context.Update(Actualizar_Paciente);
-                                _context.SaveChanges();
-                                transaction.Commit();
-                                valor = true;
-                            //}
-                            //else
-                            //{
-                            //    _dataInput.ErrorMessage = $"El {MODEL_PACIENTE.PAC_CODIGO} ya esta Registrado";
-                            //    valor = false;
-                            //}
-                        }
-                        catch (Exception ex)
                         {
-                            _dataInput.ErrorMessage = ex.Message;
-                            transaction.Rollback();
-                            valor = false;
+                            imagenByte = _DataPac2.PAC_IMAGEN;
                         }
+                        else
+                        {
+                            imagenByte = await _lCargarImagen.ByteAvatarImageAsync(MODEL_PACIENTE.AvatarImage, _environment, "");
+                        }
+                        var Actualizar_Paciente = new MODELO_PACIENTE
+                        {
+                            PAC_ID = _DataPac2.PAC_ID,
+                            PAC_CODIGO = _dataInput.PAC_CODIGO,
+                            PAC_NOMBRE = _dataInput.PAC_NOMBRE.ToUpper(),
+                            PAC_COD_ODONT = vfCodPac,
+                            PAC_APELLIDO = _dataInput.PAC_APELLIDO.ToUpper(),
+                            PAC_SEXO = _dataInput.PAC_SEXO,
+                            PAC_RUT = _dataInput.PAC_RUT,
+                            PAC_FECHA_NAC = _dataInput.PAC_FECHA_NAC,
+                            PAC_EDAD = _dataInput.PAC_EDAD,
+                            PAC_REPRESENTANTE = _dataInput.PAC_REPRESENTANTE?.ToUpper(),
+                            PAC_DIRECCION = _dataInput.PAC_DIRECCION.ToUpper(),
+                            PAC_COMUNA = _dataInput.PAC_COMUNA,
+                            PAC_OTRAS_COMUNAS = _dataInput.PAC_OTRAS_COMUNAS?.ToUpper(),
+                            PAC_TELEFONO = _dataInput.PAC_TELEFONO,
+                            PAC_CORREO = _dataInput.PAC_CORREO,
+                            PAC_CONVENIO = _dataInput.PAC_CONVENIO?.ToUpper(),
+                            PAC_PREVISIONES = _dataInput.PAC_PREVISIONES?.ToUpper(),
+                            PAC_OBSERVACIONES = _dataInput.PAC_OBSERVACIONES?.ToUpper(),
+                            PAC_IMAGEN = imagenByte,
+                            PAC_FEC_REG = _dataInput.PAC_FEC_REG,
+                            PAC_FEC_ACT = DateTime.Now
+
+                        };
+                        _context.Update(Actualizar_Paciente);
+                        _context.SaveChanges();
+                        transaction.Commit();
+                        valor = true;
+                        //}
+                        //else
+                        //{
+                        //    _dataInput.ErrorMessage = $"El {MODEL_PACIENTE.PAC_CODIGO} ya esta Registrado";
+                        //    valor = false;
+                        //}
                     }
+                    catch (Exception ex)
+                    {
+                        _dataInput.ErrorMessage = ex.Message;
+                        transaction.Rollback();
+                        valor = false;
+                    }
+                }
                 //}
                 //else
                 //{
