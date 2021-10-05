@@ -1,0 +1,37 @@
+﻿@page
+@model DetalleModel
+@{
+
+}
+<div class="container center">
+    <div class="row text-center">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th>
+                            <div class="jumbotron" style="padding-bottom:0px; padding-top:0px; background-color:transparent; margin-bottom:2px;">
+                                <h1 class="font-weight-bold" style="padding:15px;">@Model.MODEL_TRATAMIENTO.DataTratamiento.TRA_CONCEPTO</h1>
+                            </div>
+                            <blockquote class="blockquote text-center">
+                                <footer class="display-4 blockquote-footer">Información sobre Tratamiento </footer>
+                            </blockquote>
+                            <hr class="my-4">
+                            <p class="font-weight-bold"> El Valor del Tratamiento es de :   @Model.MODEL_TRATAMIENTO.DataTratamiento.TRA_VALOR</p>
+                            <p class="font-weight-bold">El Porcentaje de Descuento del Tratamiento es de : @Model.MODEL_TRATAMIENTO.DataTratamiento.TRA_POR_DESC %</p>
+                            <p class="font-weight-bold">El Descuento del Tratamiento es de : @Model.MODEL_TRATAMIENTO.DataTratamiento.TRA_DESC</p>
+                            <p class="font-weight-bold">El Total del Tratamiento es de : @Model.MODEL_TRATAMIENTO.DataTratamiento.TRA_TOTAL</p>
+                            <form asp-area="Presupuesto" asp-page="Registro" method="post">
+                                @{
+                                    var dataTratamiento = JsonConvert.SerializeObject(Model.MODEL_TRATAMIENTO.DataTratamiento);
+                                }
+                                <input type="hidden" name="dataTratamiento" value="@dataTratamiento" />
+                                <input type="submit" value="Editar" class="btn btn-success" style="margin-bottom:10px;">
+                            </form>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

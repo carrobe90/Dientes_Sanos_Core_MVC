@@ -13,9 +13,9 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Models
         #region TBL_PACIENTE
         [Key]
         public int PAC_ID { get; set; }
-        [StringLength(20)]
+        [StringLength(50)]
         [Required]
-        public string PAC_CODIGO { get; set; }
+        public String PAC_CODIGO { get; set; }
 
         [Required(ErrorMessage = "El Nombre del Paciente es Obligatorio.")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "El Nombre mínimo es de {2} caracteres")]
@@ -28,23 +28,22 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Models
         [RegularExpression("^[a-zA-ZñÑáéíóúÁÉÍÓÚ$@!#? ]*$", ErrorMessage = "Solo se Permiten Letras")]
         [Display(Name = "Apellido(S) Paciente")]
         public String PAC_APELLIDO { get; set; }
-        //[Required(ErrorMessage = "El Sexo del Paciente es Obligatorio.")]
-        //[StringLength(20)]
+        [Required(ErrorMessage = "El Sexo del Paciente es Obligatorio.")]
+        [StringLength(20)]
         public String PAC_SEXO { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "El RUT es Obligatorio")]
         [RegularExpression(@"^[0-9]{1,10}$", ErrorMessage = "El RUT es de 10 digitos númericos")]
-        [StringLength(10, MinimumLength =10, ErrorMessage = "El RUT mínimo es de {2} dígitos númericos")]
+        [StringLength(10, MinimumLength = 10, ErrorMessage = "El RUT mínimo es de {2} dígitos númericos")]
         public String PAC_RUT { get; set; }
         [Required(ErrorMessage = "La Fecha de Nacimiento del Paciente es Obligatorio.")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString ="{0:dd-MM-yyyyy}",ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyyy}", ApplyFormatInEditMode = true)]
         public DateTime PAC_FECHA_NAC { get; set; }
 
         //[StringLength(2, ErrorMessage = "Maximo 2 dígitos númericos")]
-        //[RegularExpression("([0-9]+)", ErrorMessage = "El rrrr es de 10 digitos númericos")]
         [Required(ErrorMessage = "La Edad del Paciente es Obligatorio.")]
-        [Range(minimum: 5,maximum:90, ErrorMessage = "La Edad debe estar entre {1} y {2} años")]
+        [Range(minimum: 5, maximum: 90, ErrorMessage = "La Edad debe estar entre {1} y {2} años")]
         public int PAC_EDAD { get; set; }
         [StringLength(50, MinimumLength = 3, ErrorMessage = "El Nombre del Representante mínimo es de {2} caracteres")]
         public String PAC_REPRESENTANTE { get; set; }

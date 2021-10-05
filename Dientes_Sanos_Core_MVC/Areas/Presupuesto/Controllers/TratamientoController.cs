@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Dientes_Sanos_Core_MVC.Areas.Presupuesto.Controllers
 {
     [Authorize]
-    [Area("Tratamiento")]
+    [Area("Presupuesto")]
     public class TratamientoController : Controller
     {
 
@@ -39,7 +39,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Presupuesto.Controllers
                 {
                     var url = Request.Scheme + "://" + Request.Host.Value;
                     objects = new LPaginador<MODELO_TRATAMIENTO>().Paginador(data,
-                        id, 12, "Presupuesto", "Tratamiento", "Tratamiento", url);
+                        id, 30, "Presupuesto", "Tratamiento", "Tratamiento", url);
                     //(data,id,10,Area,Controlador,Metodo de Accion,url)
                 }
                 else

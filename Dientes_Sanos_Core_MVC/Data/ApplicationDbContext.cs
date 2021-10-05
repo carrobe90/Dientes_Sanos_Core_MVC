@@ -13,6 +13,12 @@ namespace Dientes_Sanos_Core_MVC.Data
         {
 
         }
+        static DbContextOptions<ApplicationDbContext> _options;
+
+        public ApplicationDbContext() : base(_options)
+        {
+
+        }
 
         //Add-Migration MigracionInicial -context ApplicationDbContext <-- Ejemplo
         //Remove-Migration -force -context ApplicationDbContext <-- Ejemplo

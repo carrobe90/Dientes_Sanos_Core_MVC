@@ -25,15 +25,23 @@ function ValidadEdad(RepPacVal, EdadVal) {
             if (EdadValidacion >= 18) { // Validamos si es mayor o menor
                 // evento para el input Deshabilitado
                 console.log("Mayor de edad");
-                RepresentanteValidacion.disabled = true; // Deshabilitado
+                $('#'+RepPacVal).attr("readonly", true); // Deshabilitado
                 document.getElementById(RepPacVal).value = "";
             }
             else if (EdadValidacion < 18) {
                 console.log("Menor de edad");
                 // evento para el input Habilitar
-                RepresentanteValidacion.disabled = false; // Habilitado
+                $('#' + RepPacVal).attr("readonly", false); // Habilitado
             }
-     
+}
+
+function ValidadDsctoTrat(PorVal, ValVal, TotVal, DsctVal) {
+    // Accedemos al input
+    var ValorValidacion = $('#' + ValVal).val(); // Obtenemos el Valor del campo Valor
+    var PorcValidacion = $('#' + PorVal).val(); // Obtenemos el Valor del campo Porcentaje
+    console.log(PorcValidacion);
+    document.getElementById(DsctVal).value = (ValorValidacion * (PorcValidacion / 100)).toFixed();
+    document.getElementById(TotVal).value = (ValorValidacion - (ValorValidacion * (PorcValidacion / 100))).toFixed();
 }
 
 function SoloLetras(e) {

@@ -1,9 +1,9 @@
 ﻿@model Modelo_Paginador<MODELO_TRATAMIENTO>
 @{
-    ViewData["Title"] = "TRATAMIENTOS";
+    ViewData["Title"] = "Listado de Tratamientos";
 }
 <div class="container p-4">
-    <div class="row">
+    <div>
         <div class="form-group">
             <form asp-area="Presupuesto" asp-controller="Tratamiento" asp-action="Tratamiento" method="get">
                 <div class="row">
@@ -24,29 +24,27 @@
     <div class="row">
         @foreach (var item in Model.List)
         {
-            <div class="col-xs-6 col-md-3" style="padding-bottom: 20px;">
-                <div class="card text-center">
-                    <div class="card-header ">
-                        <a asp-route-id="@item.TRA_ID" asp-area="Tratamiento" asp-page="/Account/Detalle">
+            <div class="col-xs-6 col-md-4 col-lg-4" style="padding-bottom: 20px;">
+                        <a asp-route-id="@item.TRA_ID" asp-area="Presupuesto" asp-page="/Account/Detalle">
                         </a>
-                    </div>
-                    <div class="card-body text-center">
-                        <div class="col-md-12">
+                    <div class="card text-white bg-dark mb-3 text-center">
+                        <div class="card-header">@Html.DisplayFor(modelItem => item.TRA_ID)</div>
+                        <div class="card-body col-md-12">
+                            <h5 class="card-title">Tratamiento # @Html.DisplayFor(modelItem => item.TRA_ID)</h5>
                             <div class="row justify-content-center">
-                                <p> @Html.DisplayFor(modelItem => item.TRA_CONCEPTO)</p>
+                                <p class="card-text"> @Html.DisplayFor(modelItem => item.TRA_CONCEPTO)</p>
                             </div>
                             <div class="row justify-content-center">
-                                <p>@Html.DisplayFor(modelItem => item.TRA_VALOR)</p>
+                                <p class="card-text">@Html.DisplayFor(modelItem => item.TRA_VALOR)</p>
                             </div>
-                            <div class="row justify-content-center">
-                                <a class="btn btn-success " asp-route-id="@item.TRA_ID" asp-area="Tratamiento" asp-page="/Account/Detalle">
+                            <div class="row justify-content-center" style="padding-top: 10px;">
+                                <a class="btn btn-success " asp-route-id="@item.TRA_ID" asp-area="Presupuesto" asp-page="/Account/Detalle">
                                     Detalle
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
         }
     </div>
 </div>

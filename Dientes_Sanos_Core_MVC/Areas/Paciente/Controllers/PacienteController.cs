@@ -33,7 +33,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Controllers
             if (_signInManager.IsSignedIn(User))
             {
                 Object[] objects = new Object[3];
-                var data = _paciente.get_Pacientes_Async(filtrar, 0);
+                var data = _paciente.get_Paciente_Async(filtrar, 0,1);
                 if (0 < data.Count)
                 {
                     var url = Request.Scheme + "://" + Request.Host.Value;

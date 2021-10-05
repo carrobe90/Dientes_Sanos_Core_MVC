@@ -28,7 +28,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Pages.Account
 
         public void OnGet(int id) //Pasar el id a traves de la variable PAC_ID del Paciente para proceder a ver el detalle
         {
-            var Data = _lPaciente.get_Pacientes_Async(null, id);
+            var Data = _lPaciente.get_Paciente_Async(null, id,2);
             if (0 < Data.Count)
             {
                 MODEL_PACIENTE = new PACIENTE

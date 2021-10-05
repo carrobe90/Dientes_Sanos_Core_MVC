@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Dientes_Sanos_Core_MVC.Areas.Presupuesto.Page.Account
+namespace Dientes_Sanos_Core_MVC.Areas.Presupuesto.Pages.Account
 {
     [Authorize]
     public class DetalleModel : PageModel

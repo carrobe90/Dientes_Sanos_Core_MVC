@@ -21,7 +21,8 @@ namespace Dientes_Sanos_Core_MVC.Library
             var TratamientoLista = new List<MODELO_TRATAMIENTO>();
             if (valor == null && id.Equals(0))
             {
-                ListaTTratamiento = _context.TBL_TRATAMIENTO.ToList();
+                ListaTTratamiento = _context.TBL_TRATAMIENTO.Where(u => u.TRA_ESTADO.Equals("V")).ToList(); 
+                //REALIZAR EL FILTRO PARA QUE SOLO SE CARGUEN LOS QUE TIENEN EL ESTADO EN VERDADERO => V
             }
             else
             {

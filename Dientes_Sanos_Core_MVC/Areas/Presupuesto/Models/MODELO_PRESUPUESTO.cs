@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -76,6 +77,10 @@ namespace Dientes_Sanos_Core_MVC.Areas.Presupuesto.Models
         public String PRE_EST_ELI { get; set; }
         [StringLength(1)]
         public String PRE_EST_REA { get; set; }
+
+        [TempData]
+        [NotMapped]
+        public string ErrorMessage { get; set; }
 
         #endregion
 

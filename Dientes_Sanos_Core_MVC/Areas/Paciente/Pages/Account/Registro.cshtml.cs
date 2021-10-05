@@ -57,10 +57,13 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Pages.Account
 
         public void OnGet(int idActPac)
         {
-            //_DataPac2 = null;
+           // _DataPac2 = null;
             if (idActPac.Equals(0))
             {
                 _DataPac2 = null;
+            }
+            if (idActPac.Equals(1))
+            {
                 _dataInput = null;
             }
             if (_dataInput != null || _DataPac1 != null || _DataPac2 != null)
@@ -72,7 +75,10 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Pages.Account
                     MODEL_PACIENTE.Comuna_Lista = _lComuna.GetComuna(_context);
                     MODEL_PACIENTE.Genero_Lista = _lPacienteGen.GetGenero(_context);
                     MODEL_PACIENTE.Odontologo_Lista = _lOdontologo.GetOdontologo(_context);
-                    MODEL_PACIENTE.PAC_IMAGEN = _DataPac2.PAC_IMAGEN;
+                    if (MODEL_PACIENTE.PAC_IMAGEN == null)
+                    { }
+                    else
+                    { MODEL_PACIENTE.PAC_IMAGEN = _DataPac2.PAC_IMAGEN; }
                 }
                 else
                 {
@@ -226,7 +232,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Paciente.Pages.Account
                         }
                         else
                         {
-                            return Redirect("/Users/Registro");
+                            return Redirect("/Paciente/Registro");
                         }
                     }
                     else
