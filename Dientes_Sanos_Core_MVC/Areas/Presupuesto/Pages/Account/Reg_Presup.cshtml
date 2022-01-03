@@ -1,4 +1,266 @@
 ﻿@page
 @model Reg_PresupModel
 @{
+    var pacpre = Request.Query["pac"];
 }
+
+<div class="container-fluid p-4">
+    <form method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-sm-6 col-md-3">
+
+            </div>
+            <div class="col-xs-12 col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading text-center">
+                        @if (Model.MODEL_PRESUPUESTO.PRE_ID.Equals(0))
+                        {
+                            <h3 class="panel-title">Registro de Presupuesto</h3>
+                        }
+                        else
+                        {
+                            <h3 class="panel-title">Actualización de Presupuesto(S)</h3>
+                        }
+                    </div>
+                    <div class="panel-body">
+                        <div class="card rounded">
+                            <div class="card-header" id="headingOne">
+                                <div id="header" class="bg-info rounded text-center">
+                                    <h2 class="mb-0 t">
+                                        @if (Model.MODEL_PRESUPUESTO.PRE_ID.Equals(0))
+                                        {
+                                            <button class="btn btn-block text-light" type="button">
+                                                Ingreso de Información
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button class="btn btn-block text-light" type="button">
+                                                Actualización de Información
+                                            </button>
+                                        }
+
+                                    </h2>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="card-body">
+                                    <div class="row">
+
+                                        <div class="col-md-12 col-lg-12">
+                                            <div class="form-row">
+                                                <div class="form-group col-md-12 text-center">
+                                                    <label>Nombre de Paciente para Tratamiento:</label>
+                                                    <input id="Nom_Pac" value="@pacpre" type="text" readonly placeholder="NOMBRE PACIENTE" class="form-control text-center" />
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-4">
+                                                    <label>COD. Presupuesto:</label>
+                                                    <input asp-for="MODEL_PRESUPUESTO.PRE_COD" type="text" readonly placeholder="CODIGO PRESUPUESTO" class="form-control" />
+                                                    <span asp-validation-for="MODEL_PRESUPUESTO.PRE_COD" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    @if (!Model.MODEL_PRESUPUESTO.PRE_ID.Equals(0))
+                                                    {
+                                                        <label>Profesional:</label>
+                                                        @Html.DropDownList("MODEL_PRESUPUESTO.PRE_COD_ODON", new SelectList(Model.MODEL_PRESUPUESTO.Odontologo_Lista, "Text", "Text"),
+                                     new { @class = "form-control", autofocus = "autofocus" })
+                                                    }
+                                                    else
+                                                    {
+                                                        <label>Profesional:</label>
+                                                        @Html.DropDownList("MODEL_PRESUPUESTO.PRE_COD_ODON", new SelectList(Model.MODEL_PRESUPUESTO.Odontologo_Lista, "Text", "Text"),
+             "ESCOGA UN PROFESIONAL", new { @class = "form-control", autofocus = "autofocus" })
+                                                    }
+                                                    <span asp-validation-for="MODEL_PRESUPUESTO.PRE_COD_ODON" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    @if (!Model.MODEL_PRESUPUESTO.PRE_ID.Equals(0))
+                                                    {
+                                                        <label>Tipo Dentadura:</label>
+                                                        @Html.DropDownList("MODEL_PRESUPUESTO.PRE_DEN_PAC", new SelectList(Model.MODEL_PRESUPUESTO.Dentadura_Lista, "Text", "Text"),
+                                     new { @class = "form-control" })
+                                                    }
+                                                    else
+                                                    {
+                                                        <label>Tipo Dentadura:</label>
+                                                        @Html.DropDownList("MODEL_PRESUPUESTO.PRE_DEN_PAC", new SelectList(Model.MODEL_PRESUPUESTO.Dentadura_Lista, "Text", "Text"),
+"ESCOGA UN TIPO DE DENTADURA", new { @class = "form-control", @onchange = "SeleccionDentadura()" });
+                                                    }
+                                                    <span asp-validation-for="MODEL_PRESUPUESTO.PRE_DEN_PAC" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+
+                                                <div class="form-group col-md-4">
+                                                    @if (!Model.MODEL_PRESUPUESTO.PRE_ID.Equals(0))
+                                                    {
+                                                        <label>Tipo Pieza Dental:</label>
+                                                        @Html.DropDownList("MODEL_PRESUPUESTO.PRE_PIE_DEN", new SelectList(Model.MODEL_PRESUPUESTO.Pieza_Lista, "Text", "Text"),
+                                     new { @class = "form-control" })
+                                                    }
+                                                    else
+                                                    {
+                                                        <label>Tipo Pieza Dental:</label>
+                                                        @Html.DropDownList("MODEL_PRESUPUESTO.PRE_PIE_DEN", new SelectList("", "Text", "Text"),
+                    "ESCOGA UNA PIEZA DENTAL", new { @class = "form-control" })
+                                                    }
+                                                    <span asp-validation-for="MODEL_PRESUPUESTO.PRE_PIE_DEN" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    @if (!Model.MODEL_PRESUPUESTO.PRE_ID.Equals(0))
+                                                    {
+                                                        <label>Tipo Tratamiento:</label>
+                                                        @Html.DropDownList("MODEL_PRESUPUESTO.PRE_TRA_PAC", new SelectList(Model.MODEL_PRESUPUESTO.Tratamiento_Lista, "Text", "Text"),
+                                     new { @class = "form-control" })
+                                                    }
+                                                    else
+                                                    {
+                                                        <label>Tipo Tratamiento:</label>
+                                                        @Html.DropDownList("MODEL_PRESUPUESTO.PRE_TRA_PAC", new SelectList(Model.MODEL_PRESUPUESTO.Tratamiento_Lista, "Text", "Text"),
+             "ESCOGA UN TRATAMIENTO", new { @class = "form-control", @onchange = "SeleccionTratamiento()" })
+                                                    }
+                                                    <span asp-validation-for="MODEL_PRESUPUESTO.PRE_TRA_PAC" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label>Valor Tratamiento:</label>
+                                                    <input asp-for="MODEL_PRESUPUESTO.PRE_VAL_PRE" type="number" readonly class="form-control" />
+                                                    <span asp-validation-for="MODEL_PRESUPUESTO.PRE_VAL_PRE" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-4">
+                                                    <label>Porcentaje Dscto. Tratamiento:</label>
+                                                    <input asp-for="MODEL_PRESUPUESTO.PRE_VAL_POR" type="number" onchange="Dscto_Trat_Presup()" class="form-control" />
+                                                    <span asp-validation-for="MODEL_PRESUPUESTO.PRE_VAL_POR" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label>Descuento Tratamiento:</label>
+                                                    <input asp-for="MODEL_PRESUPUESTO.PRE_VAL_DES" type="number" readonly class="form-control" />
+                                                    <span asp-validation-for="MODEL_PRESUPUESTO.PRE_VAL_DES" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label>Total Tratamiento:</label>
+                                                    <input asp-for="MODEL_PRESUPUESTO.PRE_VAL_SUB" type="number" readonly class="form-control" />
+                                                    <span asp-validation-for="MODEL_PRESUPUESTO.PRE_VAL_SUB" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-12">
+                                                    @if (!Model.MODEL_PRESUPUESTO.PRE_ID.Equals(0))
+                                                    {
+                                                        <label>Estado Tratamiento:</label>
+                                                        <input asp-for="MODEL_PRESUPUESTO.PRE_EST_ELI" type="text" readonly placeholder="ESTADO TRATAMIENTO" class="form-control" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <label>Estado Tratamiento:</label>
+                                                        <input asp-for="MODEL_PRESUPUESTO.PRE_EST_ELI" type="text" readonly value="V" class="form-control" />
+                                                    }
+                                                    <span asp-validation-for="MODEL_PRESUPUESTO.PRE_EST_ELI" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <button type="submit" class="btn bg-info btn-block text-light" onclick="AnadirFilaPresup()">+</button>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <button type="submit" class="btn bg-info btn-block text-light">-</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm col-lg">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <nav>
+                                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                                    <a class="nav-item nav-link active" data-toggle="tab" href="#nav-fee" role="tab" aria-selected="true">PRESUPUESTO</a>
+                                                </div>
+                                            </nav>
+                                            <div class="row text-center"> 
+                                                <div class="tab-content table-responsive" id="nav-tabContent">
+                                                    <div class="tab-pane fade show active" id="nav-fee" role="tabpanel">
+                                                        <table class="table table-striped" id="tblTratamiento">
+                                                            <thead class="text-center">
+                                                                <tr>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.MODEL_PRESUPUESTO.PRE_COD)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.MODEL_PRESUPUESTO.PRE_NOM_PAC)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.MODEL_PRESUPUESTO.PRE_NOM_ODON)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.MODEL_PRESUPUESTO.PRE_RUT)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.MODEL_PRESUPUESTO.PRE_DEN_PAC)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.MODEL_PRESUPUESTO.PRE_PIE_DEN)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.MODEL_PRESUPUESTO.PRE_TRA_PAC)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.MODEL_PRESUPUESTO.PRE_VAL_PRE)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.MODEL_PRESUPUESTO.PRE_VAL_POR)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.MODEL_PRESUPUESTO.PRE_VAL_SUB)
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody >
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="nav-interests" role="tabpanel">
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <hr />
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="text-center form-group col-md-4 ">
+                                            </div>
+                                            <div class="text-center form-group col-md-4 ">
+                                                @if (Model.MODEL_PRESUPUESTO.PRE_ID.Equals(0))
+                                                {
+                                                    <button type="submit" class="btn bg-info btn-block text-light">Registro</button>
+                                                }
+                                                else
+                                                {
+                                                    <button type="submit" class="btn bg-info btn-block text-light">Actualizar</button>
+                                                }
+                                            </div>
+                                            <div class="form-group">
+                                            </div>
+                                            <div class="text-center form-group col-md-12 ">
+                                                <label class="text-danger">@Html.DisplayFor(m => m.MODEL_PRESUPUESTO.ErrorMessage)  </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -7,101 +7,41 @@
 
 }
 <div class="container">
-    <h1>@nombre</h1>
-    <div class="row">
-        <div class="col-sm ">
-            <div class="card text-center">
-                <div class="card-header ">
-                    <img class='.imageUsersDetalles' src="@imagen" />
-                </div>
-                <div class="card-body">
-                    <table class="tableCursos">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <p> @Model.MODEL_PACIENTE.DataPaciente.PAC_APELLIDO</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p>@Model.MODEL_PACIENTE.DataPaciente.PAC_NOMBRE </p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p>@Model.MODEL_PACIENTE.DataPaciente.PAC_EDAD</p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm">
-            <div class="card">
-                <div class="card-body">
-                    <table class="tableCursos">
-                        <tbody>
-                            <tr>
-                                <th>
-                                    Información
-                                </th>
-                            </tr>
-                            <tr>
-                                <th>
-                                    RUT
-                                </th>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p>@Model.MODEL_PACIENTE.DataPaciente.PAC_RUT</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    Nombre Usuario
-                                </th>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p>@nombre</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    Teléfono
-                                </th>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p>@Model.MODEL_PACIENTE.DataPaciente.PAC_CODIGO</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    Email
-                                </th>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p>@Model.MODEL_PACIENTE.DataPaciente.PAC_COD_ODONT</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <form asp-area="Paciente" asp-page="Registro" method="post">
-                                            @{
-                                                var dataPaciente = JsonConvert.SerializeObject(Model.MODEL_PACIENTE.DataPaciente);
-                                            }
-                                            <input type="hidden" name="dataPaciente" value="@dataPaciente" />
-                                            <input type="submit" value="Editar" class="btn btn-success ">
-                                        </form>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    <div class="row text-center">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th>
+                            <div class="jumbotron" style="padding-bottom:0px; padding-top:0px; background-color:transparent; margin-bottom:2px;">
+                                <h1 class="font-weight-bold" style="padding:15px;">@Model.MODEL_PACIENTE.DataPaciente.PAC_APELLIDO @Model.MODEL_PACIENTE.DataPaciente.PAC_NOMBRE</h1>
+                            </div>
+                            <div class="card text-center">
+                                <div class="card-header ">
+                                    <img class="img-fluid rounded mx-auto d-block" src="@imagen" />
+                                </div>
+                            </div>
+                            <hr class="my-4">
+                            <blockquote class="blockquote text-center">
+                                <footer class="display-4 blockquote-footer">Información sobre el Paciente</footer>
+                            </blockquote>
+                            <hr class="my-4">
+                            <p class="font-weight-bold">El Código del Paciente es :   @Model.MODEL_PACIENTE.DataPaciente.PAC_CODIGO</p>
+                            <p class="font-weight-bold">El Sexo del Paciente es : @Model.MODEL_PACIENTE.DataPaciente.PAC_SEXO</p>
+                            <p class="font-weight-bold">El RUT del Paciente es : @Model.MODEL_PACIENTE.DataPaciente.PAC_RUT</p>
+                            <p class="font-weight-bold">La Fecha de Nacimiento es : @Model.MODEL_PACIENTE.DataPaciente.PAC_FECHA_NAC.ToString("dd/MM/yyyy")</p>
+                            <p class="font-weight-bold">La Edad del Paciente es : @Model.MODEL_PACIENTE.DataPaciente.PAC_EDAD</p>
+                            <form asp-area="Paciente" asp-page="Registro" method="post">
+                                @{
+                                    var dataPaciente = JsonConvert.SerializeObject(Model.MODEL_PACIENTE.DataPaciente);
+                                }
+                                <input type="hidden" name="dataPaciente" value="@dataPaciente" />
+                                <input type="submit" value="Editar" class="btn btn-success" style="margin-bottom:10px;">
+                            </form>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

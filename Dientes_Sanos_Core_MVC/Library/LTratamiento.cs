@@ -1,5 +1,6 @@
 ﻿using Dientes_Sanos_Core_MVC.Areas.Presupuesto.Models;
 using Dientes_Sanos_Core_MVC.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace Dientes_Sanos_Core_MVC.Library
             var TratamientoLista = new List<MODELO_TRATAMIENTO>();
             if (valor == null && id.Equals(0))
             {
-                ListaTTratamiento = _context.TBL_TRATAMIENTO.Where(u => u.TRA_ESTADO.Equals("V")).ToList(); 
+                ListaTTratamiento = _context.TBL_TRATAMIENTO.Where(u => u.TRA_ESTADO.Equals("V")).ToList();
                 //REALIZAR EL FILTRO PARA QUE SOLO SE CARGUEN LOS QUE TIENEN EL ESTADO EN VERDADERO => V
             }
             else

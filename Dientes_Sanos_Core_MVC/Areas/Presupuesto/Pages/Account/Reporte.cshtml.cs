@@ -38,23 +38,29 @@ namespace Dientes_Sanos_Core_MVC.Areas.Presupuesto.Pages.Account
             }
             else
             {
-                if(idPresupuesto != id)
+                if (idPresupuesto != id)
                 {
                     idPresupuesto = 0;
                     return Redirect("/Tratamiento/Tratamiento?area=Presupuesto");
                 }
             }
-           // _dataPresupuesto = _Presupuesto.getTPresupuestoReporte(id);
+            _dataPresupuesto = (PRESUPUESTO)_Presupuesto.getTPresupuestoReporte(id);
+            MODEL_PRESUPUESTO = new PRESUPUESTO
+            {
+                DataPresupuesto = _dataPresupuesto,
+                ErrorMessage = _errorMessage
+        };
             return Page();
         }
 
         [BindProperty]
         public PRESUPUESTO MODEL_PRESUPUESTO { get; set; }
 
-        public class PRESUPUESTO 
+        public class PRESUPUESTO : MODELO_PRESUPUESTO
         {
-            [TempData]
-            public string ErrorMessage { get; set; }
+            public int RadioOptions { get; set; }
+            public MODELO_PRESUPUESTO DataPresupuesto { get; set; }
+         
         }
     }
 }

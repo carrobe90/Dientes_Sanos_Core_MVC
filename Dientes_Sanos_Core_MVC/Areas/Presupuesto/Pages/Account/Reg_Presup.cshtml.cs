@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
@@ -26,6 +27,10 @@ namespace Dientes_Sanos_Core_MVC.Areas.Presupuesto.Pages.Account
         private static PRESUPUESTO _dataInput;
         private static MODELO_PRESUPUESTO _DataPres1, _DataPres2;
         private LPresupuesto _lPresupuesto;
+        private LOdontologo _lOdontologo;
+        private LDentadura _lDentadura;
+        private LPieza _lPieza;
+        private LLTratamiento _lTratamiento;
         private ApplicationDbContext _context;
 
         public Reg_PresupModel(
@@ -38,6 +43,10 @@ namespace Dientes_Sanos_Core_MVC.Areas.Presupuesto.Pages.Account
             _signInManager = signInManager;
             _roleManager = roleManager;
             _context = context;
+            _lOdontologo = new LOdontologo();
+            _lDentadura = new LDentadura();
+            _lPieza = new LPieza();
+            _lTratamiento = new LLTratamiento();
             _lPresupuesto = new LPresupuesto(context);
         }
         public void OnGet(int idActPres)
@@ -88,7 +97,10 @@ namespace Dientes_Sanos_Core_MVC.Areas.Presupuesto.Pages.Account
                             PRE_ELA_PRE = _DataPres1.PRE_ELA_PRE,
                             PRE_ELA_ACT = _DataPres1.PRE_ELA_ACT,
                             PRE_EST_ELI = _DataPres1.PRE_EST_ELI,
-                            PRE_EST_REA = _DataPres1.PRE_EST_REA
+                            PRE_EST_REA = _DataPres1.PRE_EST_REA,
+                            Odontologo_Lista = _lOdontologo.GetOdontologo(_context),
+                            Dentadura_Lista = _lDentadura.GetDentadura(_context),
+                            Tratamiento_Lista =_lTratamiento.GetTratamiento(_context)
                         };
 
                         if (_dataInput != null)
@@ -100,9 +112,59 @@ namespace Dientes_Sanos_Core_MVC.Areas.Presupuesto.Pages.Account
             }
             else
             {
+                var Cod_Pre = 0;
+                String TempCodPre = null;
+                var Ultimo_Presupuesto = (from t in _context.TBL_PRESUPUESTO
+                                       orderby t.PRE_COD
+                                       select t).LastOrDefault();
+                if (Ultimo_Presupuesto == null)
+                {
+                    TempCodPre = "00001";
+                }
+                else if (Ultimo_Presupuesto != null)
+                {
+                    Cod_Pre = (Ultimo_Presupuesto.PRE_COD != null) ?
+                           Convert.ToInt32(Ultimo_Presupuesto.PRE_COD) + 1 :
+                           1;
+                    if (Cod_Pre < 10)
+                    {
+                        TempCodPre = String.Concat("0000", Convert.ToString(Cod_Pre));
+                    }
+                    else if (Cod_Pre >= 10 && Cod_Pre <= 11)
+                    {
+                        TempCodPre = String.Concat("000", Convert.ToString(Cod_Pre));
+                    }
+                    else if (Cod_Pre > 10 && Cod_Pre < 100)
+                    {
+                        TempCodPre = String.Concat("000", Convert.ToString(Cod_Pre));
+                    }
+                    else if (Cod_Pre >= 100 && Cod_Pre <= 101)
+                    {
+                        TempCodPre = String.Concat("00", Convert.ToString(Cod_Pre));
+                    }
+                    else if (Cod_Pre > 100 && Cod_Pre < 1000)
+                    {
+                        TempCodPre = String.Concat("00", Convert.ToString(Cod_Pre));
+                    }
+                    else if (Cod_Pre >= 1000 && Cod_Pre <= 1001)
+                    {
+                        TempCodPre = String.Concat("0", Convert.ToString(Cod_Pre));
+                    }
+                    else if (Cod_Pre > 1000 && Cod_Pre <= 9999)
+                    {
+                        TempCodPre = String.Concat("0", Convert.ToString(Cod_Pre));
+                    }
+                    else if (Cod_Pre > 9999 && Cod_Pre < 99999)
+                    {
+                        TempCodPre = String.Concat("", Convert.ToString(Cod_Pre));
+                    }
+                }
                 MODEL_PRESUPUESTO = new PRESUPUESTO
                 {
-
+                    PRE_COD = TempCodPre,
+                    Odontologo_Lista = _lOdontologo.GetOdontologo(_context),
+                    Dentadura_Lista = _lDentadura.GetDentadura(_context),
+                    Tratamiento_Lista = _lTratamiento.GetTratamiento(_context)
                 };
             }
             if (_DataPres2 == null)
@@ -188,6 +250,8 @@ namespace Dientes_Sanos_Core_MVC.Areas.Presupuesto.Pages.Account
             }
             return valor;
         }
+
+
 
         public async Task<IActionResult> OnPost(String dataPresupuesto)
         {
@@ -322,6 +386,10 @@ namespace Dientes_Sanos_Core_MVC.Areas.Presupuesto.Pages.Account
 
         public class PRESUPUESTO : MODELO_PRESUPUESTO
         {
+            public List<SelectListItem> Odontologo_Lista { get; set; }
+            public List<SelectListItem> Dentadura_Lista { get; set; }
+            public List<SelectListItem> Pieza_Lista { get; set; }
+            public List<SelectListItem> Tratamiento_Lista { get; set; }
         }
     }
 }

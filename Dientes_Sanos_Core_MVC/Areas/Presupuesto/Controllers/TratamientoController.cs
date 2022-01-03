@@ -14,7 +14,6 @@ namespace Dientes_Sanos_Core_MVC.Areas.Presupuesto.Controllers
     [Area("Presupuesto")]
     public class TratamientoController : Controller
     {
-
         private LTratamiento _tratamiento;
         private SignInManager<IdentityUser> _signInManager;
         private static Modelo_Paginador<MODELO_TRATAMIENTO> models;
@@ -26,6 +25,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Presupuesto.Controllers
             _signInManager = signInManager;
             _tratamiento = new LTratamiento(context);
         }
+
 
         // IActionResult #Nombre --> Nombre del Controlador
 

@@ -11,7 +11,7 @@ namespace Dientes_Sanos_Core_MVC.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-
+            _options = options;
         }
         static DbContextOptions<ApplicationDbContext> _options;
 
