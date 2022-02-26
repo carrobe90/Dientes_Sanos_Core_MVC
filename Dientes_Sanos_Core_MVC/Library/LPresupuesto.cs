@@ -1,5 +1,6 @@
 ﻿using Dientes_Sanos_Core_MVC.Areas.Presupuesto.Models;
 using Dientes_Sanos_Core_MVC.Data;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,27 @@ namespace Dientes_Sanos_Core_MVC.Library
         public LPresupuesto(ApplicationDbContext context)
         {
             _context = context;
+        }
+
+        public IdentityError Guardar_Presupuesto(MODELO_PRESUPUESTO _Presupuesto)
+        {
+            IdentityError identityError;
+            try
+            {
+                _context.Add(_Presupuesto);
+                _context.SaveChanges();
+                identityError = new IdentityError { Code = "Done" };
+            }
+            catch (Exception e)
+            {
+
+                identityError = new IdentityError
+                {
+                    Code = "Error",
+                    Description = e.Message
+                };
+            }
+            return identityError;
         }
 
         public List<MODELO_PRESUPUESTO> get_Prespuesto_Async(String valor, int id)

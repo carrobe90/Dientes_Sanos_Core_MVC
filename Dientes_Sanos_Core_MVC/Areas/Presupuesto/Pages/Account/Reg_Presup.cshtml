@@ -1,11 +1,13 @@
 ﻿@page
 @model Reg_PresupModel
 @{
-    var pacpre = Request.Query["pac"];
+    var pac_nombre = Request.Query["pac_nom"];
+    var pac_rut = Request.Query["pac_rut"];
+    var pac_codigo = Request.Query["pac_cod"];
 }
 
 <div class="container-fluid p-4">
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" asp-area="Presupuesto" class="formPresupuesto">
         <div class="row">
             <div class="col-sm-6 col-md-3">
 
@@ -49,9 +51,20 @@
 
                                         <div class="col-md-12 col-lg-12">
                                             <div class="form-row">
-                                                <div class="form-group col-md-12 text-center">
+                                                <div class="form-group col-md-4 text-center">
                                                     <label>Nombre de Paciente para Tratamiento:</label>
-                                                    <input id="Nom_Pac" value="@pacpre" type="text" readonly placeholder="NOMBRE PACIENTE" class="form-control text-center" />
+                                                    <input asp-for="MODEL_PRESUPUESTO.PRE_NOM_PAC" type="text" id="Nom_Pac" value="@pac_nombre" readonly placeholder="NOMBRE PACIENTE" class="form-control text-center" />
+                                                    <span asp-validation-for="MODEL_PRESUPUESTO.PRE_NOM_PAC" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group col-md-4 text-center">
+                                                    <label>Cod. Paciente:</label>
+                                                    <input asp-for="MODEL_PRESUPUESTO.PRE_COD_PAC" type="text" id="Codigo_Pac" value="@pac_codigo" readonly placeholder="NOMBRE PACIENTE" class="form-control text-center" />
+                                                    <span asp-validation-for="MODEL_PRESUPUESTO.PRE_COD_PAC" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group col-md-4 text-center">
+                                                    <label>RUT de Paciente para Tratamiento:</label>
+                                                    <input asp-for="MODEL_PRESUPUESTO.PRE_RUT" type="text" id="Rut_Pac" value="@pac_rut" readonly placeholder="RUT PACIENTE" class="form-control text-center" />
+                                                    <span asp-validation-for="MODEL_PRESUPUESTO.PRE_RUT" class="text-danger"></span>
                                                 </div>
                                             </div>
                                             <div class="form-row">
@@ -64,16 +77,16 @@
                                                     @if (!Model.MODEL_PRESUPUESTO.PRE_ID.Equals(0))
                                                     {
                                                         <label>Profesional:</label>
-                                                        @Html.DropDownList("MODEL_PRESUPUESTO.PRE_COD_ODON", new SelectList(Model.MODEL_PRESUPUESTO.Odontologo_Lista, "Text", "Text"),
+                                                        @Html.DropDownList("MODEL_PRESUPUESTO_PRE_COD_ODON", new SelectList(Model.MODEL_PRESUPUESTO.Odontologo_Lista, "Text", "Text"),
                                      new { @class = "form-control", autofocus = "autofocus" })
                                                     }
                                                     else
                                                     {
                                                         <label>Profesional:</label>
-                                                        @Html.DropDownList("MODEL_PRESUPUESTO.PRE_COD_ODON", new SelectList(Model.MODEL_PRESUPUESTO.Odontologo_Lista, "Text", "Text"),
-             "ESCOGA UN PROFESIONAL", new { @class = "form-control", autofocus = "autofocus" })
+                                                        @Html.DropDownList("MODEL_PRESUPUESTO_PRE_COD_ODON", new SelectList(Model.MODEL_PRESUPUESTO.Odontologo_Lista, "Text", "Text"),
+             "ESCOGA UN PROFESIONAL", new { @class = "form-control", autofocus = "autofocus" ,onchange = "Cod_Profe_Presup()" })
                                                     }
-                                                    <span asp-validation-for="MODEL_PRESUPUESTO.PRE_COD_ODON" class="text-danger"></span>
+                                                    @*<span asp-validation-for="MODEL_PRESUPUESTO.PRE_COD_ODON" class="text-danger"></span>*@
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     @if (!Model.MODEL_PRESUPUESTO.PRE_ID.Equals(0))
@@ -147,7 +160,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-row">
-                                                <div class="form-group col-md-12">
+                                                <div class="form-group col-md-3">
                                                     @if (!Model.MODEL_PRESUPUESTO.PRE_ID.Equals(0))
                                                     {
                                                         <label>Estado Tratamiento:</label>
@@ -160,14 +173,27 @@
                                                     }
                                                     <span asp-validation-for="MODEL_PRESUPUESTO.PRE_EST_ELI" class="text-danger"></span>
                                                 </div>
+                                                <div class="form-group col-md-3">
+                                                    <label>Cod. Profesional:</label>
+                                                    <input asp-for="MODEL_PRESUPUESTO.PRE_COD_ODON" id="cod_pro_pre" type="text" readonly class="form-control" />
+                                                    <span asp-validation-for="MODEL_PRESUPUESTO.PRE_COD_ODON" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label>Nombre Profesional:</label>
+                                                    <input asp-for="MODEL_PRESUPUESTO.PRE_NOM_ODON" id="nom_pro_pre" type="text" readonly class="form-control" />
+                                                    <span asp-validation-for="MODEL_PRESUPUESTO.PRE_NOM_ODON" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label>Fec. Elaboración:</label>
+                                                    <input asp-for="MODEL_PRESUPUESTO.PRE_ELA_PRE" id="ela_fec_pre" type="text" readonly class="form-control" />
+                                                    <span asp-validation-for="MODEL_PRESUPUESTO.PRE_ELA_PRE" class="text-danger"></span>
+                                                </div>
                                             </div>
                                             <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <button type="submit" class="btn bg-info btn-block text-light" onclick="AnadirFilaPresup()">+</button>
+                                                <div class="form-group col-md-12">
+                                                    <button type="button" class="btn bg-info btn-block text-light" onclick="AnadirFilaPresup(event)">+</button>
                                                 </div>
-                                                <div class="form-group col-md-6">
-                                                    <button type="submit" class="btn bg-info btn-block text-light">-</button>
-                                                </div>
+
                                             </div>
 
                                         </div>
@@ -181,12 +207,15 @@
                                                     <a class="nav-item nav-link active" data-toggle="tab" href="#nav-fee" role="tab" aria-selected="true">PRESUPUESTO</a>
                                                 </div>
                                             </nav>
-                                            <div class="row text-center"> 
+                                            <div class="row text-center">
                                                 <div class="tab-content table-responsive" id="nav-tabContent">
                                                     <div class="tab-pane fade show active" id="nav-fee" role="tabpanel">
-                                                        <table class="table table-striped" id="tblTratamiento">
+                                                        <table class="table" id="tblTratamiento">
                                                             <thead class="text-center">
                                                                 <tr>
+                                                                    <th>
+                                                                        @Html.DisplayName("Nº")
+                                                                    </th>
                                                                     <th>
                                                                         @Html.DisplayNameFor(model => model.MODEL_PRESUPUESTO.PRE_COD)
                                                                     </th>
@@ -215,11 +244,17 @@
                                                                         @Html.DisplayNameFor(model => model.MODEL_PRESUPUESTO.PRE_VAL_POR)
                                                                     </th>
                                                                     <th>
+                                                                        @Html.DisplayNameFor(model => model.MODEL_PRESUPUESTO.PRE_VAL_DES)
+                                                                    </th>
+                                                                    <th>
                                                                         @Html.DisplayNameFor(model => model.MODEL_PRESUPUESTO.PRE_VAL_SUB)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayName("OPCION")
                                                                     </th>
                                                                 </tr>
                                                             </thead>
-                                                            <tbody >
+                                                            <tbody>
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -232,6 +267,43 @@
                                         </div>
                                     </div>
                                 </div>
+                                <hr />
+                                <div class="col-md-12 col-lg-12">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4 text-center">
+                                            <label>SUBTOTAL:</label>
+                                            <input id="SUB_TOT_PRE" value="0" type="number" readonly class="form-control text-center" />
+                                            <span asp-validation-for="MODEL_PRESUPUESTO.PRE_VAL_SUB" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group col-md-4 text-center">
+                                            <label>% DSCTO:</label>
+                                            <input id="POR_DSCTO_PRE" value="0" type="number" onchange="Dscto_Tot_Pag_Presup()" class="form-control text-center" />
+                                            <span asp-validation-for="MODEL_PRESUPUESTO.PRE_VAL_POR_TAR_SUB" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group col-md-4 text-center">
+                                            <label>TOTAL DSCTO:</label>
+                                            <input id="TOT_POR_DSCTO_PRE" value="0" type="number" readonly class="form-control text-center" />
+                                            <span asp-validation-for="MODEL_PRESUPUESTO.PRE_VAL_TOT_DSC_SUB" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4 text-center">
+                                            <label>% TARJETA:</label>
+                                            <input id="POR_TAR_PRE" value="0" type="number" onchange="Tarjeta_Tot_Pag_Presup()" class="form-control text-center" />
+                                            <span asp-validation-for="MODEL_PRESUPUESTO.PRE_VAL_POR_TAR_SUB" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group col-md-4 text-center">
+                                            <label>TOTAL TARJETA:</label>
+                                            <input id="TOT_POR_TAR_PRE" value="0" type="number" readonly class="form-control text-center" />
+                                            <span asp-validation-for="MODEL_PRESUPUESTO.PRE_VAL_TOT_TAR_SUB" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group col-md-4 text-center">
+                                            <label>TOTAL A PAGAR:</label>
+                                            <input id="TOT_PAG_PRE" value="0" type="number" readonly class="form-control text-center" />
+                                            <span asp-validation-for="MODEL_PRESUPUESTO.PRE_VAL_TOT" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div>
                                     <hr />
                                     <div class="container-fluid">
@@ -241,11 +313,11 @@
                                             <div class="text-center form-group col-md-4 ">
                                                 @if (Model.MODEL_PRESUPUESTO.PRE_ID.Equals(0))
                                                 {
-                                                    <button type="submit" class="btn bg-info btn-block text-light">Registro</button>
+                                                    <button id="btnRegistro" disabled="disabled" type="submit" class="btn bg-info btn-block text-light">Registro</button>
                                                 }
                                                 else
                                                 {
-                                                    <button type="submit" class="btn bg-info btn-block text-light">Actualizar</button>
+                                                    <button id="btnRegistro" disabled="disabled" type="submit" class="btn bg-info btn-block text-light">Actualizar</button>
                                                 }
                                             </div>
                                             <div class="form-group">
@@ -264,3 +336,16 @@
         </div>
     </form>
 </div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('table').on('click', 'tr', function() {
+
+                $('tr').removeClass('selected');
+                $(this).addClass('selected');
+                console.log('Fila Selecionada')
+            })
+        });
+    </script>
+}

@@ -43,17 +43,17 @@ namespace Dientes_Sanos_Core_MVC.Areas.Presupuesto.Models
         [Display(Name = "RUT PACIENTE")]
         public String PRE_RUT { get; set; }
 
-        [Required(ErrorMessage = "El Tipo de Dentadura es Obligatorio.")]
+       // [Required(ErrorMessage = "El Tipo de Dentadura es Obligatorio.")]
         [StringLength(100)]
         [Display(Name = "DENTADURA")]
         public String PRE_DEN_PAC { get; set; }
 
-        [Required(ErrorMessage = "El Tipo de Pieza Dental es Obligatorio.")]
+        //[Required(ErrorMessage = "El Tipo de Pieza Dental es Obligatorio.")]
         [StringLength(100)]
         [Display(Name = "PIEZA DENTAL")]
         public String PRE_PIE_DEN { get; set; }
 
-        [Required(ErrorMessage = "El Tratamiento es Obligatorio.")]
+       // [Required(ErrorMessage = "El Tratamiento es Obligatorio.")]
         [StringLength(100)]
         [Display(Name = "TRATAMIENTO DENTAL")]
         public String PRE_TRA_PAC { get; set; }
@@ -93,8 +93,9 @@ namespace Dientes_Sanos_Core_MVC.Areas.Presupuesto.Models
         [Column(TypeName = "decimal(18,0)")]
         [Display(Name = "TOTAL TRAT.")]
         public decimal PRE_VAL_TOT { get; set; }
-        [Required]
+        
         [DataType(DataType.Date)]
+        [Required(ErrorMessage = "La Fecha de Elaboración es Requerida.")]
         public String PRE_ELA_PRE { get; set; }
         [DataType(DataType.Date)]
         public DateTime PRE_ELA_ACT { get; set; }

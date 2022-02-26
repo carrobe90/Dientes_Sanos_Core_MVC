@@ -62,6 +62,11 @@ input[type=file]{
     border-bottom: 3px solid #d6d5d5 !important;
 }
 
+tr.selected {
+    background-color: #6567be;
+    color: white;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {

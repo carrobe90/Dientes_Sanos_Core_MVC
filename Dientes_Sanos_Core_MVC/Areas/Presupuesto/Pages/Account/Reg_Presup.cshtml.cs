@@ -100,7 +100,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Presupuesto.Pages.Account
                             PRE_EST_REA = _DataPres1.PRE_EST_REA,
                             Odontologo_Lista = _lOdontologo.GetOdontologo(_context),
                             Dentadura_Lista = _lDentadura.GetDentadura(_context),
-                            Tratamiento_Lista =_lTratamiento.GetTratamiento(_context)
+                            Tratamiento_Lista = _lTratamiento.GetTratamiento(_context)
                         };
 
                         if (_dataInput != null)
@@ -115,8 +115,8 @@ namespace Dientes_Sanos_Core_MVC.Areas.Presupuesto.Pages.Account
                 var Cod_Pre = 0;
                 String TempCodPre = null;
                 var Ultimo_Presupuesto = (from t in _context.TBL_PRESUPUESTO
-                                       orderby t.PRE_COD
-                                       select t).LastOrDefault();
+                                          orderby t.PRE_COD
+                                          select t).LastOrDefault();
                 if (Ultimo_Presupuesto == null)
                 {
                     TempCodPre = "00001";
@@ -174,6 +174,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Presupuesto.Pages.Account
             _DataPres1 = null;
         }
 
+       
         private async Task<bool> Guardar_Presupuesto_Async()
         {
             _dataInput = MODEL_PRESUPUESTO;
@@ -214,37 +215,23 @@ namespace Dientes_Sanos_Core_MVC.Areas.Presupuesto.Pages.Account
                                     PRE_ELA_ACT = _dataInput.PRE_ELA_ACT,
                                     PRE_EST_ELI = _dataInput.PRE_EST_ELI,
                                     PRE_EST_REA = _dataInput.PRE_EST_REA
-
                                 };
-                                await _context.AddAsync(Nuevo_Presupuesto);
-                                _context.SaveChanges();
-                                transaction.Commit();
-                                _dataInput = null;
-                                valor = true;
+                                await _context.AddAsync(Nuevo_Presupuesto); _context.SaveChanges(); transaction.Commit(); _dataInput = null; valor = true;
                             }
                             catch (Exception ex)
-                            {
-                                _dataInput.ErrorMessage = ex.Message;
-                                transaction.Rollback();
-                                valor = false;
-                            }
+                            { _dataInput.ErrorMessage = ex.Message; transaction.Rollback(); valor = false; }
                         }
                     });
                 }
                 else
-                {
-                    _dataInput.ErrorMessage = $"El Presupuesto {MODEL_PRESUPUESTO.PRE_COD} ya se encuentra Registrado";
-                    valor = false;
-                }
+                { _dataInput.ErrorMessage = $"El Presupuesto {MODEL_PRESUPUESTO.PRE_COD} ya se encuentra Registrado"; valor = false; }
             }
             else
             {
                 foreach (var modelState in ModelState.Values)
                 {
                     foreach (var error in modelState.Errors)
-                    {
-                        _dataInput.ErrorMessage += error.ErrorMessage;
-                    }
+                    { _dataInput.ErrorMessage += error.ErrorMessage; }
                 }
                 valor = false;
             }
@@ -255,7 +242,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Presupuesto.Pages.Account
 
         public async Task<IActionResult> OnPost(String dataPresupuesto)
         {
-            //variable "dataTratamiento" debe ser estar declarada en el boton editar con el mismo nombre
+            //variable "dataPresupuesto" debe ser estar declarada en el boton editar con el mismo nombre
             //en la variable "name" caso contrario arrojara siempre un valor nulo.
             if (dataPresupuesto == null)
             {
@@ -307,7 +294,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Presupuesto.Pages.Account
             {
                 _DataPres1 = JsonConvert.DeserializeObject<MODELO_PRESUPUESTO>(dataPresupuesto);
                 return Redirect("/Presupuesto/Registro?idActPres=1");
-                //el parametro que pasa en la url --> idActTrat debe ser el mismo de la
+                //el parametro que pasa en la url --> idActPres debe ser el mismo de la
                 //variable que hace la verificacion en el metodo OnGet
             }
         }
@@ -317,7 +304,8 @@ namespace Dientes_Sanos_Core_MVC.Areas.Presupuesto.Pages.Account
             _dataInput = MODEL_PRESUPUESTO;
             var valor = false;
             var strategy = _context.Database.CreateExecutionStrategy();
-            await strategy.ExecuteAsync(async ()=> {
+            await strategy.ExecuteAsync(async () =>
+            {
                 if (ModelState.IsValid)
                 {
                     using (var transaction = _context.Database.BeginTransaction())
@@ -354,7 +342,7 @@ namespace Dientes_Sanos_Core_MVC.Areas.Presupuesto.Pages.Account
                                 PRE_EST_ELI = _dataInput.PRE_EST_ELI,
                                 PRE_EST_REA = _dataInput.PRE_EST_REA
                             };
-                             _context.Update(Actualizar_Presupuesto);
+                            _context.Update(Actualizar_Presupuesto);
                             await _context.SaveChangesAsync();
                             transaction.Commit();
                             valor = true;
